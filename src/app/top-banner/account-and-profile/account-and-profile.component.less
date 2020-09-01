@@ -1,0 +1,44 @@
+.profile-section{
+  .menu-items{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      .item{
+          margin-right: 10px;
+          cursor: pointer;
+          .item-align{
+           position: relative;
+           .overlay{
+             display: none;
+           }
+           &:hover{
+             .overlay{
+              display: block !important;
+              position: absolute;
+              top:auto;
+              right: auto;
+              width: 80px;
+              height: 200px;
+              overflow: hidden;
+              background: chartreuse;
+              animation-name: showContainerAnimation;
+              animation-duration: 4s;
+             }
+            }
+          }
+      }
+  }  
+}
+@keyframes showContainerAnimation {
+  from {
+    margin-left: 100%;
+    width: 300%; 
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}

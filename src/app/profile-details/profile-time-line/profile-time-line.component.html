@@ -1,0 +1,20 @@
+<div class="timelimeContainer">
+    <div class="section-view">
+        <div #leftSideContainer class="left-section">
+            <div class="grid-align" #leftSideContainerScroll>
+                <div class="photos-grid" style="">
+                    <app-photos-grid [currentProfileId]="currentProfileId" [photosArray]="photosArray" [photosGrid]="'photosGrid'">
+                    </app-photos-grid>
+                </div>
+                <div class="friends-grid">
+                    <app-photos-grid [currentProfileId]="currentProfileId" [photosArray]="friendsArray"  [photosGrid]="'friendsGrid'">
+                    </app-photos-grid>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <app-home [usedIn]="'profile'"></app-home>
+        </div>
+    </div>
+
+</div>

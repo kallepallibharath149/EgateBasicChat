@@ -1,0 +1,11 @@
+<div class="posts-container">
+    <div class="post-content">
+     <ng-container *ngFor="let post of Posts">
+       <app-post-details [postDetails]="post"></app-post-details>
+     </ng-container>   
+    </div>
+<!-- 
+    <img id="outputImage" [src]="mySrc" width="200" />
+   <video id="outputVideo"  [src]="videoSrc" width="320" height="240" controls>
+  </video> -->
+</div>

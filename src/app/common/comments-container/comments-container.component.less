@@ -1,0 +1,88 @@
+.comment-container {
+    margin-top : 10px;
+    padding-top: 10px;
+    border-top : 1px solid #af9e9e8c;
+
+    input {
+        border-radius   : 20px;
+        background-color: #c3b3b338;
+    }
+
+    .flex-content {
+        display        : flex;
+        align-items    : center;
+        justify-content: flex-start;
+        margin-top: 10px;
+
+        .profile {
+            width : 40px;
+            margin: 10px;
+
+            img {
+                cursor       : pointer;
+                width        : 30px;
+                height       : 30px;
+                border-radius: 25px;
+            }
+        }
+
+        .comment-input {
+            flex-grow: 1;
+            position : relative;
+
+            .photo {
+                top     : 9px;
+                position: absolute;
+                right   : 10px;
+                cursor  : pointer;
+            }
+        }
+
+        .post-button {
+            width : 60px;
+            margin: 10px;
+        }
+    }
+}
+
+
+
+
+.wrapper {
+    visibility: hidden;
+    width     : 0px;
+    height    : 0px;
+    opacity   : 0;
+}
+.comment-img-prev{
+   margin-top: 10px;
+  .prev-container{
+      position: relative;
+    height: 80px;
+    overflow: hidden;
+    text-align: start;
+    margin-left: 40px;
+    border: 1px solid lightgrey;
+    img{
+        height: 100%;
+    }
+    .discard-icon{
+        position: absolute;
+        right: 5px;
+        top : 5px;
+        cursor: pointer;
+    }
+  }  
+}
+
+.reply{
+    cursor: pointer;
+}
+
+.hideComments{
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    overflow: hidden;
+}

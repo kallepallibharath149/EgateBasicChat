@@ -1,0 +1,74 @@
+<div class="create-container">
+    <div class="card-wraper">
+        <p-card class="event-card"  styleClass="ui-card-shadow">
+            <p-header>
+                <div class="img-container">
+                    <img src="Card" [src]="createEvent.eventPhotoPath">
+                    <div (click)="eventPhotoUpload.value =null; eventPhotoUploading()" [title]="'Update event photo'" class="photoUpload">                   
+                         <div class="wrapper" >
+                        <input type="file" #eventPhotoUpload  accept="image/*"
+                            (change)="handlePhotoUpload($event);" id="event_photo_upload" />
+                    </div>
+                    <i class="fa fa-camera" aria-hidden="true"></i>
+                </div>
+                </div> 
+            </p-header>
+            <form #eventForm="ngForm"  autocomplete="off">
+                <div class="mt-4">
+                    <span class="ui-float-label">  
+                        <input id="float-input" class="ui-inputtext" type="text" required size="30" name="eventName" [(ngModel)]="createEvent.eventName" pInputText> 
+                        <label style="font-weight: bold;" for="float-input">Event Name</label>
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <span class="ui-float-label">
+                        <textarea id="float-discription" name="eventDescription" pInputTextarea [(ngModel)]="createEvent.eventDescription"></textarea>
+                        <label style="font-weight: bold;" for="float-discription">Description</label>
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <span class="ui-float-label">
+                        <input id="float-location" class="ui-inputtext" type="text" required size="30" name="eventLocation" [(ngModel)]="createEvent.eventLocation" pInputText> 
+                        <label style="font-weight: bold;" for="float-location">Location</label>
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <h6>Event category</h6>
+                    <p-dropdown [options]="categories" required="true" name="eventCategory"  [(ngModel)]="createEvent.category" placeholder="Select event category" optionLabel="name" [showClear]="true"></p-dropdown>
+                </div>
+
+                <div class="mt-4 w-90">
+                    <h6>Event from date</h6>
+                    <p-calendar [(ngModel)]="createEvent.fromDate" [required]="true" hourFormat="12" name="fromDate" [monthNavigator]="true" [yearNavigator]="true" [showTime]="true" yearRange="2019:2100"></p-calendar>
+                </div>
+                <div class="mt-4 w-90">
+                    <h6>Event to date</h6>
+                    <p-calendar [(ngModel)]="createEvent.toDate"  name="toDate" hourFormat="12" [monthNavigator]="true" [yearNavigator]="true" [showTime]="true" yearRange="2019:2100"></p-calendar>
+                </div>
+                <div class="mt-4">
+                    <p-footer>
+                        <button class="ui-button-rounded mr-3" (click)="addNewEvent(eventForm)" pButton type="button" label="Save" [disabled]="!eventForm.valid" icon="pi pi-check" style="margin-right: .25em;background-color: #007bff;"></button>
+                        <button pButton class="ui-button-rounded  ui-button-secondary" (click)="resetForm(eventForm,content)" type="button" label="Cancel" icon="pi pi-times"></button>
+                    </p-footer>
+                </div>
+            </form>
+        </p-card>
+    </div> 
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirm discard</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h5>Are you sure, discard your changes ?</h5>
+    </div>
+    <div class="modal-footer footer-align">
+      <div>
+        <button type="button" class="btn mr-3 btn-outline-primary" (click)="confirmDiscard(eventForm)">Discard</button>
+        <button type="button" class="btn btn-outline-dark" (click)="closeModal(modal)">cancel</button>
+      </div>
+    </div>
+  </ng-template>

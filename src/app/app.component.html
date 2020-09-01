@@ -1,0 +1,80 @@
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+</style>
+<div class="app-top-parent">
+  <div #topBanner id="topBanner" class="top-sticky">
+    <app-top-banner></app-top-banner>
+</div>
+<div class="main-dynamic-container">
+  <router-outlet></router-outlet>
+</div>
+<!-- <div *ngIf="chatContainer.length>0" class="chat-container"> 
+<div>
+ <div *ngFor="let chatPerson of chatContainer">
+  <div class="card text-center">
+    <div class="card-header">
+      <div> <img class="profile-img" src="../../assets/images/profile.jpg" /></div> 
+      <div class="profileName">{{'Satya Sai Kumar'}}</div> 
+    </div>
+    <div class="card-body">
+
+    <div class="card-footer text-muted">
+
+    </div>
+  </div>
+ </div> 
+</div>
+</div>
+</div> -->
+</div>
+<p-toast [style]="{marginTop: '0px'}"></p-toast>
+
+<p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+
+<p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+
+ <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<!-- 
+<h3 class="first">Severities</h3>
+<button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>
+<button type="button" pButton (click)="showInfo()" label="Info" class="ui-button-info"></button>
+<button type="button" pButton (click)="showWarn()" label="Warn" class="ui-button-warning"></button>
+<button type="button" pButton (click)="showError()" label="Error" class="ui-button-danger"></button>
+
+<h3>Multiple</h3>
+<button type="button" pButton (click)="showMultiple()" label="Multiple"></button>
+
+<h3>Clear</h3>
+<button type="button" pButton (click)="clear()" icon="pi pi-times" label="Remove All"></button>
+
+<h3>Positions</h3>
+<button type="button" pButton (click)="showTopLeft()" label="Top Left" class="ui-button-success"></button>
+<button type="button" pButton (click)="showTopCenter()" label="Top Center" class="ui-button-info"></button>
+
+<h3>Template</h3>
+<button type="button" pButton (click)="showConfirm()" label="Confirm" class="ui-button-warning"></button> -->

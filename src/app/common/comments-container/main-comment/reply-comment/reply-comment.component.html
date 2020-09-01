@@ -1,0 +1,19 @@
+<div>
+    <div *ngIf="commentReplayItem" class="sub-replay">
+        <div>
+            <div class="flex-alignment">
+                <div class="profile-img" (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" />
+                </div>
+                <div (click)="navigateToProfile()" class="profileName"><b>{{'Satya Sai Kumar'}}</b>
+                </div>
+            </div>
+            <div class="main-comment commented-section">
+                <div class="comment-img" *ngIf="commentReplayItem.commentFileUrl">
+                    <img [src]="commentReplayItem.commentFileUrl" />
+                </div>
+                <div>{{commentReplayItem.commentText}}</div>
+            </div>
+            <div class="reply" (click)="replyToComment()"><i class="fa fa-reply" aria-hidden="true"></i>Reply</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="event-list-container">
+    <div>
+        <div class="flex-items">
+            <div (click)="eventPrevievNavigation(event);" class="item" *ngFor="let event of eventsList">
+                <div class="card" style="width: 300px; height: 100%;">
+                    <img class="card-img-top event-list-image" [src]="event.eventPhotoPath" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title"><b>{{event.eventName}}</b></h5>
+                      <p class="card-text">{{event.eventDescription}}</p>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <b>Event Date</b>&nbsp;{{event.fromDate}}
+                        </div>
+                        <div *ngIf="event.toDate">
+                            <b>Event End Date</b>&nbsp;{{event.toDate}}
+                        </div>
+                        <div *ngIf="event.eventLocation">
+                            <b>Event Location</b>&nbsp;{{event.eventLocation}}
+                        </div>
+                    </div>
+                    <div class="invitation-count">
+                      <div class="counts"><b>Invited</b><span>{{event.invitedCout?event.invitedCout:'0'}}</span></div> 
+                      <div class="counts"><b>Accepted</b><span>{{event.acceptedCount?event.acceptedCount:'0'}}</span></div> 
+                      <div class="counts"><b>Rejected</b><span>{{event.rejectedCount?event.rejectedCount:'0'}}</span></div> 
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+    </div>
+</div>

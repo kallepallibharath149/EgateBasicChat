@@ -1,0 +1,74 @@
+.flex-items {
+    display        : flex;
+    flex-direction : row;
+    flex-wrap      : wrap;
+    justify-content: center;
+
+    .item {
+        margin      : 10px;
+        border       : 1px solid black;
+        border-radius: 4px;
+        width: 80%;
+    }
+}
+
+.invitation-count{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 40px;
+    .counts{
+        display: flex;
+        align-items: center; 
+        span{
+            margin-left: 6px;
+            font-size: 28px;
+        }  
+    }
+}
+.image-section{
+    height: 400px;
+    text-align: center;
+    overflow: hidden;
+    img{
+        height: 100%;
+        width: auto;
+    }
+}
+.inviteFriends{
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: lightblue;
+    cursor: pointer;
+    height: 40px;
+    .invite{
+        position: absolute;
+        top: 47px;
+        right: 0;
+        width: 300px;
+        background: lightgoldenrodyellow;
+        border-radius: 10px;
+        min-height: 80px;
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+}
+.desc-invite{
+    display: flex;
+    justify-content: space-between;
+}
+@media screen and (max-width: 800px) {
+    .image-section{
+        img{
+            width: 100%;
+        }
+    }
+    .flex-items {    
+        .item {
+            width: 100%;
+        }
+    }
+}

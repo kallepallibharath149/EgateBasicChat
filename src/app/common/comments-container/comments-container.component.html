@@ -1,0 +1,40 @@
+<div class="comments-container">
+    <div [class.hideComments]="!showCommentsContainer"  class="comment-container">
+        <div *ngIf="_showComments">
+            <ng-container *ngFor="let mainCommentObj of commentsArray; let commentIndex=index;">
+                <app-main-comment (updateReplyCommentArray)="updateMainArray($event.updatedObj,$event.addedreplyPostObj,commentIndex)"  [mainCommentObj]="mainCommentObj"></app-main-comment>
+            </ng-container>
+           
+        </div>
+        <form #commentsForm autocomplete="off">
+            <div class="flex-content">
+                <div class="profile">
+                    <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
+                </div>
+
+                <div class="comment-input">
+                    <input #commentInput class="ui-inputtext" name="comment" [(ngModel)]="postComment"
+                        placeholder="Write a Comment..." id="float-input" type="text" size="30" pInputText>
+                    <div (click)="commentImageInput.value = null; commentPhotoUpload()" class="photo"><i
+                            class="fa fa-2x fa-camera" aria-hidden="true"></i></div>
+                    <div class="wrapper">
+                        <input type="file" name="commentimage" #commentImageInput accept="image/*"
+                            (change)="handleCommentPhotoUpload($event);" />
+                    </div>
+                </div>
+                <div class="post-button">
+                    <p-button type="submit" (click)="newCommentHandler(commentsForm)" label="Post"></p-button>
+                </div>
+
+            </div>
+        </form>
+        <div *ngIf="tempCommentImage" class="comment-img-prev">
+            <div class="prev-container">
+                <img [src]="tempCommentImage" />
+                <div (click)="discardTempororyImg()" class="discard-icon">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

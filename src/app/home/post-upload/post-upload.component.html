@@ -1,0 +1,58 @@
+<div class="post-upload-container">
+  <div class="card">
+    <div class="header">
+      <div>
+        <img src="../../assets/images/profile.jpg" />
+      </div>
+      <div class="info-text">
+        <button class="btn btn-light">What's on your mind</button>
+      </div>
+    </div>
+    <hr />
+    <div class="body">
+      <div class="icons">
+        <h5><i class="fa fa-1x fa-picture-o" aria-hidden="true">
+            <input type="file" #fileImageInput name="image" id="imageInput" (click)="fileImageInput.value = null"
+              accept="image/*" (change)="handleFilesImages($event);"></i>Photo</h5>
+      </div>
+      <div class="icons">
+        <h5><i class="fa fa-1x fa-video-camera" aria-hidden="true">
+            <input type="file" #fileVideoInput name="video" id="videoInput" (click)="fileVideoInput.value = null"
+              accept="video/mp4,video/x-m4v,video/*" (change)="handleFilesVideo($event);">
+          </i>Video</h5>
+      </div>
+      <div class="icons">
+        <h5><i class="fa  fa-1x fa-smile-o" aria-hidden="true"></i>Feeling/Activity</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <img id="outputImage" [src]="mySrc" width="200" />
+<video id="outputVideo"  [src]="videoSrc" width="320" height="240" controls>
+    <source [attr.src]="videoSrc" type="video/mp4">
+    <source [attr.src]="videoSrc" type="video/ogg">
+  </video> -->
+<!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button> -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create Post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img id="outputImage" class="image-review" *ngIf="imageSrc" [src]="imageSrc" />
+    <video id="outputVideo" class="video-review" *ngIf="videoSrc" [src]="videoSrc" controls></video>
+  </div>
+  <div class="modal-footer footer-align">
+    <div class="input-align">
+      <div class="form-group mb-0">
+        <input type="text" [(ngModel)]="postComment" autocomplete="off" class="form-control" id="exampleInputEmail1"
+          aria-describedby="emailHelp" placeholder="Type something here to post">
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-outline-dark" (click)="PostUserStory(modal,imageSrc,videoSrc)">Post</button>
+    </div>
+  </div>
+</ng-template>

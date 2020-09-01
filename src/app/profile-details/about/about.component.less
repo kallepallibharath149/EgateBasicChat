@@ -1,0 +1,71 @@
+.flex-container {
+    display        : flex;
+    width          : 100%;
+    justify-content: center;
+
+    .content-container {
+        width           : 80%;
+        background-color: white;
+        margin-bottom   : 15px;
+        border-radius   : 15px;
+        display         : flex;
+        flex-direction  : row;
+
+        .left {
+            width: 300px;
+            border-right: 1px solid black;
+            .items {
+                &.header {
+                    font-weight: bolder;
+                    font-size  : 22px;
+
+                    &:hover {
+                        background-color: white;
+
+                        div {
+                            border-bottom: 1px solid black;
+                        }
+                    }
+                }
+
+                min-height  : 40px;
+                display     : flex;
+                align-items : center;
+                padding-left: 15px;
+                cursor      : pointer;
+
+                &:hover {
+                    background-color: rgba(255, 0, 0, 0.1);
+                }
+                .active{
+                    color: hsla(214, 89%, 53%, 1);
+                }
+            }
+        }
+
+        .right {
+            flex-grow: 1;
+            padding: 15px;
+        }
+    }
+    .work-item {
+        display: flex;
+        flex-direction: row;
+        .icon{
+            padding-right: 15px;
+        }
+    }
+    .add-icon{
+        color: hsla(214, 89%, 53%, 1);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+}
+
+.dragula-items{
+    background: lightgray;
+    margin: 4px;
+    display: flex;
+    align-items: center;
+}

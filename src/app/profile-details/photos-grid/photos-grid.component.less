@@ -1,0 +1,84 @@
+.photos-grid-container {
+    min-height: 150px ;
+    .header {
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+
+        div {
+            padding: 10px;
+        }
+
+        .head {
+            font-size  : 18px;
+            font-weight: bolder;
+        }
+
+        .seeAll {
+            color      : #18a0f6;
+            font-weight: bolder;
+            cursor     : pointer;
+        }
+    }
+
+    margin: 10px 0px;
+
+    .flex-container {
+        display        : flex;
+        align-items    : flex-start;
+        justify-content: center;
+        flex-direction : row;
+        flex-wrap      : wrap;
+
+        .each-row {
+           // width  : 33%;
+            padding: 10px;
+
+            img {
+                width        : 120px;
+                height       : 120px;
+                border-radius: 14px;
+                cursor       : pointer;
+            }
+            .profileName{
+                cursor: pointer;
+                text-align: center;
+            }
+        }
+
+        .each-row-all-friends {
+           // width          : 50%;
+            padding        : 10px;
+            display        : flex;
+            flex-direction : row;
+            align-items    : center;
+            justify-content: center;
+
+            img {
+                width        : 150px;
+                height       : 150px;
+                border-radius: 14px;
+                cursor       : pointer;
+            }
+
+            .profile-photo {
+                padding-right: 10px;
+            }
+            .profileName{
+                cursor: pointer;
+                width: 100px;
+                word-break: break-all;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 550px) {
+   .flex-container .each-row-all-friends {
+       // width          : 100% !important;
+        //justify-content: flex-start !important;
+        img {
+          //  width        : 80px;
+            //height       : 80px;
+        }
+    }
+}

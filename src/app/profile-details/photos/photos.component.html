@@ -1,0 +1,7 @@
+<div class="photos-container">
+    <div class="flex-container">
+        <div class="each-row-all-friends" *ngFor="let photo of photosArray">
+            <div class="profile-photo"><img (click)="navigatingTo(photo)" src="{{photo.imgSrc}}" /></div>
+        </div>
+    </div>
+ </div>

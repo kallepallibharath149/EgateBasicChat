@@ -1,0 +1,9 @@
+<div class="videos-container">
+    <div class="flex-container">
+        <div class="each-row-all-friends" *ngFor="let video of videosArray">
+            <div (click)="openModal(video)" class="profile-photo"><img  src="{{video.videoSrc}}" />
+                <div class="play"><i class="fa fa-2x fa-play" aria-hidden="true"></i></div>
+            </div>
+        </div>
+    </div>
+ </div>

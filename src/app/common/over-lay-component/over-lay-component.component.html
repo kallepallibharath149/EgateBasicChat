@@ -1,0 +1,22 @@
+<div class="overlay-container">
+<div class="flex-container">
+    <div class="content-section">
+        <div class="header">
+            <div class="close-icon"><i (click)="activeModal.dismiss('Cross click')" class="fa fa-2x fa-times-circle" aria-hidden="true"></i></div>
+        </div>
+        <div class="content">
+        <img *ngIf="ImageUrl" src="{{ImageUrl}}" />
+        <video id="outputVideo" class="video-review" *ngIf="videoUrl" [src]="videoUrl" controls></video>
+        </div>
+        <div class="footer">
+            
+        </div>
+     
+    </div>
+    <div class="details-section">
+     <div>
+      
+     </div>   
+    </div>
+</div>
+</div>

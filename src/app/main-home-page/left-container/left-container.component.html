@@ -1,0 +1,10 @@
+<div class="left-cont" style="height:800px">
+  <div class="nav-section">
+    <div class="p-2 item-top" (click)="navigate(navItem)" *ngFor="let navItem of navigationItems">
+      <div class="nav-item" [ngClass]="navItem.classObject" [ngStyle]="navItem.styleObject" class="{{navItem?.class}}"
+        id="{{navItem?.id}}">
+        <div><i *ngIf="!navItem.profileImage" class="icon {{navItem?.icon}}"></i><img class="profile-image" *ngIf="navItem.profileImage" [src]="navItem.profileImage"/>{{navItem?.label}}</div>
+      </div>
+    </div>
+  </div>
+</div>

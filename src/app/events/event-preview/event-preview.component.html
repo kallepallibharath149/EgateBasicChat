@@ -1,0 +1,47 @@
+<div class="events-preview-container">
+    <div class="flex-items">
+        <div class="item" >
+            <div class="card" style="height: 100%;">
+                <div class="image-section">
+                    <img class="card-img-top event-list-image" [src]="previewEvent.eventPhotoPath" alt="Card image cap">
+                </div>
+                <div class="card-body desc-invite">
+                 <div>
+                    <h5 class="card-title"><b>{{previewEvent.eventName}}</b></h5>
+                    <p class="card-text">{{previewEvent.eventDescription}}</p>
+                 </div>
+                 <div (click)="showinvite=true" class="inviteFriends">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>Invite
+                    <div *ngIf="showinvite" class="invite">
+                        <div>
+                            <p-multiSelect [options]="items" [(ngModel)]="item" [panelStyle]="{minWidth:'12em'}" [virtualScroll]="true" [itemSize]="34"></p-multiSelect>
+                        </div>
+                       <div>
+                        <button (click)="$event.stopImmediatePropagation();invtePeople($event)">Invite People</button>
+                       </div>
+                     </div>
+                 </div>
+
+                
+                </div>
+                <div class="card-body pt-0 pb-0">
+                    <div>
+                        <b>Event Date</b>&nbsp;{{previewEvent.fromDate}}
+                    </div>
+                    <div *ngIf="previewEvent.toDate">
+                        <b>Event End Date</b>&nbsp;{{previewEvent.toDate}}
+                    </div>
+                    <div *ngIf="previewEvent.eventLocation">
+                        <b>Event Location</b>&nbsp;{{previewEvent.eventLocation}}
+                    </div>
+                </div>
+                <div class="invitation-count">
+                  <div class="counts"><b>Invited</b><span>{{previewEvent.invitedCout?previewEvent.invitedCout:'0'}}</span></div> 
+                  <div class="counts"><b>Accepted</b><span>{{previewEvent.acceptedCount?previewEvent.acceptedCount:'0'}}</span></div> 
+                  <div class="counts"><b>Rejected</b><span>{{previewEvent.rejectedCount?previewEvent.rejectedCount:'0'}}</span></div> 
+                </div>
+                <app-comments-container  [commentsArray]="commentsArray"  (updateCommentArrayForReply)="updateCommentArrayForReply($event.updatedObj, $event.addedreplyPostObj, $event.index)" (updateCommentArray)="updateCommentArray($event.updatedArray,$event.addedPostObj)" [showComments]="showComments"></app-comments-container>
+              </div>
+        </div>
+    </div>
+</div>

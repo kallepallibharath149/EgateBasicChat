@@ -1,0 +1,39 @@
+<div class="profile-container">
+  <app-profile-cover-photos></app-profile-cover-photos>
+  <div>
+    <div class="profile-name-section">
+      <div class="pl-1"><h3><b>{{currentProfileId}}</b></h3></div>
+   </div>
+   <div class="auto-flex mb-4">
+    <div class="btn-group mr-3 largescreen">
+      <ng-container *ngFor="let profileNav of navigationItems">
+        <button type="button" (click)="navigate(profileNav)" class=" btn btn-outline-dark">{{profileNav.label}}</button>
+      </ng-container>
+      <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+        <button class="btn btn-outline-dark" ngbDropdownToggle>More</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <ng-container *ngFor="let profileNav of moreDropdownnavigationItems">
+            <button type="button" ngbDropdownItem (click)="navigate(profileNav)" class=" btn btn-outline-dark">{{profileNav.label}}</button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="medium-screen btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <button class="btn btn-outline-dark" ngbDropdownToggle>Profile Options</button>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <ng-container *ngFor="let profileNav of navigationItems">
+          <button type="button" ngbDropdownItem (click)="navigate(profileNav)" class=" btn btn-outline-dark">{{profileNav.label}}</button>
+        </ng-container>
+        <ng-container *ngFor="let profileNav of moreDropdownnavigationItems">
+          <button type="button" ngbDropdownItem (click)="navigate(profileNav)" class=" btn btn-outline-dark">{{profileNav.label}}</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="main-dynamic-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

@@ -1,0 +1,28 @@
+<div class="events-container">
+<div class="flex-container">
+      <div class="event-menubar">
+       <div class="menu-items">
+       <div><h2 style="font-weight: bold;">Events</h2></div>
+       <div>
+        <div><h5 class="item {{activeItem == 'Events'?'active':''}}" (click)="handleEvents();activeItem = 'Events'" style="font-weight: bold;"><i class="fa pr-2 fa-1x fa-calendar" aria-hidden="true"></i>Events</h5></div>
+        <div>
+         <p-accordion class="toggle-accordion">
+           <p-accordionTab header="Calendar">
+           <div class="item {{activeItem == 'Invitations'?'active':''}}" (click)="handleEvents();activeItem = 'Invitations'"><h5>Invitations</h5></div>
+           <div class="item {{activeItem == 'Your tickets'?'active':''}}" (click)="handleEvents();activeItem = 'Your tickets'"><h5>Your tickets</h5></div>
+           <div class="item {{activeItem == 'Hosting'?'active':''}}" (click)="handleEvents();activeItem = 'Hosting'"><h5>Hosting</h5></div>
+           <div class="item {{activeItem == 'Past events'?'active':''}}" (click)="handleEvents();activeItem = 'Past events'"><h5>Past events</h5></div>
+           </p-accordionTab>
+         </p-accordion>
+        </div>
+        <div class="item {{activeItem == 'Birthdays'?'active':''}}" (click)="handleEvents();activeItem = 'Birthdays'"><h5 style="font-weight: bold;"><i class="fa pr-2 fa-1x fa-birthday-cake" aria-hidden="true"></i>Birthdays</h5></div>
+        <div (click)="createEvent();activeItem = 'Create New Event'" class="item create {{activeItem == 'Create New Event'?'active':''}}"><h6 style="font-weight: bold;"><i class="fa pr-2 fa-1x fa-plus" aria-hidden="true"></i>Create New Event</h6></div>
+       </div>
+       </div>
+      </div>
+      <div class="events-dynamic">
+        <router-outlet></router-outlet>
+      </div>
+</div>
+</div>
+

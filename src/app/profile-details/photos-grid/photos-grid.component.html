@@ -1,0 +1,22 @@
+<div class="photos-grid-container">
+    <div *ngIf="!showAllFriends">
+        <div class="header">
+            <div class="head"><b>{{getHeader()}}</b></div>
+            <div (click)="navigate()" class="seeAll"><b>See all</b></div>
+        </div>
+        <div class="flex-container">
+            <div class="each-row" *ngFor="let photo of photosArray">
+                    <img (click)="navigatingTo(photo)" src="{{photo.imgSrc}}" />
+                    <div class="profileName" (click)="navigatingTo(photo)" *ngIf="photosGrid == 'friendsGrid'">{{photo.profileName}}</div>
+            </div>
+        </div>
+    </div>
+ <div *ngIf="showAllFriends">
+    <div class="flex-container">
+        <div class="each-row-all-friends" *ngFor="let photo of photosArray">
+            <div (click)="navigatingTo(photo)" class="profile-photo"><img (click)="navigatingTo(photo)" src="{{photo.imgSrc}}" /></div>
+            <div (click)="navigatingTo(photo)" class="profileName">{{photo.profileName}}</div>
+        </div>
+    </div>
+ </div>
+</div>

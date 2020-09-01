@@ -1,0 +1,65 @@
+.section-view {
+    display        : flex;
+    align-items    : flex-start;
+    justify-content: center;
+    flex-direction : row;
+    width          : 100%;
+
+    .right-section {
+        width  : 60%;
+        padding: 10px 5px 10px 10px;
+    }
+
+    .left-section {
+        position : sticky;
+        width  : 40%;
+        padding: 10px 5px 10px 10px;
+
+        .grid-align {
+            display       : flex;
+            flex-direction: column;
+            align-items   : center;
+
+            .photos-grid {
+                width           : 80%;
+                border-radius   : 19px;
+                background-color: white;
+                margin-bottom   : 15px;
+            }
+
+            .friends-grid {
+                width           : 80%;
+                background-color: white;
+                border-radius   : 19px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    .section-view {
+        flex-direction: column;
+
+        .right-section {
+            padding: 10px;
+            width  : 100%;
+        }
+
+        .left-section {
+            position : static;
+            padding: 10px;
+            width  : 100%;
+
+            .grid-align {
+                .photos-grid {
+                    width: 100%;
+                }
+
+                .friends-grid {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
