@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "webpack-bundle-analyzer dist/basicChat/stats-es2015.json",
-    "heroku-postbuild": "ng build --prod"
+    "stats": "webpack-bundle-analyzer dist/basicChat/stats-es2015.json"
+    
   },
   "private": true,
   "dependencies": {
