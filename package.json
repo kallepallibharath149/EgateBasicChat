@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "webpack-bundle-analyzer dist/basicChat/stats-es2015.json"
+    "stats": "webpack-bundle-analyzer dist/basicChat/stats-es2015.json",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -58,5 +59,9 @@
     "tslint": "~6.1.0",
     "typescript": "~3.8.3",
     "webpack-bundle-analyzer": "^3.8.0"
+  },
+    "engines": {
+    "node": "10.15.3",
+    "npm": "6.4.1"
   }
 }
