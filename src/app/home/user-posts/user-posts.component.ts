@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { UserPostsService } from './user-post-service/user-posts-service';
 import { Subscription } from 'rxjs';
 
@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-posts.component.less']
 })
 export class UserPostsComponent implements OnInit, OnDestroy {
+
+  @Input('postsArray')postsArray: Array<any> = [];
    staticImages:Array<any> = [
      {
       imagePost: true,
@@ -34,14 +36,14 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   Posts:Array<any>=[];
   userPostsSubscription:Subscription;
   constructor(private userPostsService:UserPostsService) { 
-    this.Posts = [];
-    this.Posts = [...this.userPostsService.posts,...this.staticImages];
+    // this.Posts = [];
+    // this.Posts = [...this.userPostsService.posts,...this.staticImages];
   }
 
   ngOnInit(): void {
  // this.Posts =  this.userPostsService.posts;
-  this.userPostsSubscription = this.userPostsService.emitNewUserPost.subscribe(post=>{
-   this.Posts.unshift(post);
+   this.userPostsSubscription = this.userPostsService.emitNewUserPost.subscribe(post=>{
+   this.postsArray.unshift(post);
    console.log(this.Posts);
     });
   }

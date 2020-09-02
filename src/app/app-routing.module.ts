@@ -27,12 +27,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'home', component: MainHomePageComponent,
-    children: [
-      { path: '', component: HomeComponent }
-      // { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      // { path: 'overview', component:  },
-      // { path: 'specs', component:  }
-    ]
+    // children: [
+    //   { path: '', component: HomeComponent }
+    //   // { path: '', redirectTo: 'overview', pathMatch: 'full' },
+    //   // { path: 'overview', component:  },
+    //   // { path: 'specs', component:  }
+    // ]
   },
   // {path:'notifications',component:LossprevenstionComponent},app-groups
   { path: 'news', component: NewsComponent },

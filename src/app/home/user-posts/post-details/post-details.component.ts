@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { UserPostsService } from '../user-post-service/user-posts-service';
 import {MessageService} from 'primeng/api';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-post-details',
@@ -33,12 +34,14 @@ export class PostDetailsComponent implements OnInit {
   constructor(private route: Router,
               public domSanitizationService: DomSanitizer,
               private userPostsService : UserPostsService,
-              public messageService: MessageService,) { }
+              public messageService: MessageService,
+              private globalEmitterService: GlobalEmittingEventsService) { }
 
   ngOnInit(): void {
   }
   navigateToProfile() {
-  this.route.navigate(['/profile','raju']);
+  this.globalEmitterService.setCurrentProfileObj(this.postDetails.userName);
+  this.route.navigate(['/profile',this.postDetails.profileId]);
   }
 
   updateLikeStatus() {

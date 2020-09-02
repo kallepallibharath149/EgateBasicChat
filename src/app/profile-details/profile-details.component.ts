@@ -10,8 +10,8 @@ import { HttpService } from '@app/interceptors/http.service';
 })
 export class ProfileDetailsComponent implements OnInit {
 
-currentProfileId:any = 'raju';
-
+ currentProfileId:any = 'raju';
+ currentProfileName:any = 'raju';
   navigationItems: Array<any> = [
     {
       "label": "Timeline",
@@ -87,7 +87,11 @@ currentProfileId:any = 'raju';
       // console.log(params.has('id')); // true has() ,get(),      getAll()
       // console.log(params.get('id'));
       this.currentProfileId = params.get('id');
+      this.currentProfileName = this.globalEmitterService.getCurrentProfileObj();
     });
+  //   this.activatedRoute.queryParamMap.subscribe(params => {
+  //  this.currentProfileName = params.get('profilename');
+  // });
   }
 
 

@@ -8,6 +8,8 @@ export class GlobalEmittingEventsService {
   heightObj :any;
   @Output() navigationEventEmitter = new EventEmitter();
   @Output() currentTopNavHeightObj = new EventEmitter();
+  curentProfileObj: any = null;
+  loggedInUserDetails: any = null;
   constructor() { }
 
 
@@ -18,5 +20,22 @@ export class GlobalEmittingEventsService {
   emitcurrentTopNavHeightObj(heightObj){
     this.heightObj = heightObj;
     this.currentTopNavHeightObj.emit(heightObj);
+  }
+
+  setCurrentProfileObj(profileobj){
+    this.curentProfileObj = profileobj;
+  }
+
+  getCurrentProfileObj():any{
+    return this.curentProfileObj
+  }
+
+  setLoggedInUserDetails(loggedInuserDetails){
+    this.loggedInUserDetails = loggedInuserDetails;
+  }
+
+  getLoggedInUserDetails():any{
+    return this.loggedInUserDetails;
+
   }
 }

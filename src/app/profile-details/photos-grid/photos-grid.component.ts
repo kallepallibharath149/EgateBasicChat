@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OverLayComponentComponent } from 'src/app/common/over-lay-component/over-lay-component.component';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-photos-grid',
@@ -23,7 +24,8 @@ export class PhotosGridComponent implements OnInit {
 
   @Input('photosGrid') photosGrid = 'photosGrid';
   constructor(private route: Router,
-               private modalService?: NgbModal) { }
+               private modalService?: NgbModal,
+               private globalEmitterService?:GlobalEmittingEventsService ) { }
 
   ngOnInit(): void {
   }
@@ -47,6 +49,7 @@ export class PhotosGridComponent implements OnInit {
     if(this.photosGrid == 'photosGrid'){
       this.openModal(obj)
    } else if(this.photosGrid == 'friendsGrid'){
+     this.globalEmitterService.setCurrentProfileObj(obj.profileName);
     this.route.navigate([`/profile/${obj.profileId}`]);
    } 
   }

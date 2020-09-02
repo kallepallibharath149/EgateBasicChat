@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding, HostListener, ViewChild, ElementRef, Renderer2, AfterContentInit, AfterViewInit } from '@angular/core';
 import { GlobalEmittingEventsService } from '../services/global-emitting-events.service';
+import { HttpService } from '@app/interceptors/http.service';
 
 @Component({
   selector: 'app-main-home-page',
@@ -7,6 +8,8 @@ import { GlobalEmittingEventsService } from '../services/global-emitting-events.
   styleUrls: ['./main-home-page.component.less']
 })
 export class MainHomePageComponent implements OnInit, AfterContentInit, AfterViewInit {
+  loggedInUserDetails:any;
+  latestPosts: Array<any> = [];
   element: ElementRef;
   @HostBinding('style.color') color: string;
   @HostBinding('style.border-color') borderColor: string;
@@ -41,12 +44,14 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
   @ViewChild('rightSideContainer', { read: ElementRef, static: false }) rightSideContainer: ElementRef<HTMLElement>;
   constructor(private _elementRef: ElementRef,
     private renderer: Renderer2,
-    private globalEmitterService: GlobalEmittingEventsService) {
+    private globalEmitterService: GlobalEmittingEventsService,
+    private httpService?:HttpService) {
     this.element = this._elementRef.nativeElement;
   }
 
   ngOnInit(): void {
     this.globalEmitterService.emitcurrentNavigation('/home');
+    this.getLatestPosts();
   }
 
   ngAfterViewInit() {
@@ -56,5 +61,33 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
   ngAfterContentInit() {
     //this.setLeftRightcontainerStyles();
   }
+
+  getLatestPosts(){
+    this.httpService.httpGet('LatestPosts').subscribe((response)=>{
+      console.log(response);
+      if(Array.isArray(response) && response.length > 0){
+        this.latestPosts = [];
+         response.forEach(timelinePost=>{
+          let postDetails:any = {};
+          postDetails.profileId = timelinePost.profileId;
+          postDetails.userName = timelinePost.userName;
+          postDetails.isMine = timelinePost.isMine;
+          if(timelinePost.postDetails.postType == 'Image'){
+            postDetails.imagePost = true;
+            postDetails.videoPost = false;  
+          } else if (timelinePost.postDetails.postType == 'Video'){
+            postDetails.videoPost = true;  
+            postDetails.imagePost = false;
+          }
+          postDetails.imageVideoUrl = timelinePost.postDetails.postUrl;
+          postDetails.postComment = timelinePost.postDetails.postText;
+          this.latestPosts.push(postDetails);
+        })
+      }
+     },(error)=>{
+       console.log(error);
+     })
+  }
+
 
 }

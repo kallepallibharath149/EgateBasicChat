@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-navigate-bookmarks',
@@ -82,13 +83,19 @@ export class NavigateBookmarksComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private globalEmitterService: GlobalEmittingEventsService) { }
 
   ngOnInit(): void {
   }
 
   navigate(navItem) {
-    if (navItem.requiredParameters && navItem.requiredParameters.length >0){
+    if(navItem.label = 'Profile'){
+      let profileId = this.globalEmitterService.getLoggedInUserDetails().profileId;
+      let profileName = this.globalEmitterService.getLoggedInUserDetails().name;
+      this.globalEmitterService.setCurrentProfileObj(profileName);
+      this.router.navigate([navItem.navigate,profileId]);
+    }else if (navItem.requiredParameters && navItem.requiredParameters.length >0){
       this.router.navigate([navItem.navigate,navItem.requiredParameters]);
     } else{
       this.router.navigate([navItem.navigate]);

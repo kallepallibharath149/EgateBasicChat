@@ -7,6 +7,7 @@ import {MessageService} from 'primeng/api';
 import { PlatformLocation } from '@angular/common'
 import { Router, NavigationStart, Event } from '@angular/router';
 import { LoginServiceService } from './login/login-service.service';
+import { HttpService } from './interceptors/http.service';
 
 
 @Component({
@@ -16,6 +17,10 @@ import { LoginServiceService } from './login/login-service.service';
   providers: [NgbProgressbarConfig]
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  loggedInUserDetails:any;
+
+
+  
   chatContainer:Array<any> =[{}];
   closeResult = '';
   public isCollapsed = false;
@@ -49,7 +54,8 @@ export class AppComponent implements OnInit, AfterViewInit {
               public messageService: MessageService,
               private location: PlatformLocation,
               private router: Router,
-              private loginService:LoginServiceService) {
+              private loginService:LoginServiceService,
+              private httpService?:HttpService) {
                 location.onPopState(() => {
 
                   console.log('pressed back!');
@@ -90,6 +96,7 @@ export class AppComponent implements OnInit, AfterViewInit {
  ngOnInit(){
    let data = 'dada';
    this.loginService.checkLogInStateAndNavigate();
+   this.getUserDetails();
  }
 
  ngAfterViewInit(){
@@ -185,6 +192,18 @@ onReject() {
 
 clear() {
     this.messageService.clear();
+}
+
+getUserDetails(){
+  this.httpService.httpGet('UserDetails').subscribe((response)=>{
+    console.log(response);
+    if(response){
+   this.loggedInUserDetails = response;
+   this.globalEmitterService.setLoggedInUserDetails(response);
+    }
+   },(error)=>{
+     console.log(error);
+   })
 }
 
 }

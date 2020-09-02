@@ -13,6 +13,7 @@ export class ProfileTimeLineComponent implements OnInit , AfterViewInit{
   currentProfileId:any = 'raju';
   friendsArray: Array<any> = [];
   photosArray: Array<any> = [];
+  timeLinePosts: Array<any> = [];
   @ViewChild('leftSideContainer', { read: ElementRef, static: true }) leftSideContainer: ElementRef<HTMLElement>;
   @ViewChild('leftSideContainerScroll', { read: ElementRef, static: false }) leftSideContainerScroll: ElementRef<HTMLElement>;
 
@@ -33,11 +34,21 @@ export class ProfileTimeLineComponent implements OnInit , AfterViewInit{
     });
     this.getFriendsList();
     this.getPhotos();
+    this.getTimeLinePosts();
   }
 
 ngAfterViewInit(){
   // this.appllyLeftContainerStyles(this.globalEmitterService.heightObj);
-  this.renderer.setStyle(this.leftSideContainer.nativeElement, 'top', '-800px');
+  let leftContainer:any =  this.leftSideContainer.nativeElement.getClientRects();
+  let leftcontainerHeight = leftContainer.height;
+  let topStickyPosition = 0;
+if(leftcontainerHeight > screen.height){
+  topStickyPosition = screen.height - leftcontainerHeight;
+} else if(leftcontainerHeight <= screen.height){
+  topStickyPosition = 0;
+}
+ 
+  this.renderer.setStyle(this.leftSideContainer.nativeElement, 'top', `${topStickyPosition}px`);
 }
 
 getFriendsList(){
@@ -68,6 +79,33 @@ getPhotos(){
         let photosDetails:any = {};
         photosDetails.imgSrc = photo.url;
         this.photosArray.push(photosDetails);
+      })
+    }
+   },(error)=>{
+     console.log(error);
+   })
+}
+
+getTimeLinePosts(){
+  this.httpService.httpGet('Timelineposts').subscribe((response)=>{
+    console.log(response);
+    if(Array.isArray(response) && response.length > 0){
+      this.timeLinePosts = [];
+       response.forEach(timelinePost=>{
+        let postDetails:any = {};
+        postDetails.profileId = timelinePost.profileId;
+        postDetails.userName = timelinePost.userName;
+        postDetails.isMine = timelinePost.isMine;
+        if(timelinePost.postDetails.postType == 'Image'){
+          postDetails.imagePost = true;
+          postDetails.videoPost = false;  
+        } else if (timelinePost.postDetails.postType == 'Video'){
+          postDetails.videoPost = true;  
+          postDetails.imagePost = false;
+        }
+        postDetails.imageVideoUrl = timelinePost.postDetails.postUrl;
+        postDetails.postComment = timelinePost.postDetails.postText;
+        this.timeLinePosts.push(postDetails);
       })
     }
    },(error)=>{

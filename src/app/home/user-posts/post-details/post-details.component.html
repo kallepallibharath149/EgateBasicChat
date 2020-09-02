@@ -32,7 +32,7 @@
     <ng-container *ngSwitchDefault>
       <div class="card-header">
         <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
-        <div (click)="navigateToProfile()" class="profileName">{{'Satya Sai Kumar'}}</div>
+        <div (click)="navigateToProfile()" class="profileName">{{postDetails.userName?postDetails.userName:'Satya Sai Kumar'}}</div>
       </div>
       <div class="card-body p-0">
         <div *ngIf="postDetails.postComment" class="post-comment">
