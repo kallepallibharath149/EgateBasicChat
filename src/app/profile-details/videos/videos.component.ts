@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OverLayComponentComponent } from '../../common/over-lay-component/over-lay-component.component';
 import { HttpService } from '@app/interceptors/http.service';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-videos',
@@ -14,6 +15,9 @@ export class VideosComponent implements OnInit {
   modalReference : any ;
   closeResult = '';
   currentProfileId:any = 'raju';
+  currentOverlayObj:any = null;
+  userDetails:any = null;
+  @ViewChild ('overlayRef') overlayRef:TemplateRef<any> ;
   videosArray: Array<any> = [
     {
       "videoSrc": "../../assets/images/profile.jpg",
@@ -23,24 +27,32 @@ export class VideosComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private modalService?: NgbModal,
-              private httpService?:HttpService) { }
+              private httpService?:HttpService,
+              private globalEmitterService?: GlobalEmittingEventsService) { }
 
   ngOnInit(): void {
-    this.getFriendsList();
     this.activatedRoute.paramMap.subscribe(params => {
       console.log(params.has('id')); // true has() ,get(),      getAll()
       console.log(params.get('id'));
       this.currentProfileId = params.get('id');
+      this.getVideos();
+    });
+    this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
+      if(userDetails != false){
+        this.userDetails = userDetails;
+      }
     });
   }
 
   openModal(video) {
-    this.modalReference = this.modalService.open(OverLayComponentComponent, {ariaLabelledBy: 'modal-basic-title',centered: true});
-    this.modalReference.componentInstance.videoUrl = video.videoUrl; 
+    this.currentOverlayObj = video;
+    this.modalReference = this.modalService.open(this.overlayRef, {ariaLabelledBy: 'modal-basic-title',centered: true});
+   // this.modalReference.componentInstance.videoUrl = video.videoUrl; 
     this.modalReference.result.then((result) => {
        this.closeResult = `Closed with: ${result}`;
+       this.currentOverlayObj = null;
      }, (reason) => {
-     
+      this.currentOverlayObj = null;
      });
    }
 
@@ -48,7 +60,7 @@ export class VideosComponent implements OnInit {
 
   }
 
-  getFriendsList(){
+  getVideos(){
     this.httpService.httpGet('Videos').subscribe((response)=>{
       console.log(response);
       if(Array.isArray(response) && response.length > 0){

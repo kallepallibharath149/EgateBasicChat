@@ -9,7 +9,7 @@ import { HttpService } from '@app/interceptors/http.service';
   styleUrls: ['./profile-time-line.component.less']
 })
 export class ProfileTimeLineComponent implements OnInit , AfterViewInit{
-
+  userDetails:any = null;
   currentProfileId:any = 'raju';
   friendsArray: Array<any> = [];
   photosArray: Array<any> = [];
@@ -27,14 +27,23 @@ export class ProfileTimeLineComponent implements OnInit , AfterViewInit{
     // this.globalEmitterService.currentTopNavHeightObj.subscribe(heightDatObj =>{
     //   this.appllyLeftContainerStyles(heightDatObj);
     //  });
+    // this.getFriendsList();
+    // this.getPhotos();
+    // this.getTimeLinePosts();
     this.activatedRoute.paramMap.subscribe(params => {
       console.log(params.has('id')); // true has() ,get(),      getAll()
       console.log(params.get('id'));
       this.currentProfileId = params.get('id');
+      this.getFriendsList();
+      this.getPhotos();
+      this.getTimeLinePosts('initialization');
     });
-    this.getFriendsList();
-    this.getPhotos();
-    this.getTimeLinePosts();
+    this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
+      if(userDetails != false){
+        this.userDetails = userDetails;
+      }
+    });
+
   }
 
 ngAfterViewInit(){
@@ -86,11 +95,15 @@ getPhotos(){
    })
 }
 
-getTimeLinePosts(){
+getInitialTimelinePosts(){
+  this.getTimeLinePosts('initialization');
+}
+
+getTimeLinePosts(state?){
   this.httpService.httpGet('Timelineposts').subscribe((response)=>{
     console.log(response);
     if(Array.isArray(response) && response.length > 0){
-      this.timeLinePosts = [];
+      let timeLinePostsArray = [];
        response.forEach(timelinePost=>{
         let postDetails:any = {};
         postDetails.profileId = timelinePost.profileId;
@@ -105,12 +118,23 @@ getTimeLinePosts(){
         }
         postDetails.imageVideoUrl = timelinePost.postDetails.postUrl;
         postDetails.postComment = timelinePost.postDetails.postText;
-        this.timeLinePosts.push(postDetails);
-      })
+        timeLinePostsArray.push(postDetails);
+      });
+      if(state == 'initialization'){
+        this.timeLinePosts = [];
+      }
+      if (Array.isArray(timeLinePostsArray) && timeLinePostsArray.length > 0) {
+        this.timeLinePosts = [...this.timeLinePosts, ...timeLinePostsArray];
+      } 
     }
    },(error)=>{
      console.log(error);
    })
+}
+
+
+ onScroll() {
+  this.getTimeLinePosts();
 }
 
   // appllyLeftContainerStyles(heightDatObj){

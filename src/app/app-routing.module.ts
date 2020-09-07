@@ -21,6 +21,7 @@ import { EventsListComponent } from './events/events-list/events-list.component'
 import { ModalOpenCanDeactivateGuardGuard } from './common/guards/modal-open-can-deactivate-guard.guard';
 import { LoginComponent } from './login/login.component';
 import { EventPreviewComponent } from './events/event-preview/event-preview.component';
+import { InvitationsComponent } from './events/invitations/invitations.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
   children: [
     { path: '', component: EventsListComponent },
     { path: 'preview', component: EventPreviewComponent },
-    { path: 'create', component: CreateEventComponent }
+    { path: 'create', component: CreateEventComponent },
+    { path: 'invitations', component: InvitationsComponent }
   ]},
   { path: 'profile/:id', component: ProfileDetailsComponent,
    children: [

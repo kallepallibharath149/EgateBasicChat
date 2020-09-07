@@ -51,7 +51,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
 
   ngOnInit(): void {
     this.globalEmitterService.emitcurrentNavigation('/home');
-    this.getLatestPosts();
+    this.getInitialLatestPosts();
   }
 
   ngAfterViewInit() {
@@ -62,32 +62,46 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
     //this.setLeftRightcontainerStyles();
   }
 
-  getLatestPosts(){
-    this.httpService.httpGet('LatestPosts').subscribe((response)=>{
+  getInitialLatestPosts() {
+  this.getLatestPosts('initialization');
+  }
+
+  getLatestPosts(state?) {
+    this.httpService.httpGet('LatestPosts').subscribe((response) => {
       console.log(response);
-      if(Array.isArray(response) && response.length > 0){
-        this.latestPosts = [];
-         response.forEach(timelinePost=>{
-          let postDetails:any = {};
+      if (Array.isArray(response) && response.length > 0) {
+        let postsArray = [];
+        response.forEach(timelinePost => {
+          let postDetails: any = {};
           postDetails.profileId = timelinePost.profileId;
           postDetails.userName = timelinePost.userName;
           postDetails.isMine = timelinePost.isMine;
-          if(timelinePost.postDetails.postType == 'Image'){
+          if (timelinePost.postDetails.postType == 'Image') {
             postDetails.imagePost = true;
-            postDetails.videoPost = false;  
-          } else if (timelinePost.postDetails.postType == 'Video'){
-            postDetails.videoPost = true;  
+            postDetails.videoPost = false;
+          } else if (timelinePost.postDetails.postType == 'Video') {
+            postDetails.videoPost = true;
             postDetails.imagePost = false;
           }
           postDetails.imageVideoUrl = timelinePost.postDetails.postUrl;
           postDetails.postComment = timelinePost.postDetails.postText;
-          this.latestPosts.push(postDetails);
-        })
+          postsArray.push(postDetails);
+        });
+        if(state == 'initialization'){
+          this.latestPosts = [];
+        }
+        if (Array.isArray(postsArray) && postsArray.length > 0) {
+          this.latestPosts = [...this.latestPosts, ...postsArray];
+        } 
       }
-     },(error)=>{
-       console.log(error);
-     })
+    }, (error) => {
+      console.log(error);
+    });
   }
 
+
+  onScroll() {
+    this.getLatestPosts();
+  }
 
 }

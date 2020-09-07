@@ -9,7 +9,7 @@ import { HttpService } from '@app/interceptors/http.service';
   styleUrls: ['./profile-details.component.less']
 })
 export class ProfileDetailsComponent implements OnInit {
-
+ userDetails:any = null;
  currentProfileId:any = 'raju';
  currentProfileName:any = 'raju';
   navigationItems: Array<any> = [
@@ -89,6 +89,13 @@ export class ProfileDetailsComponent implements OnInit {
       this.currentProfileId = params.get('id');
       this.currentProfileName = this.globalEmitterService.getCurrentProfileObj();
     });
+    this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
+      if(userDetails != false){
+        this.userDetails = userDetails;
+      }
+    });
+
+
   //   this.activatedRoute.queryParamMap.subscribe(params => {
   //  this.currentProfileName = params.get('profilename');
   // });
@@ -104,6 +111,10 @@ export class ProfileDetailsComponent implements OnInit {
         this.router.navigate([`/profile/${this.currentProfileId}`]);
       }
     }  
+  }
+
+  setProfileDetails(profileDetails){
+    // this.currentProfileName =  profileDetails.name;
   }
 
 }

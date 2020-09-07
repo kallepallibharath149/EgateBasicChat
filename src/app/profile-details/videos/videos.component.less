@@ -62,3 +62,95 @@
         }
     }
 }
+
+.overlay-container {
+    position        : fixed;
+    top             : 0px;
+    left            : 0px;
+    right           : 0px;
+    bottom          : 0px;
+    background-color: white;
+    overflow-y      : scroll;
+
+    .overlay-flex-container {
+        position       : relative;
+        width          : 100%;
+        height         : 100%;
+        display: flex;
+
+        .content-section {
+            background-color: lightseagreen;
+            height          : 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .image-container {
+                position       : relative;
+                height         : 100%;
+                display        : flex;
+                justify-content: center;
+
+                .blur-photo {
+                    position      : absolute;
+                    height        : 100%;
+                    width         : 100%;
+                    z-index       : 1;
+                    filter        : blur(8px);
+                    -webkit-filter: blur(8px);
+
+                    img {
+                        width : 100%;
+                        height: 100%;
+                    }
+                }
+
+                .original-photo {
+                    height  : 100%;
+                    position: relative;
+                    z-index : 2;
+
+                    img {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        .profile-section {
+            background-color: lightslategrey;
+            height          : 100%;
+            overflow-x: hidden ;
+            overflow-y: auto;
+            .profile{
+
+            }
+        }
+
+        .close-icon {
+            width   : 30px;
+            height  : 30px;
+            position: absolute;
+            top     : 10px;
+            left    : 10px;
+            z-index : 10;
+        }
+    }
+}
+@media only screen and (max-width: 767px) {
+    .content-section{
+        height: auto !important;
+        .image-container{
+            height: auto !important;  
+        }
+    }
+    .profile-section{
+        height: auto !important;
+    } 
+    .original-photo {
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

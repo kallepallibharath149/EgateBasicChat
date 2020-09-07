@@ -18,6 +18,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
   @Input('postDetails') postDetails: any;
   _showComments: boolean = false;
   showCommentsContainer : boolean = true;
+  @Input('userDetails') userDetails : any;
   @Input('showComments') set showComments(showComments: boolean) {
     if (showComments) {
       this._showComments = true;
@@ -122,7 +123,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
   }
 
   navigateToProfile() {
-    this.router.navigate(['/profile', 'raju']);
+    this.router.navigate(['/profile', this.userDetails.profileId]);
   }
 
 }

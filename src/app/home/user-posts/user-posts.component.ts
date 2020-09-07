@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { UserPostsService } from './user-post-service/user-posts-service';
 import { Subscription } from 'rxjs';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-user-posts',
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-posts.component.less']
 })
 export class UserPostsComponent implements OnInit, OnDestroy {
-
+  userDetails:any = null;
   @Input('postsArray')postsArray: Array<any> = [];
    staticImages:Array<any> = [
      {
@@ -35,7 +36,8 @@ export class UserPostsComponent implements OnInit, OnDestroy {
    ]
   Posts:Array<any>=[];
   userPostsSubscription:Subscription;
-  constructor(private userPostsService:UserPostsService) { 
+  constructor(private userPostsService:UserPostsService,
+    private globalEmitterService: GlobalEmittingEventsService) { 
     // this.Posts = [];
     // this.Posts = [...this.userPostsService.posts,...this.staticImages];
   }
@@ -45,6 +47,11 @@ export class UserPostsComponent implements OnInit, OnDestroy {
    this.userPostsSubscription = this.userPostsService.emitNewUserPost.subscribe(post=>{
    this.postsArray.unshift(post);
    console.log(this.Posts);
+    });
+    this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
+      if(userDetails != false){
+        this.userDetails = userDetails;
+      }
     });
   }
 

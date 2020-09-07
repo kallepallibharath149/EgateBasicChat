@@ -28,6 +28,7 @@ export class PostDetailsComponent implements OnInit {
   }];
 
   @Input('postDetails') postDetails : any;
+  @Input('userDetails') userDetails : any;
   
 
 

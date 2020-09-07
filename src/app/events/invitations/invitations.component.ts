@@ -1,59 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UserPostsService } from '@app/home/user-posts/user-post-service/user-posts-service';
 import { Router } from '@angular/router';
+import { UserPostsService } from '@app/home/user-posts/user-post-service/user-posts-service';
 
 @Component({
-  selector: 'app-events-list',
-  templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.less']
+  selector: 'app-invitations',
+  templateUrl: './invitations.component.html',
+  styleUrls: ['./invitations.component.less']
 })
-export class EventsListComponent implements OnInit {
-
-  staticEvents:Array<any> = [
-    {
-      eventName: 'Birth Day Event',
-      eventDescription: 'this is event description.detailed description',
-      fromDate: '22/08/2020',
-      toDate : null,
-      eventLocation:'Hyderabd',
-      eventPhotoPath: 'assets/eventsImages/usercard.png',
-      category: 'birthDay',
-      eventInvited: false,
-      eventAcceptedStatus: null
-    },
-    {
-      eventName: 'Party',
-      eventDescription: 'party description. this is party description',
-      fromDate: '22/08/2020',
-      toDate : null,
-      eventLocation:'Hyderabd',
-      eventPhotoPath: 'assets/eventsImages/usercard.png',
-      category: 'birthDay',
-      eventInvited: false,
-      eventAcceptedStatus: null
-    },
-    {
-      eventName: 'Marriage',
-      eventDescription: '',
-      fromDate: '22/08/2020',
-      toDate : null,
-      eventLocation:'Hyderabd',
-      eventPhotoPath: 'assets/eventsImages/usercard.png',
-      category: 'marriage',
-      eventInvited: false
-    },
-    {
-      eventName: 'Birth Day Event',
-      eventDescription: '',
-      fromDate: '22/08/2020',
-      toDate : null,
-      eventLocation:'Hyderabd',
-      eventPhotoPath: 'assets/eventsImages/usercard.png',
-      category: 'birthDay',
-      eventInvited: false
-    }
-  ]
-
+export class InvitationsComponent implements OnInit {
   staticInvitationEvents:Array<any> = [
     {
       eventName: 'Birth Day Event',
@@ -99,10 +53,10 @@ export class EventsListComponent implements OnInit {
   ]
   eventsList:Array<any>=[];
   constructor(private userPostsService:UserPostsService,
-             private router: Router) { 
-    this.eventsList = [];
-    this.eventsList = [...this.userPostsService.events,...this.staticEvents];
-  }
+    private router: Router) { 
+      this.eventsList = [];
+      this.eventsList = [...this.staticInvitationEvents];
+    }
 
   ngOnInit(): void {
   }

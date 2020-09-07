@@ -32,6 +32,7 @@ import { MessagesModule } from '@app/components/public_api';
 import { MessageModule } from '@app/components/public_api';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// import { ProfileWithCommentsComponent } from './profile-with-comments/profile-with-comments.component';
 //import { MessageService } from './api/messageservice';
 
 @NgModule({

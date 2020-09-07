@@ -1,5 +1,6 @@
 import { Injectable, Output,EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ export class GlobalEmittingEventsService {
   @Output() currentTopNavHeightObj = new EventEmitter();
   curentProfileObj: any = null;
   loggedInUserDetails: any = null;
+  loggedInDetailsEmit = new BehaviorSubject<any>(false);
+
   constructor() { }
 
 
@@ -32,6 +35,7 @@ export class GlobalEmittingEventsService {
 
   setLoggedInUserDetails(loggedInuserDetails){
     this.loggedInUserDetails = loggedInuserDetails;
+    this.loggedInDetailsEmit.next(loggedInuserDetails);
   }
 
   getLoggedInUserDetails():any{

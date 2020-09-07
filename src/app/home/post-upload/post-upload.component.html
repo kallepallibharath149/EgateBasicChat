@@ -13,16 +13,16 @@
       <div class="icons">
         <h5><i class="fa fa-1x fa-picture-o" aria-hidden="true">
             <input type="file" #fileImageInput name="image" id="imageInput" (click)="fileImageInput.value = null"
-              accept="image/*" (change)="handleFilesImages($event);"></i>Photo</h5>
+              accept="image/*" (change)="handleFilesImages($event);"></i><span class="item-text">Photo</span></h5>
       </div>
       <div class="icons">
         <h5><i class="fa fa-1x fa-video-camera" aria-hidden="true">
             <input type="file" #fileVideoInput name="video" id="videoInput" (click)="fileVideoInput.value = null"
               accept="video/mp4,video/x-m4v,video/*" (change)="handleFilesVideo($event);">
-          </i>Video</h5>
+          </i><span class="item-text">Video</span></h5>
       </div>
       <div class="icons">
-        <h5><i class="fa  fa-1x fa-smile-o" aria-hidden="true"></i>Feeling/Activity</h5>
+        <h5><i class="fa  fa-1x fa-smile-o" aria-hidden="true"></i><span class="item-text">Feeling/Activity</span></h5>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,7 +10,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalOpenCanDeactivateGuardGuard implements CanDeactivate<any> {
   constructor(
     public activeModal: NgbActiveModal,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router:Router
   ) {
   }
   canDeactivate(
@@ -23,6 +24,8 @@ export class ModalOpenCanDeactivateGuardGuard implements CanDeactivate<any> {
    let count = this.modalService.hasOpenModals();
    if(count){
      this.modalService.dismissAll('');
+     let currentStateRoute = currentState;
+     this.router.navigateByUrl[currentStateRoute.url];
      return false;
    } else{
     return true;

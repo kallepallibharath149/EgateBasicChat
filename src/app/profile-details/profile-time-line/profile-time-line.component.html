@@ -3,18 +3,20 @@
         <div #leftSideContainer class="left-section">
             <div class="grid-align" #leftSideContainerScroll>
                 <div class="photos-grid" style="">
-                    <app-photos-grid [currentProfileId]="currentProfileId" [photosArray]="photosArray" [photosGrid]="'photosGrid'">
+                    <app-photos-grid [currentProfileId]="currentProfileId" [userDetails]="userDetails" [photosArray]="photosArray"
+                        [photosGrid]="'photosGrid'">
                     </app-photos-grid>
                 </div>
                 <div class="friends-grid">
-                    <app-photos-grid [currentProfileId]="currentProfileId" [photosArray]="friendsArray"  [photosGrid]="'friendsGrid'">
+                    <app-photos-grid [currentProfileId]="currentProfileId" [userDetails]="userDetails" [photosArray]="friendsArray"
+                        [photosGrid]="'friendsGrid'">
                     </app-photos-grid>
                 </div>
             </div>
         </div>
-        <div class="right-section">
+        <div infiniteScroll [infiniteScrollDistance]="0.3" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+            class="right-section">
             <app-home [posts]="timeLinePosts" [usedIn]="'profile'"></app-home>
         </div>
     </div>
-
 </div>

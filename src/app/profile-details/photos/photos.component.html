@@ -5,3 +5,46 @@
         </div>
     </div>
  </div>
+
+ <ng-template #overlayRef let-modal>
+    <!-- <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create Post</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <img id="outputImage" class="image-review" [src]="" />
+      <video id="outputVideo" class="video-review" *ngIf="videoSrc" [src]="videoSrc" controls></video>
+    </div>
+    <div class="modal-footer footer-align">
+      <div>
+        <button type="button" class="btn btn-outline-dark" (click)="PostUserStory()">Post</button>
+      </div>
+    </div>
+     -->
+
+     <div class="overlay-container">
+      <div class="row m-0 overlay-flex-container">
+       <div class="col-md-8  col-sm-12 content-section">
+           <div class="image-container">
+            <div class="close-icon"><i (click)="modal.dismiss('Cross click')" class="fa fa-2x fa-times-circle" aria-hidden="true"></i></div>
+               <div class="blur-photo">
+                   <img class="img-fluid" [src]="currentOverlayObj.imgSrc" />
+               </div>
+               <div class="original-photo">
+                <img class="img-fluid" [src]="currentOverlayObj.imgSrc" /> 
+               </div>
+           </div>
+       </div>
+       <div class="col-md-4 col-sm-12 profile-section">
+         <div class="profile">
+            <div>
+              <app-profile-with-comments [userDetails]="userDetails"></app-profile-with-comments>
+            </div>
+         </div>
+       </div>
+      </div>
+     </div>
+  </ng-template>
+ 

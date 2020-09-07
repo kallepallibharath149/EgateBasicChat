@@ -30,10 +30,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     console.log(window.innerWidth);
     this.setLeftRightcontainerStyles();
   };
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event) {
-    console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-  };
   public setLeftRightcontainerStyles() {
     let topBannerHeight = 0;
     if (document.getElementById('topBanner')) {
@@ -56,11 +52,6 @@ export class AppComponent implements OnInit, AfterViewInit {
               private router: Router,
               private loginService:LoginServiceService,
               private httpService?:HttpService) {
-                location.onPopState(() => {
-
-                  console.log('pressed back!');
-          
-              });
     // customize default values of progress bars used by this component tree
     this.data = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],

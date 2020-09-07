@@ -2,14 +2,14 @@
     <div [class.hideComments]="!showCommentsContainer"  class="comment-container">
         <div *ngIf="_showComments">
             <ng-container *ngFor="let mainCommentObj of commentsArray; let commentIndex=index;">
-                <app-main-comment (updateReplyCommentArray)="updateMainArray($event.updatedObj,$event.addedreplyPostObj,commentIndex)"  [mainCommentObj]="mainCommentObj"></app-main-comment>
+                <app-main-comment [userDetails]="userDetails" (updateReplyCommentArray)="updateMainArray($event.updatedObj,$event.addedreplyPostObj,commentIndex)"  [mainCommentObj]="mainCommentObj"></app-main-comment>
             </ng-container>
            
         </div>
         <form #commentsForm autocomplete="off">
             <div class="flex-content">
                 <div class="profile">
-                    <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
+                    <div (click)="navigateToProfile()"> <img [src]="userDetails?.profileImageUrl?userDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
                 </div>
 
                 <div class="comment-input">

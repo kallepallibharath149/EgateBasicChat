@@ -14,11 +14,11 @@ export class FriendsComponent implements OnInit {
     private httpService?:HttpService) { }
 
   ngOnInit(): void {
-    this.getFriendsList();
     this.activatedRoute.paramMap.subscribe(params => {
       console.log(params.has('id')); // true has() ,get(),      getAll()
       console.log(params.get('id'));
       this.currentProfileId = params.get('id');
+      this.getFriendsList();
     });
   }
 

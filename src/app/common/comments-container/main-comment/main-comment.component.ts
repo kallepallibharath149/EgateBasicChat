@@ -13,6 +13,7 @@ export class MainCommentComponent implements OnInit, AfterViewInit {
   @ViewChild('replyCommentInput', {read:ElementRef,  static: true }) replyCommentInput: ElementRef;
   @ViewChild('replyCommentImageInput') replyCommentImageInput: ElementRef;
   @Input('mainCommentObj') mainCommentObj: any = null;
+  @Input('userDetails') userDetails : any;
   tempReplyCommentImage: any;
   showReplyPost: boolean = false;
   viewInitialized: boolean = false;
@@ -31,7 +32,7 @@ export class MainCommentComponent implements OnInit, AfterViewInit {
   }
 
   navigateToProfile() {
-    this.router.navigate(['/profile', 'raju']);
+    this.router.navigate(['/profile', this.userDetails.profileId]);
   }
 
   newReplyCommentHandler(commentForm: NgForm) {

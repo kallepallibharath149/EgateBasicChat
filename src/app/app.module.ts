@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 import {MessageService} from 'primeng/api';
@@ -46,9 +47,12 @@ import { AboutComponent } from './profile-details/about/about.component';
 
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { EventsListComponent } from './events/events-list/events-list.component';
+import { InvitationsComponent } from './events/invitations/invitations.component';
 
-import { ParentRootComponentComponent } from './parent-root-component/parent-root-component.component';
+
 import { CommentsContainerComponent } from './common/comments-container/comments-container.component';
+import { ProfileWithCommentsComponent } from './common/profile-with-comments/profile-with-comments.component';
+
 import { MainCommentComponent } from './common/comments-container/main-comment/main-comment.component';
 import { ReplyCommentComponent } from './common/comments-container/main-comment/reply-comment/reply-comment.component';
 import { ModalOpenCanDeactivateGuardGuard } from './common/guards/modal-open-can-deactivate-guard.guard';
@@ -60,6 +64,8 @@ import { EventPreviewComponent } from './events/event-preview/event-preview.comp
 import { HttpService } from './interceptors/http.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './interceptors/api.prefix.interceptor';
+
+
 
 
 @NgModule({
@@ -93,10 +99,10 @@ import { ApiPrefixInterceptor } from './interceptors/api.prefix.interceptor';
     AboutComponent,
     CreateEventComponent,
     EventsListComponent,
-    ParentRootComponentComponent,
      CommentsContainerComponent,
      MainCommentComponent, 
-     ReplyCommentComponent, LoginComponent, EventPreviewComponent,
+     ReplyCommentComponent, LoginComponent, EventPreviewComponent, InvitationsComponent,
+     ProfileWithCommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +113,7 @@ import { ApiPrefixInterceptor } from './interceptors/api.prefix.interceptor';
     NgbPaginationModule,
     NgbAlertModule,
     SharedServiceModule,
+    InfiniteScrollModule,
     DragulaModule.forRoot(),
     
   ],

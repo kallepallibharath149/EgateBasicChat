@@ -4,11 +4,11 @@
        <div class="menu-items">
        <div><h2 style="font-weight: bold;">Events</h2></div>
        <div>
-        <div><h5 class="item {{activeItem == 'Events'?'active':''}}" (click)="handleEvents();activeItem = 'Events'" style="font-weight: bold;"><i class="fa pr-2 fa-1x fa-calendar" aria-hidden="true"></i>Events</h5></div>
+        <div><h5 class="item {{activeItem == 'Events'?'active':''}}" (click)="handleEvents('events');activeItem = 'Events'" style="font-weight: bold;"><i class="fa pr-2 fa-1x fa-calendar" aria-hidden="true"></i>Events</h5></div>
         <div>
          <p-accordion class="toggle-accordion">
            <p-accordionTab header="Calendar">
-           <div class="item {{activeItem == 'Invitations'?'active':''}}" (click)="handleEvents();activeItem = 'Invitations'"><h5>Invitations</h5></div>
+           <div class="item {{activeItem == 'Invitations'?'active':''}}" (click)="handleEvents('invitations');activeItem = 'Invitations'"><h5>Invitations</h5></div>
            <div class="item {{activeItem == 'Your tickets'?'active':''}}" (click)="handleEvents();activeItem = 'Your tickets'"><h5>Your tickets</h5></div>
            <div class="item {{activeItem == 'Hosting'?'active':''}}" (click)="handleEvents();activeItem = 'Hosting'"><h5>Hosting</h5></div>
            <div class="item {{activeItem == 'Past events'?'active':''}}" (click)="handleEvents();activeItem = 'Past events'"><h5>Past events</h5></div>

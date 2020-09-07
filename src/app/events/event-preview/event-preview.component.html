@@ -1,7 +1,7 @@
 <div class="events-preview-container">
     <div class="flex-items">
         <div class="item" >
-            <div class="card" style="height: 100%;">
+            <div class="card card-top" style="height: 100%;">
                 <div class="image-section">
                     <img class="card-img-top event-list-image" [src]="previewEvent.eventPhotoPath" alt="Card image cap">
                 </div>
@@ -10,7 +10,7 @@
                     <h5 class="card-title"><b>{{previewEvent.eventName}}</b></h5>
                     <p class="card-text">{{previewEvent.eventDescription}}</p>
                  </div>
-                 <div (click)="showinvite=true" class="inviteFriends">
+                 <div  *ngIf="!previewEvent.eventInvited" (click)="showinvite=true" class="inviteFriends">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>Invite
                     <div *ngIf="showinvite" class="invite">
                         <div>
@@ -35,12 +35,26 @@
                         <b>Event Location</b>&nbsp;{{previewEvent.eventLocation}}
                     </div>
                 </div>
-                <div class="invitation-count">
-                  <div class="counts"><b>Invited</b><span>{{previewEvent.invitedCout?previewEvent.invitedCout:'0'}}</span></div> 
-                  <div class="counts"><b>Accepted</b><span>{{previewEvent.acceptedCount?previewEvent.acceptedCount:'0'}}</span></div> 
-                  <div class="counts"><b>Rejected</b><span>{{previewEvent.rejectedCount?previewEvent.rejectedCount:'0'}}</span></div> 
-                </div>
-                <app-comments-container  [commentsArray]="commentsArray"  (updateCommentArrayForReply)="updateCommentArrayForReply($event.updatedObj, $event.addedreplyPostObj, $event.index)" (updateCommentArray)="updateCommentArray($event.updatedArray,$event.addedPostObj)" [showComments]="showComments"></app-comments-container>
+                <div *ngIf="!previewEvent.eventInvited" class="invitation-count">
+                    <div class="counts"><b>Invited</b><span>{{previewEvent.invitedCout?previewEvent.invitedCout:'0'}}</span></div> 
+                    <div class="counts"><b>Accepted</b><span>{{previewEvent.acceptedCount?previewEvent.acceptedCount:'0'}}</span></div> 
+                    <div class="counts"><b>Rejected</b><span>{{previewEvent.rejectedCount?previewEvent.rejectedCount:'0'}}</span></div> 
+                  </div>
+                  <div *ngIf="previewEvent.eventInvited" class="invitation-count">
+                      <div *ngIf="!previewEvent.eventAcceptedStatus"  class="counts text-success" (click)="setEventAcceptedStatus(previewEvent,'Accepted')"><span><i class="fa fa-check-circle" aria-hidden="true"></i></span><b>Accept</b></div> 
+                      <div *ngIf="!previewEvent.eventAcceptedStatus"  class="counts text-secondary" (click)="setEventAcceptedStatus(previewEvent,'Rejected')"><span><i class="fa fa-times-circle" aria-hidden="true"></i></span><b>Reject</b></div> 
+                      <div *ngIf="!previewEvent.eventAcceptedStatus"  class="counts text-primary" (click)="setEventAcceptedStatus(previewEvent,'Tentative')"><span><i class="fa fa-dot-circle-o" aria-hidden="true"></i></span><b>Tentative</b></div> 
+                      <div *ngIf="!previewEvent.eventAcceptedStatus"  class="counts text-danger" (click)="setEventAcceptedStatus(previewEvent,'Deleted')"><span><i class="fa fa-trash" aria-hidden="true"></i></span><b>Delete</b></div> 
+                      <div *ngIf="previewEvent.eventAcceptedStatus == 'Accepted'"  class="counts text-success" ><span><i class="fa fa-check-circle" aria-hidden="true"></i></span><b>Accepted</b></div> 
+                      <div *ngIf="previewEvent.eventAcceptedStatus == 'Rejected'"  class="counts text-secondary" ><span><i class="fa fa-times-circle" aria-hidden="true"></i></span><b>Rejected</b></div> 
+                      <div *ngIf="previewEvent.eventAcceptedStatus == 'Tentative'"  class="counts text-primary" ><span><i class="fa fa-dot-circle-o" aria-hidden="true"></i></span><b>Tentative</b></div> 
+                      <div *ngIf="previewEvent.eventAcceptedStatus == 'Deleted'"  class="counts text-danger" ><span><i class="fa fa-trash" aria-hidden="true"></i></span><b>Deleted</b></div> 
+                    </div>
+                <app-comments-container [userDetails]="userDetails"
+                [commentsArray]="commentsArray"
+                (updateCommentArrayForReply)="updateCommentArrayForReply($event.updatedObj, $event.addedreplyPostObj, $event.index)"
+                (updateCommentArray)="updateCommentArray($event.updatedArray,$event.addedPostObj)"
+                [showComments]="showComments"></app-comments-container>
               </div>
         </div>
     </div>

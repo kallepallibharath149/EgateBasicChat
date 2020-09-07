@@ -1,5 +1,5 @@
 <div class="profile-container ">
-  <app-profile-cover-photos></app-profile-cover-photos>
+  <app-profile-cover-photos (profileDetails)="setProfileDetails($event)"></app-profile-cover-photos>
   <div>
     <div class="profile-name-section">
       <div class="pl-1"><h3><b>{{currentProfileName}}</b></h3></div>

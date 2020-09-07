@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DragulaService } from 'ng2-dragula';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -9,7 +10,7 @@ import { DragulaService } from 'ng2-dragula';
   styleUrls: ['./about.component.less']
 })
 export class AboutComponent implements OnInit, OnDestroy {
-
+  currentProfileId:string = 'raju';
   MANY_ITEMS = 'MANY_ITEMS';
   addWork: boolean = false;
   addUniversity: boolean = false;
@@ -84,7 +85,8 @@ export class AboutComponent implements OnInit, OnDestroy {
     "name": null
   };
 
-  constructor(private dragulaService: DragulaService) {
+  constructor(private dragulaService: DragulaService,
+              private activatedRoute: ActivatedRoute) {
 
     dragulaService.createGroup(this.MANY_ITEMS, {
       revertOnSpill: true,
@@ -117,13 +119,18 @@ export class AboutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentActiveItem = this.aboutActionItems[0];
+    this.activatedRoute.paramMap.subscribe(params => {
+      console.log(params.has('id')); // true has() ,get(),      getAll()
+      console.log(params.get('id'));
+      this.currentProfileId = params.get('id');
+    });
   }
 
   setCurrentActiveTab(item) {
     this.currentActiveItem = item;
     this.cancellAllEditMode();
-
   }
+
   saveForm(type, ngForm) {
     if (type == 'work') {
       let workObj = Object.assign({}, this.workAddObj);
@@ -142,6 +149,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
     this.resetForm(ngForm);
   }
+  
   resetForm(form: NgForm) {
     form.reset();
   }

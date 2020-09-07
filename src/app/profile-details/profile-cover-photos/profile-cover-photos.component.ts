@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as $ from 'jquery';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserPostsService } from '../../home/user-posts/user-post-service/user-posts-service';
 import { HttpService } from '@app/interceptors/http.service';
+import { ActivatedRoute } from '@angular/router';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-profile-cover-photos',
@@ -14,8 +16,12 @@ export class ProfileCoverPhotosComponent implements OnInit {
 
 //  @Input('coverPhoto') coverPhoto = '../../assets/images/profile.jpg';
 //  @Input('profilePhoto') profilePhoto = '../../assets/images/profile.jpg';
+userDetails: any = null;
+isMyprofile: boolean = false;
+@Output('profileDetails') profileDetails = new EventEmitter<any>()
 @Input('coverPhoto') coverPhoto = '';
 @Input('profilePhoto') profilePhoto = '';
+currentProfileId:string = null;
 proFileDetailsresponseObj: any ;
  selectedPhotoUrl : any ;
 
@@ -30,12 +36,34 @@ proFileDetailsresponseObj: any ;
                private ref: ChangeDetectorRef , 
                private modalService?: NgbModal,
                private userPostsService? : UserPostsService,
-               private httpService?:HttpService
-               
+               private httpService?:HttpService,
+               private activatedRoute?: ActivatedRoute,
+               private globalEmitterService?: GlobalEmittingEventsService,
               ) { }
 
   ngOnInit(): void {
-  this.getProfileDetails();
+   this.activatedRoute.paramMap.subscribe(params => {
+    console.log(params.has('id')); // true has() ,get(),      getAll()
+    console.log(params.get('id'));
+    this.currentProfileId = params.get('id');
+    let loggedIndetails = this.globalEmitterService.getLoggedInUserDetails();
+    if(this.userDetails && this.currentProfileId ==  this.userDetails.profileId){
+      this.isMyprofile = true;
+    } else if(this.userDetails &&  this.currentProfileId !=  this.userDetails.profileId){
+      this.isMyprofile = false;
+    }
+    this.getProfileDetails();
+  });
+  this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
+    if(userDetails != false){
+      this.userDetails = userDetails;
+      if(this.currentProfileId ==  this.userDetails.profileId){
+        this.isMyprofile = true;
+      } else if(this.currentProfileId !=  this.userDetails.profileId){
+        this.isMyprofile = false;
+      }
+    }
+  });
   }
 
 
@@ -45,6 +73,7 @@ proFileDetailsresponseObj: any ;
       this.profilePhoto = response.profileImageUrl;
       this.coverPhoto = response.profileCoverImageUrl;
       this.proFileDetailsresponseObj = response;
+      this.profileDetails.emit(response);
      },(error)=>{
        console.log(error);
      })

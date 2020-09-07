@@ -90,7 +90,7 @@ export class NavigateBookmarksComponent implements OnInit {
   }
 
   navigate(navItem) {
-    if(navItem.label = 'Profile'){
+    if(navItem.label == 'Profile'){
       let profileId = this.globalEmitterService.getLoggedInUserDetails().profileId;
       let profileName = this.globalEmitterService.getLoggedInUserDetails().name;
       this.globalEmitterService.setCurrentProfileObj(profileName);

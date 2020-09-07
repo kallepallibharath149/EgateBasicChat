@@ -17,12 +17,17 @@ export class EventsComponent implements OnInit {
     this.globalEmitterService.emitcurrentNavigation('/events');
   }
 
-  handleEvents(){
-    this.router.navigate(['/events']);
+  handleEvents(route?){
+    if(route && route !='events'){
+      this.router.navigate([`/events/${route}`]);
+    } else {
+      this.router.navigate([`/events`]);   
+    }
+   
   }
 
   createEvent(){
- this.router.navigate(['/events/create']);
+   this.router.navigate(['/events/create']);
   }
 
 }

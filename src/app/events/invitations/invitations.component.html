@@ -29,10 +29,10 @@
                         <div *ngIf="!event.eventAcceptedStatus"  class="counts text-secondary" (click)="setEventAcceptedStatus(event,i,'Rejected')"><span><i class="fa fa-times-circle" aria-hidden="true"></i></span><b>Reject</b></div> 
                         <div *ngIf="!event.eventAcceptedStatus"  class="counts text-primary" (click)="setEventAcceptedStatus(event,i,'Tentative')"><span><i class="fa fa-dot-circle-o" aria-hidden="true"></i></span><b>Tentative</b></div> 
                         <div *ngIf="!event.eventAcceptedStatus"  class="counts text-danger" (click)="setEventAcceptedStatus(event,i,'Deleted')"><span><i class="fa fa-trash" aria-hidden="true"></i></span><b>Delete</b></div> 
-                        <div *ngIf="event.eventAcceptedStatus == 'Accepted'"  class="counts text-success" ><span><i class="fa fa-check-circle" aria-hidden="true"></i></span><b>Accept</b></div> 
-                        <div *ngIf="event.eventAcceptedStatus == 'Rejected'"  class="counts text-secondary" ><span><i class="fa fa-times-circle" aria-hidden="true"></i></span><b>Reject</b></div> 
+                        <div *ngIf="event.eventAcceptedStatus == 'Accepted'"  class="counts text-success" ><span><i class="fa fa-check-circle" aria-hidden="true"></i></span><b>Accepted</b></div> 
+                        <div *ngIf="event.eventAcceptedStatus == 'Rejected'"  class="counts text-secondary" ><span><i class="fa fa-times-circle" aria-hidden="true"></i></span><b>Rejected</b></div> 
                         <div *ngIf="event.eventAcceptedStatus == 'Tentative'"  class="counts text-primary" ><span><i class="fa fa-dot-circle-o" aria-hidden="true"></i></span><b>Tentative</b></div> 
-                        <div *ngIf="event.eventAcceptedStatus == 'Deleted'"  class="counts text-danger" ><span><i class="fa fa-trash" aria-hidden="true"></i></span><b>Delete</b></div> 
+                        <div *ngIf="event.eventAcceptedStatus == 'Deleted'"  class="counts text-danger" ><span><i class="fa fa-trash" aria-hidden="true"></i></span><b>Deleted</b></div> 
                       </div>
                   </div>
             </div>

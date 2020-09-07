@@ -88,10 +88,21 @@ export class LeftContainerComponent implements OnInit {
     private globalEmitterService: GlobalEmittingEventsService) { }
 
   ngOnInit(): void {
+
+   this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
+     if(userDetails != false){
+      let profileIndex =  this.navigationItems.findIndex((item)=>{
+        return item.label == 'Profile';
+      });
+      this.navigationItems[profileIndex].profileImage = userDetails.profileImageUrl; 
+      this.navigationItems[profileIndex].profileName =  userDetails.name;
+     }
+   });
+  
   }
 
   navigate(navItem) {
-    if(navItem.label = 'Profile'){
+    if(navItem.label == 'Profile'){
       let profileId = this.globalEmitterService.getLoggedInUserDetails().profileId;
       let profileName = this.globalEmitterService.getLoggedInUserDetails().name;
       this.globalEmitterService.setCurrentProfileObj(profileName);

@@ -1,12 +1,10 @@
 <div>
   <div class="card mt-2 text-center">
   <ng-container [ngSwitch]="postDetails.postCategory">
-
-
     <!-- shared  post view -->
     <ng-container *ngSwitchCase="'share'">
       <div class="card-header">
-        <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
+        <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
         <div (click)="navigateToProfile()" class="profileName">{{'Satya Sai Kumar'}} Shared this post</div>
       </div>
       <div class="card-body p-0">
@@ -31,7 +29,7 @@
     <!-- default post view -->
     <ng-container *ngSwitchDefault>
       <div class="card-header">
-        <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
+        <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
         <div (click)="navigateToProfile()" class="profileName">{{postDetails.userName?postDetails.userName:'Satya Sai Kumar'}}</div>
       </div>
       <div class="card-body p-0">
@@ -76,7 +74,7 @@
         </div>
       </div>
       <div>
-        <app-comments-container
+        <app-comments-container [userDetails]="userDetails"
           (updateCommentArrayForReply)="updateCommentArrayForReply($event.updatedObj, $event.addedreplyPostObj, $event.index)"
           (updateCommentArray)="updateCommentArray($event.updatedArray,$event.addedPostObj)"
           [commentsArray]="commentsArray" [focusInput]="focusInput" [showComments]="showComments">
