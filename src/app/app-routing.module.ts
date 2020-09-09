@@ -22,6 +22,9 @@ import { ModalOpenCanDeactivateGuardGuard } from './common/guards/modal-open-can
 import { LoginComponent } from './login/login.component';
 import { EventPreviewComponent } from './events/event-preview/event-preview.component';
 import { InvitationsComponent } from './events/invitations/invitations.component';
+import { GroupsListComponent } from './groups/groups-list/groups-list.component';
+import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.component';
+import { CreategroupComponent } from './groups/creategroup/creategroup.component';
 
 
 const routes: Routes = [
@@ -40,7 +43,13 @@ const routes: Routes = [
   { path: 'connections', component: ConnectionsComponent },
   { path: 'movies', component: MoviesComponent },
   { path: 'messenger', component: MessengerComponent },
-  { path: 'groups', component: GroupsComponent },
+  { path: 'groups', component: GroupsComponent,
+  children: [
+    { path: '', component: GroupsListComponent },
+    { path: 'preview', component: GroupspreviewComponent },
+    { path: 'create', component: CreategroupComponent },
+    // { path: 'invitations', component: InvitationsComponent }
+  ] },
   { path: 'events', component: EventsComponent ,
   children: [
     { path: '', component: EventsListComponent },

@@ -1,0 +1,78 @@
+<div class="create-group">
+    <div class="create-container">
+        <div class="card-wraper">
+            <p-card class="event-card" styleClass="ui-card-shadow">
+                <p-header>
+                    <div class="img-container">
+                        <img src="Card" [src]="createGroupObj.groupPhotoPath">
+                        <div (click)="groupPhotoUpload.value =null; groupPhotoUploading()"
+                            [title]="'Update group photo'" class="photoUpload">
+                            <div class="wrapper">
+                                <input type="file" #groupPhotoUpload accept="image/*"
+                                    (change)="handlePhotoUpload($event);" id="group_photo_upload" />
+                            </div>
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </p-header>
+                <form #groupForm="ngForm" autocomplete="off">
+                    <div class="mt-4">
+                        <span class="ui-float-label">
+                            <input id="float-input" class="ui-inputtext" type="text" required size="30"
+                                name="grouptName" [(ngModel)]="createGroupObj.groupName" pInputText>
+                            <label style="font-weight: bold;" for="float-input">Group Name</label>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span class="ui-float-label">
+                            <textarea id="float-discription" name="groupDescription" pInputTextarea
+                                [(ngModel)]="createGroupObj.groupDescription"></textarea>
+                            <label style="font-weight: bold;" for="float-discription">Description</label>
+                        </span>
+                    </div>
+                    <div class="mt-2">
+                        <h6 class="first">Group category</h6>
+                        <div class="ui-g">
+                            <div class="ui-g-3">
+                                <p-radioButton required name="group1" value="Private" label="Private"
+                                    [(ngModel)]="createGroupObj.groupCategory" inputId="opt1"></p-radioButton>
+                            </div>
+                            <div class="ui-g-3">
+                                <p-radioButton required name="group1" value="Public" label="Public"
+                                    [(ngModel)]="createGroupObj.groupCategory" inputId="opt2"></p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p-footer>
+                            <button class="ui-button-rounded mr-3" (click)="addNewGroup(groupForm)" pButton
+                                type="button" label="Create Group" [disabled]="!groupForm.valid" icon="pi pi-check"
+                                style="margin-right: .25em;background-color: #007bff;"></button>
+                            <button pButton class="ui-button-rounded  ui-button-secondary"
+                                (click)="resetForm(groupForm,content)" type="button" label="Cancel"
+                                icon="pi pi-times"></button>
+                        </p-footer>
+                    </div>
+                </form>
+            </p-card>
+        </div>
+    </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Confirm discard</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5>Are you sure, discard your changes ?</h5>
+        </div>
+        <div class="modal-footer footer-align">
+            <div>
+                <button type="button" class="btn mr-3 btn-outline-primary"
+                    (click)="confirmDiscard(groupForm)">Discard</button>
+                <button type="button" class="btn btn-outline-dark" (click)="closeModal(modal)">cancel</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

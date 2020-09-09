@@ -64,8 +64,10 @@ import { EventPreviewComponent } from './events/event-preview/event-preview.comp
 import { HttpService } from './interceptors/http.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './interceptors/api.prefix.interceptor';
-
-
+import { GroupsListComponent } from './groups/groups-list/groups-list.component';
+import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.component';
+import { CreategroupComponent } from './groups/creategroup/creategroup.component';
+import { GroupsService } from './groups/groups.service';
 
 
 @NgModule({
@@ -103,6 +105,10 @@ import { ApiPrefixInterceptor } from './interceptors/api.prefix.interceptor';
      MainCommentComponent, 
      ReplyCommentComponent, LoginComponent, EventPreviewComponent, InvitationsComponent,
      ProfileWithCommentsComponent,
+     GroupsListComponent,
+     GroupspreviewComponent,
+     CreategroupComponent,
+     
   ],
   imports: [
     BrowserModule,
@@ -119,7 +125,7 @@ import { ApiPrefixInterceptor } from './interceptors/api.prefix.interceptor';
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
     
-    HttpService, 
+    HttpService, GroupsService,
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     GlobalEmittingEventsService,LoginServiceService,
               UserPostsService, MessageService,ModalOpenCanDeactivateGuardGuard,NgbActiveModal

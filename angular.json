@@ -36,9 +36,6 @@
               "src/assets/css/primeng.min.css",
               "src/assets/css/primeicons.css",
 
-              "node_modules/quill/dist/quill.core.css", 
-              "node_modules/quill/dist/quill.snow.css",
-
               "node_modules/dragula/dist/dragula.css"
             ],
             

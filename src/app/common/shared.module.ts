@@ -26,7 +26,8 @@ import {
   EditorModule,
   InputSwitchModule,
   CardModule,
-  MultiSelectModule
+  MultiSelectModule,
+  RadioButtonModule
 } from '@app/components/public_api';
 import { MessagesModule } from '@app/components/public_api';
 import { MessageModule } from '@app/components/public_api';
@@ -71,6 +72,7 @@ import { HttpClientModule } from '@angular/common/http';
     DialogModule,
     CardModule,
     MultiSelectModule,
+    RadioButtonModule
   ],
   providers: [],
 })

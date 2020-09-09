@@ -66,6 +66,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
     let postCommentObj: any = {
       profileName: 'Raghu',
       profilePhoto: '',
+      profileId:'',
       commentType: 'text',
       commentText: '',
       commentFileUrl: '',

@@ -1,1 +1,24 @@
-<p>groups works!</p>
+<div class="groupscontiner mt-2">
+<div class="row m-0">
+ <div class="col-md-2 col-sm-12 grops-menu">
+    <div class="group-menubar">
+        <div class="menu-items">
+         <div><h3 class="menu-head" style="font-weight: bold;">Groups</h3></div>
+          <div class="menu-item">
+           <div><h5 (click)="navigateGroupList();activeItem = 'Group list'" class="item {{activeItem == 'Group list'?'active':''}}"  style="font-weight: bold;">
+            <i class="fa pr-2 fa-1x fa-calendar" aria-hidden="true"></i>Groups List</h5>
+          </div>
+          <div>
+           <div (click)="navigateCreateGroup();activeItem = 'Create New Group'" class="item create {{activeItem == 'Create New Group'?'active':''}}">
+             <h6 style="font-weight: bold;"><i class="fa pr-2 fa-1x fa-plus" aria-hidden="true"></i>Create Group</h6>
+           </div>
+          </div>
+        </div>
+        </div>
+       </div>
+ </div> 
+ <div class="col-md-10 col-sm-12">
+    <router-outlet></router-outlet>
+ </div>   
+</div>
+</div>

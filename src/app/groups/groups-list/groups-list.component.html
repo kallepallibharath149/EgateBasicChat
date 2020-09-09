@@ -1,0 +1,24 @@
+<div class="group-list-container">
+    <div>
+        <div class="flex-items">
+            <ng-container *ngIf="groupList.length > 0">
+                <div (click)="groupPrevievNavigation(group);" class="item"
+                    *ngFor="let group of groupList; let i= index;">
+                    <div class="card card-top" style="width: 330px; height: 100%;">
+                        <img class="card-img-top group-list-image" [src]="group.groupPhotoPath" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{group.groupName}}</b></h5>
+                            <p class="card-text">{{group.groupDescription}}</p>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <h6>Group Category</h6>
+                                <div>{{group.groupCategory}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

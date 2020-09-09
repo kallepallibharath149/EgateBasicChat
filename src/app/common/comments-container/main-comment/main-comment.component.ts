@@ -39,6 +39,7 @@ export class MainCommentComponent implements OnInit, AfterViewInit {
     let replyPostCommentObj: any = {
       profileName: 'Raghu',
       profilePhoto: '',
+      profileId: '',
       commentType: 'text',
       commentText: '',
       commentFileUrl: '',

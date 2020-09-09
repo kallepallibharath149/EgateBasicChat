@@ -1,0 +1,47 @@
+:host ::ng-deep {
+    p-card.event-card{
+        .ui-card-header{
+            width: 500px !important;
+        }   
+    }
+    @media only screen and (max-width: 600px) {
+        p-card.event-card{
+            .ui-card-header{
+                width: 100% !important;
+            }   
+        }
+      }
+}
+
+.create-container{
+    display: flex;
+    justify-content: center;
+    .img-container{
+        position: relative;
+        img{
+            height: 300px;
+        }
+        .photoUpload{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            cursor: pointer;
+            .wrapper {
+                visibility: hidden;
+                width     : 0px;
+                height    : 0px;
+                opacity   : 0;
+            }
+            i{
+                font-size: 25px;
+            }
+        }
+    }
+}
+.card-wraper{
+    border: 2px solid grey;
+    border-radius: 5px;
+    overflow: hidden;
+}

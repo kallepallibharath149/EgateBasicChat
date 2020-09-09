@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class CreateEventComponent implements OnInit {
   modalReference: any;
   closeResult: any;
-  createEvent: {[key: string]: any} = {
+   createEvent: {[key: string]: any} = {
     eventName: '',
     eventDescription: '',
     fromDate: null,

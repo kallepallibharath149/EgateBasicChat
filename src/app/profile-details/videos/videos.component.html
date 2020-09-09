@@ -38,7 +38,7 @@
                 <img class="img-fluid" [src]="currentOverlayObj.imgSrc" /> 
                </div>
            </div> -->
-           <div class="image-container" *ngIf="currentOverlayObj.videoUrl">
+           <div class="video-container" *ngIf="currentOverlayObj.videoUrl">
             <div class="close-icon"><i (click)="modal.dismiss('Cross click')" class="fa fa-2x fa-times-circle" aria-hidden="true"></i></div>
             <video id="outputVideo" class="video-review"  [src]="currentOverlayObj.videoUrl" controls></video>
            </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalEmittingEventsService } from '../services/global-emitting-events.service';
+import { Router } from '@angular/router';
+import { GroupsService } from './groups.service';
 
 @Component({
   selector: 'app-groups',
@@ -7,11 +9,21 @@ import { GlobalEmittingEventsService } from '../services/global-emitting-events.
   styleUrls: ['./groups.component.less']
 })
 export class GroupsComponent implements OnInit {
-
-  constructor(private globalEmitterService:GlobalEmittingEventsService) { }
+  activeItem: any = null;
+  constructor(private globalEmitterService:GlobalEmittingEventsService,
+    private router:Router,
+    private groupService:GroupsService) { }
 
   ngOnInit(): void {
+    this.activeItem = 'Group list'
     this.globalEmitterService.emitcurrentNavigation('/groups');
+  }
+
+  navigateCreateGroup(){
+   this.router.navigate(['/groups/create']);
+  }
+  navigateGroupList(){
+    this.router.navigate(['/groups']);  
   }
 
 }
