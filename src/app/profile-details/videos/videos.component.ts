@@ -68,7 +68,7 @@ export class VideosComponent implements OnInit {
          response.forEach(video=>{
           let videoDetails:any = {};
           videoDetails.videoSrc = video.coverPhotoUrl;
-          videoDetails.videoUrl = video.url;
+          videoDetails.videoUrl = 'assets/video/samplevideo.mp4';
           this.videosArray.push(videoDetails);
         })
       }
