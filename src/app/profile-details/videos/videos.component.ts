@@ -19,10 +19,10 @@ export class VideosComponent implements OnInit {
   userDetails:any = null;
   @ViewChild ('overlayRef') overlayRef:TemplateRef<any> ;
   videosArray: Array<any> = [
-    {
-      "videoSrc": "../../assets/images/profile.jpg",
-      "videoUrl" :"../../assets/video/samplevideo.mp4" 
-     },
+    // {
+    //   "videoSrc": "../../assets/images/profile.jpg",
+    //   "videoUrl" :"../../assets/video/samplevideo.mp4" 
+    //  },
   ]
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -68,7 +68,7 @@ export class VideosComponent implements OnInit {
          response.forEach(video=>{
           let videoDetails:any = {};
           videoDetails.videoSrc = video.coverPhotoUrl;
-          videoDetails.videoUrl = 'assets/video/samplevideo.mp4';
+          videoDetails.videoUrl = 'https://www.w3schools.com/tags/movie.ogg';
           this.videosArray.push(videoDetails);
         })
       }

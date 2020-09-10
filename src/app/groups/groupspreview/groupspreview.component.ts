@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupsService } from '../groups.service';
+import { groups } from '../groups.model';
 
 @Component({
   selector: 'app-groupspreview',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./groupspreview.component.less']
 })
 export class GroupspreviewComponent implements OnInit {
-
-  constructor() { }
+  group: groups;
+  constructor ( private groupService:GroupsService) { }
 
   ngOnInit(): void {
+    this.group = {
+      ...this.groupService.groupPreviewObj
+    }
   }
 
 }

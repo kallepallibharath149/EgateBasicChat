@@ -40,7 +40,7 @@
            </div> -->
            <div class="video-container" *ngIf="currentOverlayObj.videoUrl">
             <div class="close-icon"><i (click)="modal.dismiss('Cross click')" class="fa fa-2x fa-times-circle" aria-hidden="true"></i></div>
-            <video id="outputVideo" class="video-review"  [src]="currentOverlayObj.videoUrl" controls></video>
+            <video id="outputVideo" preload="none" class="video-review"  [src]="currentOverlayObj.videoUrl" controls></video>
            </div>
        </div>
        <div class="col-md-4 col-sm-12 profile-section">

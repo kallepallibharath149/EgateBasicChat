@@ -79,14 +79,6 @@ proFileDetailsresponseObj: any ;
      })
   }
 
-  getProfileCoverPhoto(){
-   return this.domSanitizationService.bypassSecurityTrustUrl( this.coverPhoto );
-  }
-
-  getProfilePhoto(){
-    return this.domSanitizationService.bypassSecurityTrustUrl(this.profilePhoto);
-   }
-
    coverPhotoUpload(){
       $("#cover-photo-upload").click();
    }

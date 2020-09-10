@@ -8,29 +8,24 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   providedIn: 'root'
 })
 export class ModalOpenCanDeactivateGuardGuard implements CanDeactivate<any> {
-  constructor(
-    public activeModal: NgbActiveModal,
-    private modalService: NgbModal,
-    private router:Router
-  ) {
-  }
+  constructor ( public activeModal: NgbActiveModal,
+               private modalService: NgbModal,
+               private router: Router
+               ) { }
+
   canDeactivate(
     component: any,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot,
-    ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let com = component;
-   let count = this.modalService.hasOpenModals();
-   if(count){
-     this.modalService.dismissAll('');
-     let currentStateRoute = currentState;
-     this.router.navigateByUrl[currentStateRoute.url];
-     return false;
-   } else{
-    return true;
-   }
-
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    let modalOpenStatus = this.modalService.hasOpenModals();
+    if (modalOpenStatus) {
+      this.modalService.dismissAll('');
+      return false;
+    } else {
+      return true;
+    }
   }
-  
+
 }

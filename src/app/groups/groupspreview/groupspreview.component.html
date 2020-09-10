@@ -1,3 +1,28 @@
 <div class="groups-preview">
- group preview
+    <div class="group-list-container">
+        <div>
+            <div class="flex-items">
+                    <div class="item">
+                        <div class="card card-top">
+                            <div class="image-wrapper">
+                                <div class="blur-photo">
+                                    <img class="img-fluid" [src]="group.groupPhotoPath" />
+                                </div>
+                                <img class="rounded img-fluid group-list-image" [src]="group.groupPhotoPath" alt="Card image cap">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><b>{{group.groupName}}</b></h5>
+                                <p class="card-text">{{group.groupDescription}}</p>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <h6>Group Category</h6>
+                                    <div>{{group.groupCategory}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 </div>
