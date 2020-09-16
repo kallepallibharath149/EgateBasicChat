@@ -59,3 +59,46 @@
         height: 100%;
     }
 }
+.ellipse-icon{
+    position: absolute;
+    z-index: 3;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #c3ae8e;
+    border-radius: 10px;
+}
+.menu-options{
+   //  height: 150px;
+     overflow: auto;
+    .item{
+     padding: 5px;
+     margin: 2px;
+     background: #b3abae;
+     &:hover{
+        background-color: rgba(255, 0, 0, 0.1);  
+     }   
+    }
+}
+.details{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    .item1{
+        padding-right: 10px;
+        flex: 1;
+    }
+    .item2{
+       flex: 1;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .details{
+        justify-content: space-around;
+    }
+}
+.friends-autocomplete{
+    width : 80%;
+}

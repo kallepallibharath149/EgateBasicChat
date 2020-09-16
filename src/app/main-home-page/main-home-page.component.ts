@@ -51,7 +51,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
 
   ngOnInit(): void {
     this.globalEmitterService.emitcurrentNavigation('/home');
-    this.getInitialLatestPosts();
+   // this.getInitialLatestPosts();
   }
 
   ngAfterViewInit() {
@@ -101,7 +101,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
 
 
   onScroll() {
-    this.getLatestPosts();
+   // this.getLatestPosts();
   }
 
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { UserPostsService } from '@app/home/user-posts/user-post-service/user-posts-service';
 import { MessageService } from '@app/components/public_api';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { groupsActions } from '@app/groups/groups.model';
 
 @Component({
   selector: 'app-event-preview',
@@ -9,12 +11,29 @@ import { GlobalEmittingEventsService } from '@app/services/global-emitting-event
   styleUrls: ['./event-preview.component.less']
 })
 export class EventPreviewComponent implements OnInit, OnDestroy {
+  modalReference:any = null;
   userDetails: any = null;
   previewEvent:any;
   commentsArray : Array<any> = [];
   showComments: boolean = false;
 
+  showItemsHeight = '100px';
+  actionItems: Array<groupsActions> = [
+    {
+      "label": 'Change Event Status',
+      "show": true,
+      "showTo": []
+    }
+  ];
   showinvite:boolean = false;
+  countries = [
+    { name: 'Accept' ,value: 'Accepted'},
+    { name: 'Reject' ,value: 'Rejected' },
+    { name: 'Tentative' ,value: 'Tentative' },
+    { name: 'Delete' ,value: 'Deleted' },
+  ]
+  selectedCountry: any = [];
+  @ViewChild('updateInvitationStatus') updateInvitationStatus;
 
   item:any;
   items = [
@@ -29,8 +48,10 @@ export class EventPreviewComponent implements OnInit, OnDestroy {
     {label: 'VW', value: 'VW'},
     {label: 'Volvo', value: 'Volvo'},
 ];
-  constructor(private userPostsService:UserPostsService, public messageService: MessageService,
-    private globalEmitterService: GlobalEmittingEventsService) { 
+  constructor(private userPostsService:UserPostsService, 
+             public messageService: MessageService,
+             private globalEmitterService: GlobalEmittingEventsService,
+             private modalService: NgbModal) { 
     this.previewEvent = Object.assign({},this.userPostsService.previewEvent,
       );
   }
@@ -40,7 +61,21 @@ export class EventPreviewComponent implements OnInit, OnDestroy {
       if(userDetails != false){
         this.userDetails = userDetails;
       }
-    }); 
+    });
+    this.filterShowActions();
+  }
+
+  filterShowActions() {
+    let height = 0;
+    this.actionItems.forEach(action => {
+      if (action.show) {
+        height = height + 35;
+      }
+    });
+    if (height > 150) {
+      height = 150;
+    }
+    this.showItemsHeight = height + 'px';
   }
 
   ngOnDestroy(){
@@ -65,6 +100,27 @@ export class EventPreviewComponent implements OnInit, OnDestroy {
 
      setEventAcceptedStatus(event, status){
       this.previewEvent.eventAcceptedStatus = status; 
+      }
+
+      updateEventStatus(status){
+        this.previewEvent.eventAcceptedStatus = status; 
+        this.modalReference.close();
+        this.selectedCountry = null;
+      }
+
+      menuAction(actionItem, index, actionLabel) {
+        if (actionLabel == 'Change Event Status') {
+          this.open(this.updateInvitationStatus);
+        }
+      }
+    
+      open(content) {
+        this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true });
+        this.modalReference.result.then((result) => {
+          // this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+        
+        });
       }
 
 }

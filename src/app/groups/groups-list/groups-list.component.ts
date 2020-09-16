@@ -15,28 +15,32 @@ export class GroupsListComponent implements OnInit {
       groupDescription: 'group to share latest info related to jobs', 
       privateChanel: false,
       groupPhotoPath: 'assets/eventsImages/usercard.png',
-      groupCategory: 'Public'
+      groupCategory: 'Public',
+      memberType: 'admin'
     },
     {
       groupName: 'It Employees Group',
       groupDescription: 'group to share latest info related to jobs', 
       privateChanel: false,
       groupPhotoPath: 'assets/eventsImages/usercard.png',
-      groupCategory: 'Public'
+      groupCategory: 'Public',
+      memberType: 'mainAdmin'
     },
     {
       groupName: 'It Employees Group',
       groupDescription: 'group to share latest info related to jobs', 
       privateChanel: false,
       groupPhotoPath: 'assets/eventsImages/usercard.png',
-      groupCategory: 'Public'
+      groupCategory: 'Public',
+      memberType: 'member'
     },
     {
       groupName: 'It Employees Group',
       groupDescription: 'group to share latest info related to jobs', 
       privateChanel: false,
       groupPhotoPath: 'assets/eventsImages/usercard.png',
-      groupCategory: 'Public'
+      groupCategory: 'Public',
+      memberType: 'member'
     }
   ];
   constructor(private router:Router,
@@ -47,9 +51,24 @@ export class GroupsListComponent implements OnInit {
       if(newGroup != false){
         this.groupList.push(newGroup);
       }
-    })
+    });
+    this.checkAdminStatus();
   }
 
+  checkAdminStatus(){
+    this.groupList.forEach((group:groups)=>{
+      if(group.memberType == 'admin' || group.memberType =='mainAdmin'){
+         group.isAdmin = true;
+         group.isMainAdmin = false;
+        if(group.memberType =='mainAdmin'){
+        group.isMainAdmin = true;
+        }
+      } else{
+        group.isAdmin = false;
+        group.isMainAdmin = false;
+      }
+    });
+  }
   groupPrevievNavigation(group){
   this.groupService.setGroupPreviewObject(group);
   this.router.navigate(['/groups/preview']);

@@ -2,6 +2,16 @@
     <div class="flex-items">
         <div class="item" >
             <div class="card card-top" style="height: 100%;">
+                <ng-template #popTitle>
+                    <div [ngStyle]="{height: showItemsHeight}" class="menu-options d-flex flex-column">
+                        <ng-container *ngFor="let action of actionItems; let index=index;">
+                            <div *ngIf="action.show" (click)="menuAction(action,index,action.label)" class="item">
+                                {{action.label}}</div>
+                        </ng-container>
+                    </div>
+                </ng-template>
+                <div placement="left" [ngbPopover]="popTitle" container="body" class="ellipse-icon"><i
+                        class="fa fa-2x fa-ellipsis-v" aria-hidden="true"></i></div>
                 <div class="image-section">
                     <img class="card-img-top event-list-image" [src]="previewEvent.eventPhotoPath" alt="Card image cap">
                 </div>
@@ -59,3 +69,32 @@
         </div>
     </div>
 </div>
+
+<ng-template #updateInvitationStatus let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Update invitation Status</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="friends-autocomplete">
+            <p-dropdown [options]="countries" [resetFilterOnHide]="true" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="false" [showClear]="true" placeholder="Select a status">
+                <ng-template pTemplate="selectedItem">
+                    <div class="country-item country-item-value"  *ngIf="selectedCountry">
+                        <div>{{selectedCountry.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.value.name}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="updateEventStatus(selectedCountry.value)"  class="btn btn-outline-success">Update</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>

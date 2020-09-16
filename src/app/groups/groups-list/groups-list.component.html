@@ -11,9 +11,17 @@
                             <p class="card-text">{{group.groupDescription}}</p>
                         </div>
                         <div class="card-body">
-                            <div>
-                                <h6>Group Category</h6>
-                                <div>{{group.groupCategory}}</div>
+                            <div class="details">
+                                <div class="item1"><h6>Group Category</h6></div>
+                                <div class="item2">{{group.groupCategory}}</div>
+                            </div>
+                            <div *ngIf="group.isMainAdmin" class="details">
+                                <div class="item1"><h6>Group Main Admin</h6></div>
+                                <div class="item2"><p-inputSwitch readonly="true" [(ngModel)]="group.isMainAdmin"></p-inputSwitch></div> 
+                              </div>
+                            <div class="details">
+                              <div class="item1"><h6>Group Admin</h6></div>
+                              <div class="item2"><p-inputSwitch readonly="true" [(ngModel)]="group.isAdmin"></p-inputSwitch></div> 
                             </div>
                         </div>
                     </div>

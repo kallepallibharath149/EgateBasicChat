@@ -68,6 +68,8 @@ import { GroupsListComponent } from './groups/groups-list/groups-list.component'
 import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.component';
 import { CreategroupComponent } from './groups/creategroup/creategroup.component';
 import { GroupsService } from './groups/groups.service';
+import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
+import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
 
 
 @NgModule({
@@ -108,6 +110,8 @@ import { GroupsService } from './groups/groups.service';
      GroupsListComponent,
      GroupspreviewComponent,
      CreategroupComponent,
+     MainPageGroupsContainerComponent,
+     MiddleContainerComponent,
      
   ],
   imports: [

@@ -25,18 +25,19 @@ import { InvitationsComponent } from './events/invitations/invitations.component
 import { GroupsListComponent } from './groups/groups-list/groups-list.component';
 import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.component';
 import { CreategroupComponent } from './groups/creategroup/creategroup.component';
+import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
+import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'home', component: MainHomePageComponent,
-    // children: [
-    //   { path: '', component: HomeComponent }
-    //   // { path: '', redirectTo: 'overview', pathMatch: 'full' },
-    //   // { path: 'overview', component:  },
-    //   // { path: 'specs', component:  }
-    // ]
+    children: [
+      { path: '', component: MiddleContainerComponent },
+      { path: 'groupsPosts/:groupId', component:MainPageGroupsContainerComponent  },
+      // { path: 'specs', component:  }
+    ]
   },
   // {path:'notifications',component:LossprevenstionComponent},app-groups
   { path: 'news', component: NewsComponent },

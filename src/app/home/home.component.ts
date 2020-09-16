@@ -8,10 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   // to hide some content in prifile page added this input. Reused this component in profile page 
-  @Input('usedIn')usedIn: string = null;
+  @Input('showStories')showStories: boolean = true;
   @Input('posts')posts: Array<any> = [];
 
-  
   constructor() { }
 
   ngOnInit(): void {

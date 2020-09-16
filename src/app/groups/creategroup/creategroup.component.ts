@@ -19,9 +19,10 @@ export class CreategroupComponent implements OnInit {
   createGroupObj: groups = {
     groupName: null,
     groupDescription: null, 
-    privateChanel: false,
     groupPhotoPath: 'assets/eventsImages/usercard.png',
-    groupCategory: 'Public'
+    groupCoverPhoto: 'assets/eventsImages/usercard.png',
+    groupCategory: 'Public',
+    memberType: 'mainAdmin'
   };
   constructor(public domSanitizationService: DomSanitizer,
     private modalService: NgbModal,
@@ -42,6 +43,7 @@ export class CreategroupComponent implements OnInit {
   selectedFile = document.getElementById('group_photo_upload');
   let dataa = <File>selectedFile.files[0];
   let selectedPhotoUrl = URL.createObjectURL(dataa);
+  this.createGroupObj.groupCoverPhoto = this.domSanitizationService.bypassSecurityTrustUrl(selectedPhotoUrl);
   this.createGroupObj.groupPhotoPath = this.domSanitizationService.bypassSecurityTrustUrl(selectedPhotoUrl);
 }
 

@@ -27,7 +27,8 @@ import {
   InputSwitchModule,
   CardModule,
   MultiSelectModule,
-  RadioButtonModule
+  RadioButtonModule,
+  ListboxModule
 } from '@app/components/public_api';
 import { MessagesModule } from '@app/components/public_api';
 import { MessageModule } from '@app/components/public_api';
@@ -72,7 +73,8 @@ import { HttpClientModule } from '@angular/common/http';
     DialogModule,
     CardModule,
     MultiSelectModule,
-    RadioButtonModule
+    RadioButtonModule,
+    ListboxModule
   ],
   providers: [],
 })

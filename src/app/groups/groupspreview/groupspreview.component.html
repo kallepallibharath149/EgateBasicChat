@@ -2,27 +2,318 @@
     <div class="group-list-container">
         <div>
             <div class="flex-items">
-                    <div class="item">
-                        <div class="card card-top">
-                            <div class="image-wrapper">
-                                <div class="blur-photo">
-                                    <img class="img-fluid" [src]="group.groupPhotoPath" />
-                                </div>
-                                <img class="rounded img-fluid group-list-image" [src]="group.groupPhotoPath" alt="Card image cap">
+                <div class="item">
+                    <div class="card card-top">
+                        <ng-template #popTitle>
+                            <div [ngStyle]="{height: showItemsHeight}" class="menu-options d-flex flex-column">
+                                <ng-container *ngFor="let action of actionItems; let i=index;">
+                                    <div *ngIf="action.show" (click)="menuAction(action,i,action.label)" class="item">
+                                        {{action.label}}</div>
+                                </ng-container>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><b>{{group.groupName}}</b></h5>
-                                <p class="card-text">{{group.groupDescription}}</p>
+                        </ng-template>
+                        <div placement="left" [ngbPopover]="popTitle" container="body" class="ellipse-icon"><i
+                                class="fa fa-2x fa-ellipsis-v" aria-hidden="true"></i></div>
+                        <div class="image-wrapper">
+                            <div class="blur-photo">
+                                <img class="img-fluid" [src]="group.groupPhotoPath" />
                             </div>
-                            <div class="card-body">
-                                <div>
+                            <img class="rounded img-fluid group-list-image" [src]="group.groupPhotoPath"
+                                alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{group.groupName}}</b></h5>
+                            <p class="card-text">{{group.groupDescription}}</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="details">
+                                <div class="item1">
                                     <h6>Group Category</h6>
-                                    <div>{{group.groupCategory}}</div>
+                                </div>
+                                <div class="item2">{{group.groupCategory}}</div>
+                            </div>
+                            <div *ngIf="group.isMainAdmin" class="details">
+                                <div class="item1">
+                                    <h6>Group Main Admin</h6>
+                                </div>
+                                <div class="item2">
+                                    <p-inputSwitch readonly="true" [(ngModel)]="group.isMainAdmin"></p-inputSwitch>
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="item1">
+                                    <h6>Group Admin</h6>
+                                </div>
+                                <div class="item2">
+                                    <p-inputSwitch readonly="true" [(ngModel)]="group.isAdmin"></p-inputSwitch>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #addToGroup let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Add members to group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>Search and select members to add to this group</h5>
+        <div class="friends-autocomplete">
+            <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
+            [minLength]="1" placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
+            <ng-template let-friend pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
+                    <div>{{friend.name}}</div>
+                </div>
+            </ng-template>
+            <ng-template let-friend pTemplate="selectedItem">
+                <span class="ui-autocomplete-token-label">{{friend.name}}</span>
+            </ng-template>
+        </p-autoComplete>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="addMembersToGroup(modal)" class="btn btn-outline-success">Add</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #removeFromGroup let-modal>
+    <div class="modal-header bg-danger">
+        <h4 class="modal-title" id="modal-basic-title">Remove members from group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p-multiSelect [options]="cars" optionLabel="name"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+            <ng-template let-value  pTemplate="selectedItems">
+                <div  class="d-flex flex-wrap">
+                    <div (click)="showal(selectedCars2)" *ngFor="let option of selectedCars2" class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
+                        <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
+                        <span>{{option.name}}</span>
+                    </div>
+                </div>
+            <span *ngIf="!selectedCars2 || selectedCars2.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose members to remove from group</span>
+            </ng-template>
+            <ng-template let-car pTemplate="item">
+                <!-- <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;display:inline-block;vertical-align:middle"/> -->
+                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+            </ng-template>
+        </p-multiSelect>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="removeMembersFromGroup(modal)" class="btn btn-outline-danger">Remove</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #approveGroupRequests let-modal>
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title" id="modal-basic-title">Approve Group Requests</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p-multiSelect [options]="cars" optionLabel="name"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+            <ng-template let-value  pTemplate="selectedItems">
+                <div  class="d-flex flex-wrap">
+                    <div (click)="showal(selectedCars2)" *ngFor="let option of selectedCars2" class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
+                        <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
+                        <span>{{option.name}}</span>
+                    </div>
+                </div>
+            <span *ngIf="!selectedCars2 || selectedCars2.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose invited members to approve</span>
+            </ng-template>
+            <ng-template let-car pTemplate="item">
+                <!-- <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;display:inline-block;vertical-align:middle"/> -->
+                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+            </ng-template>
+        </p-multiSelect>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="approveMembers(modal)" class="btn btn-outline-success">Approve</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #inviteToGroup let-modal>
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title" id="modal-basic-title">Invite members to group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>Search and select members to invite to this group</h5>
+        <div class="friends-autocomplete">
+            <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
+            [minLength]="1" placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
+            <ng-template let-friend pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
+                    <div>{{friend.name}}</div>
+                </div>
+            </ng-template>
+            <ng-template let-friend pTemplate="selectedItem">
+                <span class="ui-autocomplete-token-label">{{friend.name}}</span>
+            </ng-template>
+        </p-autoComplete>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="inviteMembers(modal)" class="btn btn-outline-success">Invite</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteGroupConfirmation let-modal>
+    <div class="modal-header bg-danger">
+        <h4 class="modal-title" id="modal-basic-title">Delete Group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you sure, Do you want to delete this group?
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="deleteGroup(modal)" class="btn btn-outline-danger">Delete</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #groupMembers let-modal>
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title" id="modal-basic-title">Group members list</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <p-listbox [options]="cars" optionLabel="name" [styleClass]="'h-auto'" [(ngModel)]="selectedCar" [listStyle]="{'max-height':'250px'}">
+                <ng-template let-car pTemplate="item">
+                  <div (click)="showal(selectedCar)" class="ui-helper-clearfix">
+                    <span (click)="showal(selectedCar)" style="margin:20px 10px 0 0"><b>{{car.value.name}}</b></span>
+                  </div>
+                </ng-template>
+                <p-footer>
+                  <!-- Selected: {{selectedCar?selectedCar.name:''}} -->
+                </p-footer>
+              </p-listbox>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #editGroup let-modal>
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title" id="modal-basic-title">Edit Group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="mt-4">
+                <span class="ui-float-label">
+                    <input id="float-input" type="text" size="30" name="grouptName"
+                        [(ngModel)]="updateGroupDetails.groupName" pInputText>
+                    <label for="float-input">Group Name</label>
+                </span>
+            </div>
+            <div class="mt-4">
+                <span class="ui-float-label">
+                    <textarea id="float-discription" name="groupDescription" pInputTextarea
+                        [(ngModel)]="updateGroupDetails.groupDescription"></textarea>
+                    <label style="font-weight: bold;" for="float-discription">Description</label>
+                </span>
+            </div>
+            <div class="mt-3">
+                Group category
+                <div class="ui-g">
+                    <div class="ui-g-3">
+                        <p-radioButton name="group1" value="Private" label="Private"
+                            [(ngModel)]="updateGroupDetails.groupCategory" inputId="opt1"></p-radioButton>
+                    </div>
+                    <div class="ui-g-3">
+                        <p-radioButton name="group1" value="Public" label="Public"
+                            [(ngModel)]="updateGroupDetails.groupCategory" inputId="opt2"></p-radioButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="updateGroupFields(modal)" class="btn btn-outline-primary">Update</button>
+        <button type="button" (click)="modal.dismiss('Cross click');" class="btn btn-outline-dark">Close</button>
+    </div>
+</ng-template>
+<ng-template #giveAdminAccess let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Give Admin Access</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>select members to give admin access to this group</h5>
+        <div class="friends-autocomplete">
+            <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
+            [minLength]="1" placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
+            <ng-template let-friend pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
+                    <div>{{friend.name}}</div>
+                </div>
+            </ng-template>
+            <ng-template let-friend pTemplate="selectedItem">
+                <span class="ui-autocomplete-token-label">{{friend.name}}</span>
+            </ng-template>
+        </p-autoComplete>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="confirmAdminAccess(modal)" class="btn btn-outline-success">Confirm</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+<ng-template #removeAdminAccess let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Remove Admin Access</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>select members to remove admin access to this group</h5>
+        <p-multiSelect [options]="cars" optionLabel="name"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+            <ng-template let-value  pTemplate="selectedItems">
+                <div  class="d-flex flex-wrap">
+                    <div (click)="showal(selectedCars2)" *ngFor="let option of selectedCars2" class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
+                        <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
+                        <span>{{option.name}}</span>
+                    </div>
+                </div>
+            <span *ngIf="!selectedCars2 || selectedCars2.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose members to remove from group</span>
+            </ng-template>
+            <ng-template let-car pTemplate="item">
+                <!-- <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;display:inline-block;vertical-align:middle"/> -->
+                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+            </ng-template>
+        </p-multiSelect>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="confirmRemoveAdminAccess(modal)" class="btn btn-outline-success">Confirm</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>

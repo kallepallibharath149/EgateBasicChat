@@ -30,7 +30,6 @@ export class PostUploadComponent implements OnInit {
    this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       this.videoSrc =null; 
       this.imageSrc = null;
     });

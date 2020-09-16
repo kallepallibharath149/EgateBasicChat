@@ -42,7 +42,7 @@ export class NavigateBookmarksComponent implements OnInit {
       "classObject":''
     },
     {
-      "label": "Groups",
+      "label": "Groups Details",
       "icon": "fa fa-user",
       "class": "",
       "id": "",

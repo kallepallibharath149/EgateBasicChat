@@ -38,3 +38,21 @@
         width: 100% !important;
     }
 }
+.details{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    .item1{
+        padding-right: 10px;
+        flex: 1;
+    }
+    .item2{
+       flex: 1;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .details{
+        justify-content: space-around;
+    }
+}

@@ -78,6 +78,25 @@ export class HttpService {
   //   }
   }
 
+  httpPost(endPoint: string, meta?: any): Observable<any> {
+    return this.http.post(this.baseURL+endPoint, this.options)
+   .pipe(
+     catchError(err => this.handleError(err))
+   );
+   }
+
+   httpDelete(endPoint: string, meta?: any): Observable<any> {
+    return this.http.delete(this.baseURL+endPoint, this.options)
+   .pipe(
+     catchError(err => this.handleError(err))
+   );
+   }
+   httpUpdate(endPoint: string, meta?: any): Observable<any> {
+    return this.http.put(this.baseURL+endPoint, this.options)
+   .pipe(
+     catchError(err => this.handleError(err))
+   );
+   }
   handleError(error: any, url?: any, genericErrorMes?: any) {
     if(error.foundErrorMessage){
       return;

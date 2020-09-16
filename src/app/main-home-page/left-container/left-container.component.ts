@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Routes, Router } from '@angular/router';
+import { groups } from '@app/groups/groups.model';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
@@ -43,7 +44,7 @@ export class LeftContainerComponent implements OnInit {
       "classObject":''
     },
     {
-      "label": "Groups",
+      "label": "Groups Details",
       "icon": "fa fa-user",
       "class": "",
       "id": "",
@@ -84,11 +85,45 @@ export class LeftContainerComponent implements OnInit {
     },
   ];
 
+  groupsListDetails: Array<groups> = [
+    {  "groupId": '1',
+      "groupName": "It Employees Group",
+      "groupCategory": "Public",
+      "memberType": 'member',
+      "defaultGrop": true
+     },
+     {"groupId": '2',
+      "groupName": "Hyderabd employees",
+      "groupCategory": "Public",
+      "memberType": 'member',
+      "defaultGrop": false
+     }
+  ];
+
+  cars = [
+    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' }];
+    selectedCar: groups;
+
+   showDetails(data){
+     console.log("groupNames",data)
+   }
+
+
+   navigateGroup(group){
+     this.router.navigate(['home/groupsPosts',group.value.groupId])
+   }
+
   constructor(private router: Router,
     private globalEmitterService: GlobalEmittingEventsService) { }
 
   ngOnInit(): void {
-
+    
    this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{
      if(userDetails != false){
       let profileIndex =  this.navigationItems.findIndex((item)=>{
@@ -98,7 +133,18 @@ export class LeftContainerComponent implements OnInit {
       this.navigationItems[profileIndex].profileName =  userDetails.name;
      }
    });
-  
+
+   // checking default group and navigating to default group
+   let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
+    return item.defaultGrop;
+   });
+   let id:any = 0;
+   this.selectedCar = this.groupsListDetails[0];
+   if(defaultIndex >= 0){
+    this.selectedCar = this.groupsListDetails[defaultIndex];
+    id = this.groupsListDetails[defaultIndex].groupId;  
+   }
+   this.router.navigate(['/home/groupsPosts', id]);
   }
 
   navigate(navItem) {

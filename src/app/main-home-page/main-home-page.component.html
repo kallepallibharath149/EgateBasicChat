@@ -11,7 +11,8 @@
         [infiniteScrollDistance]="0.3"
         [infiniteScrollThrottle]="50"
         (scrolled)="onScroll()" id="middle-container" class="dynamic">
-        <app-home [posts]="latestPosts"></app-home>
+        <router-outlet></router-outlet>
+        <!-- <app-home [posts]="latestPosts"></app-home> -->
         </div>
         <div #rightSideContainer id="right-container" class="curren-chat">
             <div #sideGroup2 class="group">
