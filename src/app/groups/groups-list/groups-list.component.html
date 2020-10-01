@@ -23,6 +23,10 @@
                               <div class="item1"><h6>Group Admin</h6></div>
                               <div class="item2"><p-inputSwitch readonly="true" [(ngModel)]="group.isAdmin"></p-inputSwitch></div> 
                             </div>
+                            <div *ngIf="group.defaultGrop" class="details">
+                                <div class="item1"><h6>Default group</h6></div>
+                                <div class="item2">Yes</div> 
+                              </div>
                         </div>
                     </div>
                 </div>

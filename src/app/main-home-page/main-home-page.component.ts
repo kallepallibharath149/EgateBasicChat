@@ -1,6 +1,8 @@
 import { Component, OnInit, HostBinding, HostListener, ViewChild, ElementRef, Renderer2, AfterContentInit, AfterViewInit } from '@angular/core';
 import { GlobalEmittingEventsService } from '../services/global-emitting-events.service';
 import { HttpService } from '@app/interceptors/http.service';
+import { groups } from '@app/groups/groups.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-home-page',
@@ -25,6 +27,22 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
 
   }
 
+  groupsListDetails: Array<groups> = [
+    {  "groupId": '1',
+      "groupName": "It Employees Group",
+      "groupCategory": "Public",
+      "memberType": 'member',
+      "defaultGrop": true
+     },
+     {"groupId": '2',
+      "groupName": "Hyderabd employees",
+      "groupCategory": "Public",
+      "memberType": 'member',
+      "defaultGrop": false
+     }
+  ];
+  selectedGroup:groups;
+
   public setLeftRightcontainerStyles() {
     let topBannerHeight = 0;
     if (document.getElementById('topBanner')) {
@@ -45,13 +63,25 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
   constructor(private _elementRef: ElementRef,
     private renderer: Renderer2,
     private globalEmitterService: GlobalEmittingEventsService,
-    private httpService?:HttpService) {
+    private httpService:HttpService,
+    private router: Router) {
     this.element = this._elementRef.nativeElement;
   }
 
   ngOnInit(): void {
-    this.globalEmitterService.emitcurrentNavigation('/home');
+    this.globalEmitterService.emitcurrentNavigation('/home/redirect');
    // this.getInitialLatestPosts();
+    // checking default group and navigating to default group
+    let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
+      return item.defaultGrop;
+     });
+     let id:any = 0;
+     this.selectedGroup = this.groupsListDetails[0];
+     if(defaultIndex >= 0){
+      this.selectedGroup = this.groupsListDetails[defaultIndex];
+      id = this.groupsListDetails[defaultIndex].groupId;  
+     }
+     this.router.navigate(['/home/groupsPosts', id]);
   }
 
   ngAfterViewInit() {

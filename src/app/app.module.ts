@@ -70,7 +70,8 @@ import { CreategroupComponent } from './groups/creategroup/creategroup.component
 import { GroupsService } from './groups/groups.service';
 import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
 import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
-
+import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
+import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { MiddleContainerComponent } from './main-home-page/middle-container/midd
      CreategroupComponent,
      MainPageGroupsContainerComponent,
      MiddleContainerComponent,
+     RedirectTogroupsComponent,
      
   ],
   imports: [
@@ -132,7 +134,7 @@ import { MiddleContainerComponent } from './main-home-page/middle-container/midd
     HttpService, GroupsService,
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     GlobalEmittingEventsService,LoginServiceService,
-              UserPostsService, MessageService,ModalOpenCanDeactivateGuardGuard,NgbActiveModal
+              UserPostsService, MessageService,ModalOpenCanDeactivateGuardGuard,NgbActiveModal, CanRedirectToGroupsHomeGuard
               ],
   bootstrap: [AppComponent]
 })

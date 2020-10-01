@@ -7,11 +7,11 @@
       </div>
     </div>
   </div>
-  <p-accordion [activeIndex]="0">
-    <p-accordionTab header="My Groups">
+  <p-accordion  styleClass="p-accordion" [activeIndex]="0">
+    <p-accordionTab styleClass="p-accordion-header" header="My Groups">
       <div>
         <div>
-          <p-listbox  [options]="groupsListDetails" [styleClass]="'h-auto'" optionLabel="groupName"  [(ngModel)]="selectedCar" >
+          <p-listbox  [options]="groupsListDetails" [styleClass]="'h-auto'" optionLabel="groupName"  [(ngModel)]="selectedGroup" >
             <ng-template let-car pTemplate="item">
               <div (click)="navigateGroup(car)" class="ui-helper-clearfix">
                 <span style="margin:20px 10px 0 0"><b>{{car.value.groupName}}</b></span>
@@ -24,15 +24,4 @@
       </div>
     </p-accordionTab>
 </p-accordion>
-  <!-- <div>
-    <p-listbox [options]="cars" optionLabel="name"  [(ngModel)]="selectedCar" [listStyle]="{'max-height':'150px'}">
-        <ng-template let-car pTemplate="item">
-          <div class="ui-helper-clearfix">
-            <span style="margin:20px 10px 0 0"><b>{{car.value.name}}</b></span>
-          </div>
-        </ng-template>
-        <p-footer>
-        </p-footer>
-      </p-listbox>
-</div> -->
 </div>

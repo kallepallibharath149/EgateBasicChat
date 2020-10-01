@@ -15,20 +15,20 @@
             </p-header>
             <form #eventForm="ngForm"  autocomplete="off">
                 <div class="mt-4">
-                    <span class="ui-float-label">  
-                        <input id="float-input" class="ui-inputtext" type="text" required size="30" name="eventName" [(ngModel)]="createEvent.eventName" pInputText> 
+                    <span class="p-float-label">  
+                        <input id="float-input" class="p-inputtext" type="text" required size="30" name="eventName" [(ngModel)]="createEvent.eventName" pInputText> 
                         <label style="font-weight: bold;" for="float-input">Event Name</label>
                     </span>
                 </div>
                 <div class="mt-4">
-                    <span class="ui-float-label">
+                    <span class="p-float-label">
                         <textarea id="float-discription" name="eventDescription" pInputTextarea [(ngModel)]="createEvent.eventDescription"></textarea>
                         <label style="font-weight: bold;" for="float-discription">Description</label>
                     </span>
                 </div>
                 <div class="mt-4">
-                    <span class="ui-float-label">
-                        <input id="float-location" class="ui-inputtext" type="text" required size="30" name="eventLocation" [(ngModel)]="createEvent.eventLocation" pInputText> 
+                    <span class="p-float-label">
+                        <input id="float-location" class="p-inputtext" type="text" required size="30" name="eventLocation" [(ngModel)]="createEvent.eventLocation" pInputText> 
                         <label style="font-weight: bold;" for="float-location">Location</label>
                     </span>
                 </div>
@@ -47,8 +47,8 @@
                 </div>
                 <div class="mt-4">
                     <p-footer>
-                        <button class="ui-button-rounded mr-3" (click)="addNewEvent(eventForm)" pButton type="button" label="Save" [disabled]="!eventForm.valid" icon="pi pi-check" style="margin-right: .25em;background-color: #007bff;"></button>
-                        <button pButton class="ui-button-rounded  ui-button-secondary" (click)="resetForm(eventForm,content)" type="button" label="Cancel" icon="pi pi-times"></button>
+                        <button class="p-button-rounded mr-3" (click)="addNewEvent(eventForm)" pButton type="button" label="Save" [disabled]="!eventForm.valid" icon="pi pi-check" style="margin-right: .25em;background-color: #007bff;"></button>
+                        <button pButton class="p-button-rounded  p-button-secondary" (click)="resetForm(eventForm,content)" type="button" label="Cancel" icon="pi pi-times"></button>
                     </p-footer>
                 </div>
             </form>

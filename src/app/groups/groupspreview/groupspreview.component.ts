@@ -1,11 +1,38 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { GroupsService } from '../groups.service';
 import { groups, groupsActions } from '../groups.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { IprofileDetails } from '@app/common/models/profile.model';
-import { MessageService } from '@app/components/public_api';
 import * as $ from 'jquery';
+import { MessageService } from 'primeng/api';
+import { GroupsComponent } from '../groups.component';
+
+// Dynamic component load example code
+// export const entryComponentsMap = {
+//   'GroupsComponent':GroupsComponent,
+// }
+// @ViewChild('addcomponents', { read: ViewContainerRef, static: true })
+// addcomponents: ViewContainerRef;
+// ref: any;
+// loadComponet(componentName) {
+//   this.clearChildviews();
+//   let comp = entryComponentsMap[componentName];
+//   let factory = this.componentFactoryResolver.resolveComponentFactory(comp);
+//   this.ref = this.addcomponents.createComponent(factory);
+//   this.ref.changeDetectorRef.detectChanges();
+// }
+
+// clearChildviews() {
+//   const childs2 = this.addcomponents.length;
+//   let index2 = 0;
+//   while (childs2 > index2) {
+//     this.addcomponents.remove(0);
+//     index2++;
+//   }
+// }
+// private componentFactoryResolver?: ComponentFactoryResolver
+
 
 @Component({
   selector: 'app-groupspreview',
@@ -13,6 +40,7 @@ import * as $ from 'jquery';
   styleUrls: ['./groupspreview.component.less']
 })
 export class GroupspreviewComponent implements OnInit,AfterViewInit {
+  
   modalReference: any = '';
   group: groups;
   updateGroupDetails:groups; 
@@ -26,6 +54,15 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   @ViewChild('editGroup') editGroup;
   @ViewChild('giveAdminAccess') giveAdminAccess;
   @ViewChild('removeAdminAccess') removeAdminAccess;
+  @ViewChild('defaultGroup') defaultGroup;
+
+  cities1 = [
+    {label:'New York', value:{id:1, name: 'New York', code: 'NY'}},
+    {label:'New York', value:{id:2, name: 'New York', code: 'NY'}},
+    {label:'London', value:{id:3, name: 'London', code: 'LDN'}},
+    {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
+    {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
+];
 
   selectedCar: any = 'BMW';
   selectedCars3 = [
@@ -45,11 +82,11 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   selectedFriends: Array<IprofileDetails> = [];
   filteredFriendsMultiple: Array<IprofileDetails>;
   searchFriends: Array<IprofileDetails> = [
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: '1', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '', value:{id:1} },
+    { profileId: '2', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '',value:{id:2}  },
+    { profileId: '3', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '',value:{id:3}  },
+    { profileId: '4', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '',value:{id:4}  },
+    { profileId: '5', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '',value:{id:5} },
   ];
 
   actionItems: Array<groupsActions> = [
@@ -98,11 +135,17 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       "show": false,
       "showTo": ["admin", "mainAdmin"]
     },
+    {
+      "label": 'Make default group',
+      "show": false,
+      "showTo": ["admin", "mainAdmin","member"]
+    }
   ]
+
   constructor(private groupService: GroupsService,
               private modalService: NgbModal,
               private router: Router,
-              public messageService: MessageService
+              public messageService: MessageService,
              ) { }
 
   ngOnInit(): void {
@@ -185,8 +228,10 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       },50) 
     } else if (actionLabel == 'Give admin access'){
       this.open(this.giveAdminAccess);
-    }else if (actionLabel == 'Remove admin access'){
+    }else if (actionLabel == 'Remove admin access'){ 
       this.open(this.removeAdminAccess);
+    } else if (actionLabel == 'Make default group'){
+      this.open(this.defaultGroup);
     }
   }
 
@@ -226,6 +271,11 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   confirmRemoveAdminAccess(modal){
     modal.dismiss('Cross click');
+  }
+
+  confirmDefaultGroup(modal){
+  this.group.defaultGrop = true;
+  modal.dismiss('Cross click');
   }
 
   filterFriendMultiple(event) {

@@ -17,14 +17,18 @@
                 </p-header>
                 <form #groupForm="ngForm" autocomplete="off">
                     <div class="mt-4">
-                        <span class="ui-float-label">
-                            <input id="float-input" class="ui-inputtext" type="text" required size="30"
+                        <span class="p-float-label">
+                            <input id="float-input" class="p-inputtext" type="text" required size="30"
                                 name="grouptName" [(ngModel)]="createGroupObj.groupName" pInputText>
                             <label style="font-weight: bold;" for="float-input">Group Name</label>
                         </span>
+                        <!-- <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText [(ngModel)]="value2"> 
+                            <label for="float-input">Username</label>
+                        </span> -->
                     </div>
                     <div class="mt-4">
-                        <span class="ui-float-label">
+                        <span class="p-float-label">
                             <textarea id="float-discription" name="groupDescription" pInputTextarea
                                 [(ngModel)]="createGroupObj.groupDescription"></textarea>
                             <label style="font-weight: bold;" for="float-discription">Description</label>

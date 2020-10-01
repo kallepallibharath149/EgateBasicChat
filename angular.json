@@ -27,20 +27,23 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
+            "styles": ["src/styles.less",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.less",
               "node_modules/font-awesome/css/font-awesome.css",
-              
-              "src/assets/css/theme.css",
-              "src/assets/css/primeng.min.css",
-              "src/assets/css/primeicons.css",
+
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
 
               "node_modules/dragula/dist/dragula.css"
             ],
             
             "scripts": ["node_modules/chart.js/dist/Chart.js" ,
-                       "node_modules/quill/dist/quill.js"]
+                       "node_modules/quill/dist/quill.js",
+                       "node_modules/jquery/dist/jquery.min.js",
+                       "node_modules/popper.js/dist/umd/popper.min.js",
+                       "node_modules/bootstrap/dist/js/bootstrap.min.js"
+                      ]
           },
           "configurations": {
             "production": {

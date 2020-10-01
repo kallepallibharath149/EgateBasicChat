@@ -27,6 +27,8 @@ import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.com
 import { CreategroupComponent } from './groups/creategroup/creategroup.component';
 import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
 import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
+import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
+import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
 
 
 const routes: Routes = [
@@ -34,12 +36,12 @@ const routes: Routes = [
   {
     path: 'home', component: MainHomePageComponent,
     children: [
-      { path: '', component: MiddleContainerComponent },
+   // { path: 'latestPosts', component: MiddleContainerComponent },
+      { path: 'redirect', component:RedirectTogroupsComponent,
+      canActivate: [CanRedirectToGroupsHomeGuard],},
       { path: 'groupsPosts/:groupId', component:MainPageGroupsContainerComponent  },
-      // { path: 'specs', component:  }
     ]
   },
-  // {path:'notifications',component:LossprevenstionComponent},app-groups
   { path: 'news', component: NewsComponent },
   { path: 'connections', component: ConnectionsComponent },
   { path: 'movies', component: MoviesComponent },

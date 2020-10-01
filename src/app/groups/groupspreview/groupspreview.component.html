@@ -48,6 +48,10 @@
                                     <p-inputSwitch readonly="true" [(ngModel)]="group.isAdmin"></p-inputSwitch>
                                 </div>
                             </div>
+                            <div *ngIf="group.defaultGrop" class="details">
+                                <div class="item1"><h6>Default group</h6></div>
+                                <div class="item2">Yes</div> 
+                              </div>
                         </div>
                     </div>
                 </div>
@@ -55,6 +59,11 @@
         </div>
     </div>
 </div>
+<!--Dynamic component load example start-->
+<!-- <div>
+    <ng-container #addcomponents=""> </ng-container>
+</div> -->
+<!--Dynamic component load example end-->
 
 <ng-template #addToGroup let-modal>
     <div class="modal-header bg-success">
@@ -66,10 +75,10 @@
     <div class="modal-body">
         <h5>Search and select members to add to this group</h5>
         <div class="friends-autocomplete">
-            <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
+            <p-autoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="false" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
             [minLength]="1" placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
-                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
+                <div class="" style="border-bottom:1px solid #D5D5D5">        
                     <div>{{friend.name}}</div>
                 </div>
             </ng-template>
@@ -77,6 +86,7 @@
                 <span class="ui-autocomplete-token-label">{{friend.name}}</span>
             </ng-template>
         </p-autoComplete>
+        <!-- <p-multiSelect [options]="cities1" [(ngModel)]="selectedFriends"></p-multiSelect> -->
         </div>
     </div>
     <div class="modal-footer">
@@ -314,6 +324,21 @@
     </div>
     <div class="modal-footer">
         <button type="button" (click)="confirmRemoveAdminAccess(modal)" class="btn btn-outline-success">Confirm</button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
+    </div>
+</ng-template>
+<ng-template #defaultGroup let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Default Group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>Are you sure, You want to make this default group?</h5>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="confirmDefaultGroup(modal)" class="btn btn-outline-success">Confirm</button>
         <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
     </div>
 </ng-template>

@@ -5,7 +5,8 @@
      "paths": {
       "@app/*": [ "src/app/*" ],
       "@env/*": [ "src/environments/*" ],
-      "primeng/*": ["src/app/components/*/public_api"]
+      // // "primeng/*": ["src/app/components/*/public_api"]
+      // "primeng/*": ["node_modules/primeng/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

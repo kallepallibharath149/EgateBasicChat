@@ -16,7 +16,8 @@ export class GroupsListComponent implements OnInit {
       privateChanel: false,
       groupPhotoPath: 'assets/eventsImages/usercard.png',
       groupCategory: 'Public',
-      memberType: 'admin'
+      memberType: 'admin',
+      defaultGrop: true
     },
     {
       groupName: 'It Employees Group',

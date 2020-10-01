@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { UserPostsService } from '@app/home/user-posts/user-post-service/user-posts-service';
-import { MessageService } from '@app/components/public_api';
+// import { MessageService } from '@app/components/public_api';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { groupsActions } from '@app/groups/groups.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-event-preview',

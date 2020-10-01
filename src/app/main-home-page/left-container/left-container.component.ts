@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Routes, Router } from '@angular/router';
 import { groups } from '@app/groups/groups.model';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
@@ -99,6 +99,7 @@ export class LeftContainerComponent implements OnInit {
       "defaultGrop": false
      }
   ];
+  @Input('selectedGroup') selectedGroup:groups;
 
   cars = [
     { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
@@ -134,17 +135,17 @@ export class LeftContainerComponent implements OnInit {
      }
    });
 
-   // checking default group and navigating to default group
-   let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
-    return item.defaultGrop;
-   });
-   let id:any = 0;
-   this.selectedCar = this.groupsListDetails[0];
-   if(defaultIndex >= 0){
-    this.selectedCar = this.groupsListDetails[defaultIndex];
-    id = this.groupsListDetails[defaultIndex].groupId;  
-   }
-   this.router.navigate(['/home/groupsPosts', id]);
+  //  // checking default group and navigating to default group
+  //  let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
+  //   return item.defaultGrop;
+  //  });
+  //  let id:any = 0;
+  //  this.selectedCar = this.groupsListDetails[0];
+  //  if(defaultIndex >= 0){
+  //   this.selectedCar = this.groupsListDetails[defaultIndex];
+  //   id = this.groupsListDetails[defaultIndex].groupId;  
+  //  }
+  //  this.router.navigate(['/home/groupsPosts', id]);
   }
 
   navigate(navItem) {

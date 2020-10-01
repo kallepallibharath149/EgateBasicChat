@@ -8,6 +8,7 @@ import { PlatformLocation } from '@angular/common'
 import { Router, NavigationStart, Event } from '@angular/router';
 import { LoginServiceService } from './login/login-service.service';
 import { HttpService } from './interceptors/http.service';
+import { PrimeNGConfig } from 'primeng/api';
 
 
 @Component({
@@ -51,7 +52,8 @@ export class AppComponent implements OnInit, AfterViewInit {
               private location: PlatformLocation,
               private router: Router,
               private loginService:LoginServiceService,
-              private httpService?:HttpService) {
+              private httpService:HttpService,
+              private primengConfig: PrimeNGConfig) {
     // customize default values of progress bars used by this component tree
     this.data = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -85,6 +87,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     return value;
   }
  ngOnInit(){
+  this.primengConfig.ripple = true;
    let data = 'dada';
    this.loginService.checkLogInStateAndNavigate();
    this.getUserDetails();

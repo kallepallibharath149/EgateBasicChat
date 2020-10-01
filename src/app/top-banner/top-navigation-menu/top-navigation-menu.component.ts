@@ -17,7 +17,7 @@ export class TopNavigationMenuComponent implements OnInit , OnDestroy {
    {
      menuName: 'Home',
      icon: 'fa fa-home',
-     navigationRoute: "/home",
+     navigationRoute: "/home/redirect",
      class: '',
      id: ''
    },
