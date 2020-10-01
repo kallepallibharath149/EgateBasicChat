@@ -1,6 +1,6 @@
 export interface groups {
     groupId?: string,
-    groupName: string,
+    groupName?: string,
     privateChanel?: boolean,
     groupDescription?: string,
     groupPhotoPath?: any,
@@ -14,6 +14,25 @@ export interface groups {
 
 export interface groupsActions {
     label: string;
-    show: boolean
-    showTo: Array<string>
+    show: boolean;
+    showTo: Array<string>;
+}
+
+export interface groupsListResponse {
+    id?: string;
+    name?: string;
+    createdById?:string;
+    createdDateTime?: any;
+    admins?:Array<members> | null;
+    members?: Array<members> | null;
+    groupSettings?: any;
+    defaultGrop?: any;
+}
+
+export interface members {
+    groupId?: string;
+    adminId?: string;
+    createdDateTime?:string;
+    createdById?: string;
+    userId?: string;
 }

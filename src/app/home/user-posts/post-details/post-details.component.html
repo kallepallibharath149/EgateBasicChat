@@ -8,7 +8,7 @@
         <div (click)="navigateToProfile()" class="profileName">{{'Satya Sai Kumar'}} Shared this post</div>
       </div>
       <div class="card-body p-0">
-        <div [ngStyle]="{'height.px': getHeight()}" class="image-section">
+        <div [ngStyle]="{'height.px': getHeight()}" class="image-section {{postDetails.videoPost?'h-auto':''}} ">
           <img class="img-responsive" *ngIf="postDetails.imagePost" [src]="postDetails.imageVideoUrl"
             style="height:100%" />
           <video id="outputVideo" *ngIf="postDetails.videoPost" [src]="postDetails.imageVideoUrl" style="width:100%"

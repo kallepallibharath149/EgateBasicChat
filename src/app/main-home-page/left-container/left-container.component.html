@@ -11,10 +11,10 @@
     <p-accordionTab styleClass="p-accordion-header" header="My Groups">
       <div>
         <div>
-          <p-listbox  [options]="groupsListDetails" [styleClass]="'h-auto'" optionLabel="groupName"  [(ngModel)]="selectedGroup" >
-            <ng-template let-car pTemplate="item">
-              <div (click)="navigateGroup(car)" class="ui-helper-clearfix">
-                <span style="margin:20px 10px 0 0"><b>{{car.value.groupName}}</b></span>
+          <p-listbox (onClick)="navigateGroup($event.value)" [options]="groupsListDetails" [styleClass]="'h-auto'" optionLabel="name"  [(ngModel)]="selectedGroup" >
+            <ng-template let-group pTemplate="item">
+              <div class="ui-helper-clearfix">
+                <span style="margin:20px 10px 0 0"><b>{{group.value.name}}</b></span>
               </div>
             </ng-template>
             <p-footer>

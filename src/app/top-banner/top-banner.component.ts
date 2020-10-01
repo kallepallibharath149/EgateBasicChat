@@ -13,7 +13,7 @@ export class TopBannerComponent implements OnInit,AfterViewInit {
   constructor(private httpService:HttpService) { }
 
   ngOnInit(): void {
-    this.httpService.httpGet('UserDetails').subscribe((response)=>{
+    this.httpService.httpGet('User/111/UserDetails').subscribe((response)=>{
      console.log(response);
     },(error)=>{
       console.log(error);

@@ -61,7 +61,7 @@ export class VideosComponent implements OnInit {
   }
 
   getVideos(){
-    this.httpService.httpGet('Videos').subscribe((response)=>{
+    this.httpService.httpGet('User/111/Videos').subscribe((response)=>{
       console.log(response);
       if(Array.isArray(response) && response.length > 0){
         this.videosArray = [];

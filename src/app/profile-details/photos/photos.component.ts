@@ -50,7 +50,7 @@ export class PhotosComponent implements OnInit {
   }
 
   getPhotos(){
-    this.httpService.httpGet('Photos').subscribe((response)=>{
+    this.httpService.httpGet('User/111/Photos').subscribe((response)=>{
       console.log(response);
       if(Array.isArray(response) && response.length > 0){
         this.photosArray = [];

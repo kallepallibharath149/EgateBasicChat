@@ -1,4 +1,5 @@
 import { Injectable, Output,EventEmitter } from '@angular/core';
+import { HttpService } from '@app/interceptors/http.service';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,6 +7,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class GroupsService {
+
+  constructor(
+    private httpClient: HttpService
+  ) {}
 
  groupPreviewObj: any = null;
  newCreatedGroup = new BehaviorSubject<any>(false);
@@ -20,6 +25,10 @@ export class GroupsService {
 
 clearGroupPreviewObject(){
  this.groupPreviewObj = null;
+}
+
+getAllGroups(endPoint:any):Observable<any>{
+return this.httpClient.httpGet(endPoint);
 }
 
 }

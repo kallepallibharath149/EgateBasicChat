@@ -3,6 +3,7 @@ import { GlobalEmittingEventsService } from '../services/global-emitting-events.
 import { HttpService } from '@app/interceptors/http.service';
 import { groups } from '@app/groups/groups.model';
 import { Router } from '@angular/router';
+import { GroupsService } from '@app/groups/groups.service';
 
 @Component({
   selector: 'app-main-home-page',
@@ -64,7 +65,8 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
     private renderer: Renderer2,
     private globalEmitterService: GlobalEmittingEventsService,
     private httpService:HttpService,
-    private router: Router) {
+    private router: Router,
+    private groupservice: GroupsService) {
     this.element = this._elementRef.nativeElement;
   }
 
@@ -72,16 +74,16 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
     this.globalEmitterService.emitcurrentNavigation('/home/redirect');
    // this.getInitialLatestPosts();
     // checking default group and navigating to default group
-    let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
-      return item.defaultGrop;
-     });
-     let id:any = 0;
-     this.selectedGroup = this.groupsListDetails[0];
-     if(defaultIndex >= 0){
-      this.selectedGroup = this.groupsListDetails[defaultIndex];
-      id = this.groupsListDetails[defaultIndex].groupId;  
-     }
-     this.router.navigate(['/home/groupsPosts', id]);
+    // let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
+    //   return item.defaultGrop;
+    //  });
+    //  let id:any = 0;
+    //  this.selectedGroup = this.groupsListDetails[0];
+    //  if(defaultIndex >= 0){
+    //   this.selectedGroup = this.groupsListDetails[defaultIndex];
+    //   id = this.groupsListDetails[defaultIndex].groupId;  
+    //  }
+    //  this.router.navigate(['/home/groupsPosts', id]);
   }
 
   ngAfterViewInit() {
@@ -97,7 +99,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
   }
 
   getLatestPosts(state?) {
-    this.httpService.httpGet('LatestPosts').subscribe((response) => {
+    this.httpService.httpGet('User/111/LatestPosts').subscribe((response) => {
       console.log(response);
       if (Array.isArray(response) && response.length > 0) {
         let postsArray = [];

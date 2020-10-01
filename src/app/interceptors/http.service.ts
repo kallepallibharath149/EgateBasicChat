@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 // import { Observable } from 'rxjs/Observable';
 // import { catchError } from 'rxjs/operators/catchError';
 import * as uuid from 'uuid';
@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HttpService {
-  private baseURL = 'http://3.230.104.70:8888/api/User/111/';
+  private baseURL = 'http://3.230.104.70:8888/api/';
   private impersonateUser = '';
   private uniqueID = uuid.v4();
   private servicePath = 'webService';
@@ -24,7 +24,7 @@ export class HttpService {
     'role': 'Customer',
     'sourceSystem': 'DNM2.0'
   };
-  private options: any;
+  private httpOptions: any;
   private errorObj: any = [];
   // To install the mock server:  npm install -g json-server  To run  json-server --watch mock.json
   private mockDataURL = 'http://localhost:3000';
@@ -32,11 +32,19 @@ export class HttpService {
   private realServiceURL = '/upiServices/';
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+    let settings: any = {
+      "Content-Type": "application/json",
+      // 'Access-Control-Allow-Origin':'*'
+    };
+    this.httpOptions = {
+      headers: new HttpHeaders(settings)
+    };
+  }
 
   // this are used for DNM services
   httpGet(endPoint: string, meta?: any): Observable<any> {
-         return this.http.get(this.baseURL+endPoint, this.options)
+         return this.http.get(this.baseURL+endPoint)
         .pipe(
           catchError(err => this.handleError(err))
         );
@@ -79,20 +87,20 @@ export class HttpService {
   }
 
   httpPost(endPoint: string, meta?: any): Observable<any> {
-    return this.http.post(this.baseURL+endPoint, this.options)
+    return this.http.post(this.baseURL+endPoint, this.httpOptions)
    .pipe(
      catchError(err => this.handleError(err))
    );
    }
 
    httpDelete(endPoint: string, meta?: any): Observable<any> {
-    return this.http.delete(this.baseURL+endPoint, this.options)
+    return this.http.delete(this.baseURL+endPoint, this.httpOptions)
    .pipe(
      catchError(err => this.handleError(err))
    );
    }
    httpUpdate(endPoint: string, meta?: any): Observable<any> {
-    return this.http.put(this.baseURL+endPoint, this.options)
+    return this.http.put(this.baseURL+endPoint, this.httpOptions)
    .pipe(
      catchError(err => this.handleError(err))
    );

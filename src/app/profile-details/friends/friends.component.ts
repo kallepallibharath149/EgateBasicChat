@@ -23,7 +23,7 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriendsList(){
-    this.httpService.httpGet('Friends').subscribe((response)=>{
+    this.httpService.httpGet('User/111/Friends').subscribe((response)=>{
       console.log(response);
       if(Array.isArray(response) && response.length > 0){
         this.friendsArray = [];

@@ -61,7 +61,7 @@ if(leftcontainerHeight > screen.height){
 }
 
 getFriendsList(){
-  this.httpService.httpGet('Friends').subscribe((response)=>{
+  this.httpService.httpGet('User/111/Friends').subscribe((response)=>{
     console.log(response);
     if(Array.isArray(response) && response.length > 0){
       this.friendsArray = [];
@@ -80,7 +80,7 @@ getFriendsList(){
 }
 
 getPhotos(){
-  this.httpService.httpGet('Photos').subscribe((response)=>{
+  this.httpService.httpGet('User/111/Photos').subscribe((response)=>{
     console.log(response);
     if(Array.isArray(response) && response.length > 0){
       this.photosArray = [];
@@ -100,7 +100,7 @@ getInitialTimelinePosts(){
 }
 
 getTimeLinePosts(state?){
-  this.httpService.httpGet('Timelineposts').subscribe((response)=>{
+  this.httpService.httpGet('User/111/Timelineposts').subscribe((response)=>{
     console.log(response);
     if(Array.isArray(response) && response.length > 0){
       let timeLinePostsArray = [];

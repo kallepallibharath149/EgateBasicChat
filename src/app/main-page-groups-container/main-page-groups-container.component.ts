@@ -28,7 +28,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
     }
     
   getLatestPosts(state?) {
-    this.httpService.httpGet('LatestPosts').subscribe((response) => {
+    this.httpService.httpGet('User/111/LatestPosts').subscribe((response) => {
       console.log(response);
       if (Array.isArray(response) && response.length > 0) {
         let postsArray = [];

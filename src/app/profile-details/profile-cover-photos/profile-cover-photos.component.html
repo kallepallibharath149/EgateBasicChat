@@ -14,7 +14,7 @@
         </div>
         <div class="profile">
             <div class="section">
-                <img class="rounded-circle" *ngIf="profilePhoto" [src]="this.domSanitizationService.bypassSecurityTrustUrl(this.profilePhoto)" />
+                <img class="rounded-circle" *ngIf="profilePhoto" [src]="domSanitizationService.bypassSecurityTrustUrl(this.profilePhoto)" />
                 <div *ngIf="isMyprofile" (click)="fileProfileImageInput.value =null;profilePhotoUpload()" [title]="'Update profile photo'" class="upload-profile-photo">
                     <div class="wrapper">
                         <input type="file" #fileProfileImageInput accept="image/*"
