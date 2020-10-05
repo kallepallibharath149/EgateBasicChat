@@ -34,7 +34,7 @@ export class HttpService {
     private http: HttpClient
   ) {
     let settings: any = {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       // 'Access-Control-Allow-Origin':'*'
     };
     this.httpOptions = {
@@ -86,15 +86,36 @@ export class HttpService {
   //   }
   }
 
-  httpPost(endPoint: string, meta?: any): Observable<any> {
-    return this.http.post(this.baseURL+endPoint, this.httpOptions)
-   .pipe(
-     catchError(err => this.handleError(err))
-   );
+   httpPost(endPoint: string, body?: any, headerPresent?): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    if(headerPresent =='crateGroup'){
+      return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers,
+        responseType: "text"})
+      .pipe(
+        catchError(err => this.handleError(err))
+      );
+    } else {
+      return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers} )
+      .pipe(
+        catchError(err => this.handleError(err))
+      );
+    }
    }
 
    httpDelete(endPoint: string, meta?: any): Observable<any> {
-    return this.http.delete(this.baseURL+endPoint, this.httpOptions)
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    let headerss = new HttpHeaders({
+       'Cache-Control': 'no-cache',
+       'Access-Control-Allow-Origin': 'http://localhost:4200',
+       'Access-Control-Allow-Credentials': 'true'
+      //  'timeZoneOffset': new Date().getTimezoneOffset()
+    });
+    // headerss = headerss.set('Host', '3.230.104.70:8888');
+    // headerss = headerss.set('user', 'localUser');
+    return this.http.delete(this.baseURL+endPoint, {headers: headerss})
    .pipe(
      catchError(err => this.handleError(err))
    );

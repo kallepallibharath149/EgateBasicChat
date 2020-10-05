@@ -189,7 +189,7 @@ clear() {
 }
 
 getUserDetails(){
-  this.httpService.httpGet('User/111/UserDetails').subscribe((response)=>{
+  this.httpService.httpGet('User/1b892fec-152d-4a4b-8510-b00a58046b25/UserDetails').subscribe((response)=>{
     console.log(response);
     if(response){
    this.loggedInUserDetails = response;

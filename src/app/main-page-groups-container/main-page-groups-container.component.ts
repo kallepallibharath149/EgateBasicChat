@@ -19,6 +19,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
       this.currentGroupId = params.get('groupId');
       this.latestPosts = [];
       this.getInitialLatestPosts();
+      // alert(this.currentGroupId);
     });
     
   }

@@ -13,8 +13,8 @@
         <div>
           <p-listbox (onClick)="navigateGroup($event.value)" [options]="groupsListDetails" [styleClass]="'h-auto'" optionLabel="name"  [(ngModel)]="selectedGroup" >
             <ng-template let-group pTemplate="item">
-              <div class="ui-helper-clearfix">
-                <span style="margin:20px 10px 0 0"><b>{{group.value.name}}</b></span>
+              <div pTooltip="{{group.value.name}}" class="ui-helper-clearfix">
+                <span tooltipPosition="right" style="margin:20px 10px 0 0"><b>{{group.value.name}}</b></span>
               </div>
             </ng-template>
             <p-footer>

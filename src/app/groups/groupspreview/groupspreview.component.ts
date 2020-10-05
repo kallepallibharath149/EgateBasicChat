@@ -1,12 +1,14 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { GroupsService } from '../groups.service';
-import { groups, groupsActions } from '../groups.model';
+import { groups, groupsActions, groupsListResponse, members } from '../groups.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { IprofileDetails } from '@app/common/models/profile.model';
 import * as $ from 'jquery';
 import { MessageService } from 'primeng/api';
 import { GroupsComponent } from '../groups.component';
+import { HttpService } from '@app/interceptors/http.service';
+import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator'
 
 // Dynamic component load example code
 // export const entryComponentsMap = {
@@ -41,6 +43,15 @@ import { GroupsComponent } from '../groups.component';
 })
 export class GroupspreviewComponent implements OnInit,AfterViewInit {
   
+//name generator config start
+ customConfig: Config = {
+  dictionaries: [adjectives, colors],
+  separator: '-',
+  length: 2,
+};
+
+//name generator config end
+
   modalReference: any = '';
   group: groups;
   updateGroupDetails:groups; 
@@ -55,6 +66,8 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   @ViewChild('giveAdminAccess') giveAdminAccess;
   @ViewChild('removeAdminAccess') removeAdminAccess;
   @ViewChild('defaultGroup') defaultGroup;
+
+  friendsArray: Array<any> = [];
 
   cities1 = [
     {label:'New York', value:{id:1, name: 'New York', code: 'NY'}},
@@ -77,10 +90,15 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
     { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
     { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
+    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
     { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' }];
- selectedCars2: Array<IprofileDetails> = [];
-  selectedFriends: Array<IprofileDetails> = [];
-  filteredFriendsMultiple: Array<IprofileDetails>;
+ selectedCars2: Array<members> = [];
+  selectedFriends: Array<members> = [];
+  filteredFriendsMultiple: Array<members> = [];
   searchFriends: Array<IprofileDetails> = [
     { profileId: '1', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '', value:{id:1} },
     { profileId: '2', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '',value:{id:2}  },
@@ -98,12 +116,12 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     {
       "label": 'Give admin access',
       "show": false,
-      "showTo": ["mainAdmin"]
+      "showTo": ["mainAdmin", "admin"]
     },
     {
       "label": 'Remove admin access',
       "show": false,
-      "showTo": ["mainAdmin"]
+      "showTo": ["mainAdmin", "admin"]
     },
     {
       "label": 'Add to group',
@@ -146,6 +164,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
               private modalService: NgbModal,
               private router: Router,
               public messageService: MessageService,
+              private httpService?:HttpService
              ) { }
 
   ngOnInit(): void {
@@ -153,7 +172,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       ...this.groupService.groupPreviewObj
     }
     this.filterShowActions();
-    
+    this.getGroupDetails();
   }
   ngAfterViewInit(){
   // $('.ui-autocomplete-dropdown').click();
@@ -227,6 +246,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
         this.open(this.editGroup);
       },50) 
     } else if (actionLabel == 'Give admin access'){
+      //this.getFriendsList();
       this.open(this.giveAdminAccess);
     }else if (actionLabel == 'Remove admin access'){ 
       this.open(this.removeAdminAccess);
@@ -241,8 +261,15 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     this.router.navigate(['/groups']);
   }
 
-  removeMembersFromGroup(modal){
-    modal.dismiss('Cross click'); 
+  removeMembersFromGroup(modal, selectedFriends:Array<members>){
+    if(selectedFriends.length>0){
+      let endPoint = `group/${this.group.groupId}/GroupUser/${selectedFriends[0].profileId}`;
+      this.groupService.removeGroupMember(endPoint).subscribe(resp=>{
+      modal.dismiss('Cross click');
+      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members removed from this group successfully'});
+      this.getGroupDetails();
+    });
+     }
   }
 
   approveMembers(modal){
@@ -252,11 +279,14 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   inviteMembers(modal){
     modal.dismiss('Cross click');
   }
-  addMembersToGroup(modal){
-    if(this.selectedFriends.length>0){
-     // this.modalReference.close();
-      modal.dismiss('Cross click');
-      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members added to this group'});
+  addMembersToGroup(modal, selectedFriends:Array<members>){
+    if(selectedFriends.length>0){
+     let endPoint = `group/${this.group.groupId}/GroupUser/${selectedFriends[0].profileId}`
+     this.groupService.addGroupMember(endPoint).subscribe(resp=>{
+     modal.dismiss('Cross click');
+     this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members added to this group successfully'});
+     this.getGroupDetails();
+   });
     }
   }
 
@@ -265,12 +295,26 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
    modal.dismiss('Cross click');
   this.messageService.add({severity:'success', summary: 'Success Message', detail:'Group details updated Successfully'});
   }
-  confirmAdminAccess(modal){
-    modal.dismiss('Cross click');
+  confirmAdminAccess(modal, selectedFriends:Array<members> ){
+    if(selectedFriends.length > 0){
+      let endPoint = `group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`
+      this.groupService.addGroupAdmin(endPoint).subscribe(resp=>{
+      modal.dismiss('Cross click');
+      this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Admin Access given to selected members'});
+      this.getGroupDetails();
+    });
+    }
   }
 
-  confirmRemoveAdminAccess(modal){
+  confirmRemoveAdminAccess(modal, selectedFriends:Array<members>){
+    if(selectedFriends.length > 0){
+    let endPoint = `group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`
+    this.groupService.deleteGroupAdmin(endPoint).subscribe(resp=>{
     modal.dismiss('Cross click');
+    this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Selected members admin access removed'});
+    this.getGroupDetails();
+  });
+  }
   }
 
   confirmDefaultGroup(modal){
@@ -278,11 +322,24 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   modal.dismiss('Cross click');
   }
 
-  filterFriendMultiple(event) {
-    let query = event.query;
+  filterFriendMultiple(query) {
     // this.countryService.getCountries().then(countries => {
-    this.filteredFriendsMultiple = this.filterCountry(query, this.searchFriends);
+   // this.filteredFriendsMultiple = this.filterCountry(query, this.searchFriends);
+    if (this.filteredFriendsMultiple.length <= 0){
+     // this.getFriendsList();
+     this.filteredFriendsMultiple = [...this.group.members];
+    } else {
+    this.filteredFriendsMultiple = [...this.group.members];
+    }
     // });
+  }
+
+  searchMembers(query){
+    if (this.filteredFriendsMultiple.length <= 0){
+       this.getFriendsList();
+     } else {
+     this.filteredFriendsMultiple = [...this.filteredFriendsMultiple];
+     }
   }
 
   filterCountry(query, friends: IprofileDetails[]): any[] {
@@ -297,6 +354,51 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     return filtered;
   }
 
+
+  getFriendsList(){
+    this.httpService.httpGet('User/111/Friends').subscribe((response)=>{
+      console.log(response);
+      if(Array.isArray(response) && response.length > 0){
+        this.friendsArray = [];
+        this.friendsArray = response;
+        this.filteredFriendsMultiple = this.friendsArray;
+      }
+     },(error)=>{
+       console.log(error);
+     });
+  }
+
+getGroupDetails() {
+  this.groupService.getAllGroups(`Group/${this.group.groupId}`).subscribe((resp:groupsListResponse) => {
+    console.log('group details', resp);
+    // this.groupsListDetails = resp;
+    let res:any = resp;
+    if(resp && typeof(res) == "object"){
+        let group:groups = {
+          groupName: resp.name,
+          groupId: resp.id,
+          groupDescription: 'group Description', 
+          privateChanel: false,
+          groupPhotoPath: 'assets/eventsImages/usercard.png',
+          groupCategory: 'Public',
+          memberType: 'admin',
+          defaultGrop: true,
+          members:this.parseMember(resp.members),
+          admins: this.parseMember(resp.admins)
+        } ;
+        this.group = group;
+        this.filterShowActions();
+    }
+  });
+}
+
+parseMember(members:Array<members> | null):Array<any> | null{
+members.forEach(member=>{
+    member.name = uniqueNamesGenerator(this.customConfig);
+    member.profileId = member.adminId ? member.adminId:member.userId;
+});
+return members;
+}
   showal(data){
     console.log("template ref",data);
   }

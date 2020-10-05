@@ -76,7 +76,7 @@ getFriendsList(){
     }
    },(error)=>{
      console.log(error);
-   })
+   });
 }
 
 getPhotos(){

@@ -70,7 +70,7 @@ export class ProfileCoverPhotosComponent implements OnInit {
 
 
   getProfileDetails() {
-    this.httpService.httpGet('User/111/ProfileDetails').subscribe((response) => {
+    this.httpService.httpGet('User/1b892fec-152d-4a4b-8510-b00a58046b25/ProfileDetails').subscribe((response) => {
       console.log(response);
       if(response){
         this.profileDetailsResponse = true;

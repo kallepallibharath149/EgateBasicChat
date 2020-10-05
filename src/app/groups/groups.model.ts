@@ -10,6 +10,8 @@ export interface groups {
     isMainAdmin?: boolean;
     memberType?: string;
     defaultGrop?:boolean;
+    admins?:Array<members> | null;
+    members?: Array<members> | null;
 }
 
 export interface groupsActions {
@@ -34,5 +36,7 @@ export interface members {
     adminId?: string;
     createdDateTime?:string;
     createdById?: string;
+    profileId?: string;
+    name?: string;
     userId?: string;
 }

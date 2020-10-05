@@ -31,4 +31,24 @@ getAllGroups(endPoint:any):Observable<any>{
 return this.httpClient.httpGet(endPoint);
 }
 
+addGroupAdmin(endPoint:any, queryParams?):Observable<any>{
+  return this.httpClient.httpPost(endPoint);
+}
+
+addGroupMember(endPoint:any, queryParams?):Observable<any>{
+  return this.httpClient.httpPost(endPoint);
+}
+
+removeGroupMember(endPoint:any, queryParams?):Observable<any>{
+  return this.httpClient.httpDelete(endPoint);
+}
+
+deleteGroupAdmin(endPoint:any, queryParams?):Observable<any>{
+  return this.httpClient.httpDelete(endPoint);
+}
+
+createGroup(endPoint:any, body?):Observable<any>{
+  return this.httpClient.httpPost(endPoint, body, 'crateGroup');
+}
+
 }

@@ -47,11 +47,18 @@ export class CreategroupComponent implements OnInit {
   this.createGroupObj.groupPhotoPath = this.domSanitizationService.bypassSecurityTrustUrl(selectedPhotoUrl);
 }
 
- addNewGroup(groupForm:NgForm){
-  let newEventObj = Object.assign({},this.createGroupObj);
-   this.groupService.createNewGroup(newEventObj);
-  groupForm.reset();
-  this.router.navigate(['/groups']);
+ createNewGroup(groupForm:NgForm){
+   let newGroupObj:groups = Object.assign({},this.createGroupObj);
+   let endPoint = 'Group';
+   let groupDetails = {
+     "name": newGroupObj.groupName
+   }
+   this.groupService.createGroup(endPoint, groupDetails ).subscribe(resp=>{
+     if(resp){
+      groupForm.reset();
+      this.router.navigate(['/groups']);
+     }
+   });
    }
 
    resetForm(groupForm:NgForm, confirmRef){

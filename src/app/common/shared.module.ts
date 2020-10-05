@@ -33,6 +33,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {ChartModule} from 'primeng/chart';
 import {MenuModule} from 'primeng/menu';
 import {TabMenuModule} from 'primeng/tabmenu';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {TabMenuModule} from 'primeng/tabmenu';
     CardModule,
     MultiSelectModule,
     RadioButtonModule,
-    ListboxModule
+    ListboxModule,
+    TooltipModule
   ],
   providers: [],
 })
