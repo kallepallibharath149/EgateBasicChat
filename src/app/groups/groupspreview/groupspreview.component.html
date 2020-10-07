@@ -211,10 +211,13 @@
         <div>
             <p-listbox [options]="group.members" optionLabel="name" [styleClass]="'h-auto'" [(ngModel)]="selectedFriends" [listStyle]="{'max-height':'250px'}">
                 <ng-template let-member pTemplate="item">
-                  <div (click)="showal(selectedCar)" class="ui-helper-clearfix">
+                  <div (click)="showal(selectedCar)" class="p-helper-clearfix">
                     <span (click)="showal(selectedCar)" style="margin:20px 10px 0 0"><b>{{member.value.name}}</b></span>
                   </div>
                 </ng-template>
+                <p-header *ngIf="selectedFriends.length <=0">
+                    <div>No members</div>
+                </p-header>
               </p-listbox>
         </div>
     </div>

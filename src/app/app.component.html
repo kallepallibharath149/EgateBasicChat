@@ -78,3 +78,6 @@
 
 <h3>Template</h3>
 <button type="button" pButton (click)="showConfirm()" label="Confirm" class="ui-button-warning"></button> -->
+<ngx-loading [show]="showLoader" [config]="{ animationType: ngxLoadingAnimationTypes,
+  backdropBackgroundColour: 'rgb(27 26 26 / 52%)',
+  primaryColour: '#000', secondaryColour: 'red', tertiaryColour: 'orange',fullScreenBackdrop:true }" ></ngx-loading>

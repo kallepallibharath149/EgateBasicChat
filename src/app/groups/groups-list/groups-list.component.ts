@@ -9,6 +9,7 @@ import { GroupsService } from '../groups.service';
   styleUrls: ['./groups-list.component.less']
 })
 export class GroupsListComponent implements OnInit {
+  showContentLoading:boolean = false;
   groupList: Array<groups> = [
     // {
     //   groupName: 'It Employees Group',
@@ -74,10 +75,12 @@ export class GroupsListComponent implements OnInit {
   }
 
   getAllGroupDetails() {
+    this.showContentLoading = true;
     this.groupService.getAllGroups('Group/Groups').subscribe((resp: Array<groupsListResponse>) => {
       console.log('group details', resp);
       this.groupsListDetails = resp;
       if(resp && Array.isArray(resp) && resp.length >0){
+        this.showContentLoading = false;
         resp.forEach(groupResp=>{
           let group:groups = {
             groupName: groupResp.name,
@@ -113,9 +116,9 @@ export class GroupsListComponent implements OnInit {
       }
     });
   }
-  groupPrevievNavigation(group){
+  groupPrevievNavigation(group:groups){
   this.groupService.setGroupPreviewObject(group);
-  this.router.navigate(['/groups/preview']);
+  this.router.navigate(['/groups/preview', group.groupId]);
   }
 
 }

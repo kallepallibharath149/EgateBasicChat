@@ -19,12 +19,14 @@ export class PostDetailsComponent implements OnInit {
   showComments: boolean = false;
   commentsArray : Array<any> = [];
   likesArray : Array<any> = [{
-    profileName: 'bharath',
-    liked: true
+    profileId: '',
+    profileName: 'satya',
+    profileImageUrl:'',
   },
   {
-    profileName: 'ravi',
-    liked: true
+    profileId: '',
+    profileName: 'raju',
+    profileImageUrl:'',
   }];
 
   @Input('postDetails') postDetails : any;
@@ -48,8 +50,9 @@ export class PostDetailsComponent implements OnInit {
   updateLikeStatus() {
     this.likeStatus = ! this.likeStatus;
     let likedProfileObj = {
+      profileId: '',
       profileName: 'raju',
-      liked: true
+      profileImageUrl:'',
     }
 
     if(this.likeStatus){

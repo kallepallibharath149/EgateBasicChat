@@ -1,4 +1,9 @@
 <div class="group-list-container">
+    <div *ngIf="showContentLoading" class="d-block" style="">
+        <ngx-content-loading [speed]="'1500ms'" [primaryColor]="'#b5acac'" [secondaryColor]="'rgb(255, 99, 71)'"  [width]="1500" [height]="150">
+            <svg:g ngx-list-preset ></svg:g>
+        </ngx-content-loading>
+    </div>
     <div>
         <div class="flex-items">
             <ng-container *ngIf="groupList.length > 0">

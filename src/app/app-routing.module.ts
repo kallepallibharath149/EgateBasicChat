@@ -49,7 +49,7 @@ const routes: Routes = [
   { path: 'groups', component: GroupsComponent,
   children: [
     { path: '', component: GroupsListComponent },
-    { path: 'preview', component: GroupspreviewComponent },
+    { path: 'preview/:groupId', component: GroupspreviewComponent },
     { path: 'create', component: CreategroupComponent },
     // { path: 'invitations', component: InvitationsComponent }
   ] },

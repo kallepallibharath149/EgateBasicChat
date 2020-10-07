@@ -125,7 +125,7 @@ export class LeftContainerComponent implements OnInit {
         this.navigationItems[profileIndex].profileName = userDetails.name;
       }
     });
-
+    
     this.getAllGroupDetails();
   }
 

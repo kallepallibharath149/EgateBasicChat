@@ -11,6 +11,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxContentLoadingModule } from './common/ngx-content-loading/ngx-content-loading.module';
+import { NgxLoadingModule } from './common/ngx-loader/lib/ngx-loading.module';
+
 
 
 import {MessageService} from 'primeng/api';
@@ -70,8 +73,11 @@ import { CreategroupComponent } from './groups/creategroup/creategroup.component
 import { GroupsService } from './groups/groups.service';
 import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
 import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
+
 import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
+
+
 
 @NgModule({
   declarations: [
@@ -127,7 +133,8 @@ import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-gr
     SharedServiceModule,
     InfiniteScrollModule,
     DragulaModule.forRoot(),
-    
+    NgxContentLoadingModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
     

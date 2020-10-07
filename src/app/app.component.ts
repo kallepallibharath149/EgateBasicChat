@@ -9,6 +9,7 @@ import { Router, NavigationStart, Event } from '@angular/router';
 import { LoginServiceService } from './login/login-service.service';
 import { HttpService } from './interceptors/http.service';
 import { PrimeNGConfig } from 'primeng/api';
+import { ngxLoadingAnimationTypes ,NgxLoadingComponent} from './common/ngx-loader/lib/public_api';
 
 
 @Component({
@@ -19,8 +20,8 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   loggedInUserDetails:any;
-
-
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes.threeBounce;
+  showLoader: boolean = false;
   
   chatContainer:Array<any> =[{}];
   closeResult = '';

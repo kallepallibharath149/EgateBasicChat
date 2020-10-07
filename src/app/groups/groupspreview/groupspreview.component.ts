@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, 
 import { GroupsService } from '../groups.service';
 import { groups, groupsActions, groupsListResponse, members } from '../groups.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IprofileDetails } from '@app/common/models/profile.model';
 import * as $ from 'jquery';
 import { MessageService } from 'primeng/api';
@@ -52,6 +52,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
 //name generator config end
 
+  currentGroupId: string = '';
   modalReference: any = '';
   group: groups;
   updateGroupDetails:groups; 
@@ -164,15 +165,21 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
               private modalService: NgbModal,
               private router: Router,
               public messageService: MessageService,
-              private httpService?:HttpService
+              private httpService:HttpService,
+              private activatedRoute: ActivatedRoute
              ) { }
 
   ngOnInit(): void {
     this.group = {
       ...this.groupService.groupPreviewObj
     }
+    this.activatedRoute.paramMap.subscribe(params => {
+      // console.log(params.has('id')); // true has() ,get(),      getAll()
+      // console.log(params.get('id'));
+      this.currentGroupId = params.get('groupId');
+      this.getGroupDetails();
+    });
     this.filterShowActions();
-    this.getGroupDetails();
   }
   ngAfterViewInit(){
   // $('.ui-autocomplete-dropdown').click();
