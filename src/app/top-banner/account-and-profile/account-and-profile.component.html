@@ -1,10 +1,16 @@
 <div class="profile-section">
-
     <div class="menu-items">
         <div class="item" *ngFor="let menu of items;let i=index;">
-            <div #itemRef (mouseenter) ="addaHoverClass(itemRef)"  (mouseleave)="removeClass(itemRef)" [title]="menu.menuName"class="item-align"><i class="{{menu.icon}} fa-2x " aria-hidden="true"></i>
-            <div class="overlay">notification container</div>
+            <div #itemRef (mouseenter)="addaHoverClass(itemRef,$event)" (mouseleave)="removeClass(itemRef)"
+                [title]="menu.menuName" class="item-align">
+                <i class="{{menu.icon}} fa-2x " aria-hidden="true"></i>
             </div>
         </div>
     </div>
 </div>
+
+<p-overlayPanel hideTransitionOptions="2s linear"  #op [showCloseIcon]="false" [style]="{width: 'auto'}">
+    <ng-template pTemplate>
+   <h3>This is overlay componet</h3>
+    </ng-template>
+</p-overlayPanel>

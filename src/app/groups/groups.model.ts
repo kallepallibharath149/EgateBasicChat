@@ -25,10 +25,13 @@ export interface groupsListResponse {
     name?: string;
     createdById?:string;
     createdDateTime?: any;
+    defaultGrop?: boolean;
+    groupDescription?: string;
+    groupCategory?: string;
+    groupMemberType?: string;
     admins?:Array<members> | null;
     members?: Array<members> | null;
     groupSettings?: any;
-    defaultGrop?: any;
 }
 
 export interface members {
@@ -37,6 +40,7 @@ export interface members {
     createdDateTime?:string;
     createdById?: string;
     profileId?: string;
-    name?: string;
+    profileName?: string;
     userId?: string;
+    profileImageUrl?:string;
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
 
 @Component({
   selector: 'app-account-and-profile',
@@ -6,6 +7,8 @@ import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
   styleUrls: ['./account-and-profile.component.less']
 })
 export class AccountAndProfileComponent implements OnInit {
+  
+  @ViewChild('op', { static: true }) op;
 
   items:Array<any> = [
     {menuName: 'Profile',
@@ -25,17 +28,28 @@ export class AccountAndProfileComponent implements OnInit {
     }
   ];
 
-  constructor( private renderer: Renderer2) { }
+
+  constructor( private renderer: Renderer2,
+               private globalEmitterService: GlobalEmittingEventsService) { }
 
   ngOnInit(): void {
+    this.globalEmitterService.scrollingEvent.subscribe(event=>{
+     if(event){
+      //  this.op.hide();
+     }
+    });
   }
 
-  addaHoverClass(elementRef:ElementRef){
+  addaHoverClass(elementRef:ElementRef,event){
+    setTimeout(()=>{
+      this.op.show(event);
+    },1000);
     this.renderer.removeClass(elementRef,'notHovered');
   this.renderer.addClass(elementRef,'hovered');
   }
 
   removeClass(elementRef:ElementRef){
+    this.op.hide();
     this.renderer.removeClass(elementRef,'hovered');
     this.renderer.addClass(elementRef,'notHovered');
   }

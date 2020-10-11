@@ -117,47 +117,47 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     {
       "label": 'Give admin access',
       "show": false,
-      "showTo": ["mainAdmin", "admin"]
+      "showTo": ["mainadmin", "admin"]
     },
     {
       "label": 'Remove admin access',
       "show": false,
-      "showTo": ["mainAdmin", "admin"]
+      "showTo": ["mainadmin", "admin"]
     },
     {
       "label": 'Add to group',
       "show": false,
-      "showTo": ["admin", "mainAdmin"]
+      "showTo": ["admin", "mainadmin"]
     },
     {
       "label": 'Remove from group',
       "show": false,
-      "showTo": ["admin", "mainAdmin"]
+      "showTo": ["admin", "mainadmin"]
     },
     {
       "label": 'Approve group request',
       "show": false,
-      "showTo": ["admin", "mainAdmin"]
+      "showTo": ["admin", "mainadmin"]
     },
     {
       "label": 'Delete group',
       "show": false,
-      "showTo": ["admin", "mainAdmin"]
+      "showTo": ["admin", "mainadmin"]
     },
     {
       "label": 'Group members',
       "show": false,
-      "showTo": ["admin", "mainAdmin","member"]
+      "showTo": ["admin", "mainadmin","member"]
     },
     {
       "label": 'Edit Group',
       "show": false,
-      "showTo": ["admin", "mainAdmin"]
+      "showTo": ["admin", "mainadmin"]
     },
     {
       "label": 'Make default group',
       "show": false,
-      "showTo": ["admin", "mainAdmin","member"]
+      "showTo": ["admin", "mainadmin","member"]
     }
   ]
 
@@ -179,14 +179,14 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       this.currentGroupId = params.get('groupId');
       this.getGroupDetails();
     });
-    this.filterShowActions();
+    // this.filterShowActions();
   }
   ngAfterViewInit(){
   // $('.ui-autocomplete-dropdown').click();
   }
 
   filterShowActions() {
-    if (this.group.memberType == 'admin' || this.group.memberType == 'mainAdmin') {
+    if (this.group.memberType.toLowerCase() == 'admin' || this.group.memberType.toLowerCase() == 'mainadmin') {
       this.group.isAdmin = true;
       this.group.isMainAdmin = false;
       if (this.group.memberType == 'mainAdmin') {
@@ -197,7 +197,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       this.group.isMainAdmin = false;
     }
     this.actionItems.forEach(action => {
-      if (action.showTo.includes(this.group.memberType)) {
+      if (action.showTo.includes(this.group.memberType.toLowerCase())) {
         action.show = true;
       } else {
         action.show = false;
@@ -264,13 +264,18 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   deleteGroup(modal) {
     // this.modalReference.close();
-    modal.dismiss('Cross click');
-    this.router.navigate(['/groups']);
+    let endPiont = `Group/${this.currentGroupId}`;
+    this.groupService.deleteGroup(endPiont).subscribe(data=>{
+      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Group deleted successfully'});
+      modal.dismiss('Cross click');
+      this.router.navigate(['/groups']);
+    });
+   
   }
 
   removeMembersFromGroup(modal, selectedFriends:Array<members>){
     if(selectedFriends.length>0){
-      let endPoint = `group/${this.group.groupId}/GroupUser/${selectedFriends[0].profileId}`;
+      let endPoint = `Group/${this.group.groupId}/GroupMember/${selectedFriends[0].profileId}`;
       this.groupService.removeGroupMember(endPoint).subscribe(resp=>{
       modal.dismiss('Cross click');
       this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members removed from this group successfully'});
@@ -288,7 +293,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
   addMembersToGroup(modal, selectedFriends:Array<members>){
     if(selectedFriends.length>0){
-     let endPoint = `group/${this.group.groupId}/GroupUser/${selectedFriends[0].profileId}`
+     let endPoint = `Group/${this.group.groupId}/GroupMember/${selectedFriends[0].profileId}`
      this.groupService.addGroupMember(endPoint).subscribe(resp=>{
      modal.dismiss('Cross click');
      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members added to this group successfully'});
@@ -298,13 +303,23 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
 
   updateGroupFields(modal){
-   this.group = Object.assign ({},this.updateGroupDetails)
-   modal.dismiss('Cross click');
-  this.messageService.add({severity:'success', summary: 'Success Message', detail:'Group details updated Successfully'});
+  //  this.group = Object.assign ({},this.updateGroupDetails);
+   let updateGroupsObj = {
+    "id": this.updateGroupDetails.groupId,
+    "name": this.updateGroupDetails.groupName,
+    "groupDescription": this.updateGroupDetails.groupDescription,
+    "groupCategory": this.updateGroupDetails.groupCategory
+   };
+   let endPoint = `Group`;
+   this.groupService.updateGroupDetails(endPoint,updateGroupsObj).subscribe(resp =>{
+    modal.dismiss('Cross click');
+    this.messageService.add({severity:'success', summary: 'Success Message', detail:'Group details updated Successfully'}); 
+    this.getGroupDetails();
+  });
   }
   confirmAdminAccess(modal, selectedFriends:Array<members> ){
     if(selectedFriends.length > 0){
-      let endPoint = `group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`
+      let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`;
       this.groupService.addGroupAdmin(endPoint).subscribe(resp=>{
       modal.dismiss('Cross click');
       this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Admin Access given to selected members'});
@@ -315,7 +330,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   confirmRemoveAdminAccess(modal, selectedFriends:Array<members>){
     if(selectedFriends.length > 0){
-    let endPoint = `group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`
+    let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`
     this.groupService.deleteGroupAdmin(endPoint).subscribe(resp=>{
     modal.dismiss('Cross click');
     this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Selected members admin access removed'});
@@ -343,9 +358,14 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   searchMembers(query){
     if (this.filteredFriendsMultiple.length <= 0){
-       this.getFriendsList();
-     } else {
-     this.filteredFriendsMultiple = [...this.filteredFriendsMultiple];
+       //this.getFriendsList();
+      this.filteredFriendsMultiple = [{profileName: "John Doe",
+      profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
+      profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}
+    ] } else {
+     this.filteredFriendsMultiple = [{profileName: "John Doe",
+     profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
+     profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}];
      }
   }
 
@@ -376,7 +396,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
 
 getGroupDetails() {
-  this.groupService.getAllGroups(`Group/${this.group.groupId}`).subscribe((resp:groupsListResponse) => {
+  this.groupService.getAllGroups(`Group/${this.currentGroupId}`).subscribe((resp:groupsListResponse) => {
     console.log('group details', resp);
     // this.groupsListDetails = resp;
     let res:any = resp;
@@ -384,14 +404,14 @@ getGroupDetails() {
         let group:groups = {
           groupName: resp.name,
           groupId: resp.id,
-          groupDescription: 'group Description', 
+          groupDescription: resp.groupDescription, 
           privateChanel: false,
           groupPhotoPath: 'assets/eventsImages/usercard.png',
-          groupCategory: 'Public',
-          memberType: 'admin',
-          defaultGrop: true,
-          members:this.parseMember(resp.members),
-          admins: this.parseMember(resp.admins)
+          groupCategory: resp.groupCategory,
+          memberType: resp.groupMemberType,
+          defaultGrop: resp.defaultGrop,
+          members: resp.members,
+          admins: resp.admins
         } ;
         this.group = group;
         this.filterShowActions();
@@ -401,7 +421,7 @@ getGroupDetails() {
 
 parseMember(members:Array<members> | null):Array<any> | null{
 members.forEach(member=>{
-    member.name = uniqueNamesGenerator(this.customConfig);
+    member.profileName = uniqueNamesGenerator(this.customConfig);
     member.profileId = member.adminId ? member.adminId:member.userId;
 });
 return members;

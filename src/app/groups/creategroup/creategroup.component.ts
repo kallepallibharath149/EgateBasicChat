@@ -51,13 +51,14 @@ export class CreategroupComponent implements OnInit {
    let newGroupObj:groups = Object.assign({},this.createGroupObj);
    let endPoint = 'Group';
    let groupDetails = {
-     "name": newGroupObj.groupName
+     "Name": newGroupObj.groupName,
+     "CreatedById": '62d5649b-0cf7-4aec-b245-a41aadaef604',
+     "GroupDescription":newGroupObj.groupDescription,
+     "GroupCategory": newGroupObj.groupCategory
    }
    this.groupService.createGroup(endPoint, groupDetails ).subscribe(resp=>{
-     if(resp){
       groupForm.reset();
       this.router.navigate(['/groups']);
-     }
    });
    }
 

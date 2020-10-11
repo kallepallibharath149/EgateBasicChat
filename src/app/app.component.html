@@ -34,9 +34,8 @@
 </div>
 </div> -->
 </div>
-<p-toast [style]="{marginTop: '0px'}"></p-toast>
-
-<p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+<p-toast  [style]="{marginTop: '0px'}" (onClose)="closeToastMessage($event.message)"></p-toast>
+<!-- <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
 
 <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
 
@@ -58,7 +57,7 @@
             </div>
         </div>
     </ng-template>
-</p-toast>
+</p-toast> -->
 <!-- 
 <h3 class="first">Severities</h3>
 <button type="button" pButton (click)="showSuccess()" label="Success" class="ui-button-success"></button>

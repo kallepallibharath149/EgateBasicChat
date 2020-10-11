@@ -70,7 +70,7 @@ export class GroupsListComponent implements OnInit {
         this.groupList.push(newGroup);
       }
     });
-    this.checkAdminStatus();
+   
     this.getAllGroupDetails();
   }
 
@@ -85,12 +85,12 @@ export class GroupsListComponent implements OnInit {
           let group:groups = {
             groupName: groupResp.name,
             groupId: groupResp.id,
-            groupDescription: 'group Description', 
+            groupDescription: groupResp.groupDescription, 
             privateChanel: false,
             groupPhotoPath: 'assets/eventsImages/usercard.png',
-            groupCategory: 'Public',
-            memberType: 'admin',
-            defaultGrop: true,
+            groupCategory:groupResp.groupCategory,
+            memberType: groupResp.groupMemberType,
+            defaultGrop: groupResp.defaultGrop,
             members:groupResp.members,
             admins:groupResp.admins
           } ;
@@ -104,10 +104,10 @@ export class GroupsListComponent implements OnInit {
 
   checkAdminStatus(){
     this.groupList.forEach((group:groups)=>{
-      if(group.memberType == 'admin' || group.memberType =='mainAdmin'){
+      if( group.memberType  && (group.memberType.toLowerCase() == 'admin' || group.memberType.toLowerCase() =='mainadmin')){
          group.isAdmin = true;
          group.isMainAdmin = false;
-        if(group.memberType =='mainAdmin'){
+        if(group.memberType =='mainadmin'){
         group.isMainAdmin = true;
         }
       } else{

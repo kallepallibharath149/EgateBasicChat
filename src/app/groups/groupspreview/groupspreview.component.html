@@ -76,14 +76,14 @@
         <h5>Search and select members to add to this group</h5>
         <div class="friends-autocomplete">
             <p-autoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="false" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="searchMembers($event)" styleClass="wid100"
-            [minLength]="1" placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
+            [minLength]="1" placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
                 <div class="" style="border-bottom:1px solid #D5D5D5">        
-                    <div>{{friend.name}}</div>
+                    <div>{{friend.profileName}}</div>
                 </div>
             </ng-template>
             <ng-template let-friend pTemplate="selectedItem">
-                <span class="ui-autocomplete-token-label">{{friend.name}}</span>
+                <span class="ui-autocomplete-token-label">{{friend.profileName}}</span>
             </ng-template>
         </p-autoComplete>
         <!-- <p-multiSelect [options]="cities1" [(ngModel)]="selectedFriends"></p-multiSelect> -->
@@ -103,12 +103,12 @@
         </button>
     </div>
     <div class="modal-body">
-        <p-multiSelect dataKey="profileId" [options]="group.members" optionLabel="name"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedFriends" [panelStyle]="{minWidth:'12em'}">
+        <p-multiSelect dataKey="profileId" [options]="group.members" optionLabel="profileName"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedFriends" [panelStyle]="{minWidth:'12em'}">
             <ng-template let-value  pTemplate="selectedItems">
                 <div  class="d-flex flex-wrap">
                     <div *ngFor="let option of selectedFriends" class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
                         <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
-                        <span>{{option.name}}</span>
+                        <span>{{option.profileName}}</span>
                     </div>
                 </div>
             <span *ngIf="!selectedFriends || selectedFriends.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose members to remove from group</span>
@@ -133,12 +133,12 @@
         </button>
     </div>
     <div class="modal-body">
-        <p-multiSelect [options]="cars" optionLabel="name"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
+        <p-multiSelect [options]="cars" optionLabel="profileName"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedCars2" [panelStyle]="{minWidth:'12em'}">
             <ng-template let-value  pTemplate="selectedItems">
                 <div  class="d-flex flex-wrap">
                     <div (click)="showal(selectedCars2)" *ngFor="let option of selectedCars2" class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
                         <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
-                        <span>{{option.name}}</span>
+                        <span>{{option.profileName}}</span>
                     </div>
                 </div>
             <span *ngIf="!selectedCars2 || selectedCars2.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose invited members to approve</span>
@@ -166,14 +166,14 @@
         <h5>Search and select members to invite to this group</h5>
         <div class="friends-autocomplete">
             <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
-            [minLength]="1" placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
+            [minLength]="1" placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
                 <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
-                    <div>{{friend.name}}</div>
+                    <div>{{friend.profileName}}</div>
                 </div>
             </ng-template>
             <ng-template let-friend pTemplate="selectedItem">
-                <span class="ui-autocomplete-token-label">{{friend.name}}</span>
+                <span class="ui-autocomplete-token-label">{{friend.profileName}}</span>
             </ng-template>
         </p-autoComplete>
         </div>
@@ -209,13 +209,13 @@
     </div>
     <div class="modal-body">
         <div>
-            <p-listbox [options]="group.members" optionLabel="name" [styleClass]="'h-auto'" [(ngModel)]="selectedFriends" [listStyle]="{'max-height':'250px'}">
+            <p-listbox [options]="group.members" optionLabel="profileName" [styleClass]="'h-auto'" [(ngModel)]="selectedFriends" [listStyle]="{'max-height':'250px'}">
                 <ng-template let-member pTemplate="item">
                   <div (click)="showal(selectedCar)" class="p-helper-clearfix">
-                    <span (click)="showal(selectedCar)" style="margin:20px 10px 0 0"><b>{{member.value.name}}</b></span>
+                    <span (click)="showal(selectedCar)" style="margin:20px 10px 0 0"><b>{{member.value.profileName}}</b></span>
                   </div>
                 </ng-template>
-                <p-header *ngIf="selectedFriends.length <=0">
+                <p-header *ngIf="group.members.length <=0">
                     <div>No members</div>
                 </p-header>
               </p-listbox>
@@ -277,17 +277,17 @@
         </button>
     </div>
     <div class="modal-body">
-        <h5>select members to give admin access to this group</h5>
+        <h5>Select members to give admin access to this group</h5>
         <div class="friends-autocomplete">
             <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="false" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event.query)" styleClass="wid100"
-             placeholder="Friends" field="name" [multiple]="true" [dropdown]="true">
+             placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
                 <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
-                    <div>{{friend.name}}</div>
+                    <div>{{friend.profileName}}</div>
                 </div>
             </ng-template>
             <ng-template let-friend pTemplate="selectedItem">
-                <span class="ui-autocomplete-token-label">{{friend.name}}</span>
+                <span class="ui-autocomplete-token-label">{{friend.profileName}}</span>
             </ng-template>
         </p-autoComplete>
         </div>
@@ -305,13 +305,13 @@
         </button>
     </div>
     <div class="modal-body">
-        <h5>select members to remove admin access to this group</h5>
-        <p-multiSelect [options]="group.admins"  optionLabel="name"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedFriends" [panelStyle]="{minWidth:'12em'}">
+        <h5>Select members to remove admin access to this group</h5>
+        <p-multiSelect [options]="group.admins"  optionLabel="profileName"  [styleClass]="'w-100'" (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedFriends" [panelStyle]="{minWidth:'12em'}">
             <ng-template let-value  pTemplate="selectedItems">
                 <div  class="d-flex flex-wrap">
                     <div (click)="showal(selectedFriends)" *ngFor="let option of selectedFriends" class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
                         <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
-                        <span>{{option.name}}</span>
+                        <span>{{option.profileName}}</span>
                     </div>
                 </div>
             <span *ngIf="!selectedFriends || selectedFriends.length === 0" class="ui-multiselected-empty-token ui-corner-all">Choose members to remove from group</span>

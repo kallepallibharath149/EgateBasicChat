@@ -12,6 +12,7 @@ export class GlobalEmittingEventsService {
   curentProfileObj: any = null;
   loggedInUserDetails: any = null;
   loggedInDetailsEmit = new BehaviorSubject<any>(false);
+  scrollingEvent = new BehaviorSubject<any>(false);
 
   constructor() { }
 
@@ -23,6 +24,10 @@ export class GlobalEmittingEventsService {
   emitcurrentTopNavHeightObj(heightObj){
     this.heightObj = heightObj;
     this.currentTopNavHeightObj.emit(heightObj);
+  }
+
+  emitScrollingEvent(event){
+   this.scrollingEvent.next(event);
   }
 
   setCurrentProfileObj(profileobj){
@@ -40,6 +45,5 @@ export class GlobalEmittingEventsService {
 
   getLoggedInUserDetails():any{
     return this.loggedInUserDetails;
-
   }
 }

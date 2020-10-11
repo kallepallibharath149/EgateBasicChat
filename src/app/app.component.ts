@@ -48,8 +48,8 @@ export class AppComponent implements OnInit, AfterViewInit {
    date3:any;
    checked: boolean = false;
   constructor( private globalEmitterService: GlobalEmittingEventsService, 
-              config: NgbProgressbarConfig,private modalService: NgbModal,
-              public messageService: MessageService,
+              private config: NgbProgressbarConfig,private modalService: NgbModal,
+               private messageService: MessageService,
               private location: PlatformLocation,
               private router: Router,
               private loginService:LoginServiceService,
@@ -88,6 +88,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     return value;
   }
  ngOnInit(){
+  this.hideApplicationLoader();
   this.primengConfig.ripple = true;
    let data = 'dada';
    this.loginService.checkLogInStateAndNavigate();
@@ -96,13 +97,21 @@ export class AppComponent implements OnInit, AfterViewInit {
 
  ngAfterViewInit(){
   this.setLeftRightcontainerStyles();
-this.hideFreeHost();
+  this.hideFreeHost();
+  setTimeout(() =>{
+    this.connectionCheckListeners();
+  }, 4000)
+// this.videoPlay();
  }
 
  logInCheck(){
   if(!this.loginService.getLoggedInstate()){
     this.router.navigate(['/login']);   
   }
+ }
+
+ hideApplicationLoader(){
+   document.getElementById('application-loader').style.display = "none";
  }
 
  hideFreeHost(){
@@ -200,5 +209,45 @@ getUserDetails(){
      console.log(error);
    })
 }
+
+backToOnline(){
+// alert(navigator.storage);
+// console.log(navigator.storage);
+  this.clear();
+ this.messageService.add({id:2,severity:'success', summary: 'Success Message', detail:'Back to Online...'});
+//  this.showSuccess();
+}
+
+backToffLine(){
+  // alert('I am offline');
+   this.messageService.add({id:2,severity:'error', closable: false, life: 1000000000, summary: 'Error Message', detail:'You are offine. Please check your connection...'});
+  // this.showError();
+}
+
+connectionCheckListeners(){
+if(!navigator.onLine){
+  this.backToffLine(); 
+}
+window.addEventListener("online",(ev)=>{
+ this.backToOnline(); 
+});
+window.addEventListener("offline",(ev)=>{
+  this.backToffLine();
+})
+}
+
+closeToastMessage(message){
+  console.log(message);
+}
+
+// videoPlay(){
+//   navigator.mediaDevices.getUserMedia({
+//     video:true
+//   }).then(stream=>{
+//     // (document.getElementById("vid")).src = window.URL.createObjectURL(stream);
+//     const video = <HTMLVideoElement>(document.querySelector('#vid'));
+//     video.srcObject = stream;
+//   })
+// }
 
 }

@@ -90,14 +90,15 @@ export class HttpService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
-    if(headerPresent =='crateGroup'){
+    if(headerPresent =='createGroup'){
       return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers,
         responseType: "text"})
       .pipe(
         catchError(err => this.handleError(err))
       );
     } else {
-      return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers} )
+      
+      return this.http.post(this.baseURL+endPoint, JSON.stringify(body) )
       .pipe(
         catchError(err => this.handleError(err))
       );
@@ -107,21 +108,19 @@ export class HttpService {
    httpDelete(endPoint: string, meta?: any): Observable<any> {
     // let headers = new HttpHeaders();
     // headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    let headerss = new HttpHeaders({
-       'Cache-Control': 'no-cache',
-       'Access-Control-Allow-Origin': 'http://localhost:4200',
-       'Access-Control-Allow-Credentials': 'true'
-      //  'timeZoneOffset': new Date().getTimezoneOffset()
-    });
     // headerss = headerss.set('Host', '3.230.104.70:8888');
     // headerss = headerss.set('user', 'localUser');
-    return this.http.delete(this.baseURL+endPoint, {headers: headerss})
+    return this.http.delete(this.baseURL+endPoint)
    .pipe(
      catchError(err => this.handleError(err))
    );
    }
-   httpUpdate(endPoint: string, meta?: any): Observable<any> {
-    return this.http.put(this.baseURL+endPoint, this.httpOptions)
+
+   httpUpdate(endPoint: string, body?: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    return this.http.put(this.baseURL+endPoint, JSON.stringify(body),{headers:headers})
    .pipe(
      catchError(err => this.handleError(err))
    );

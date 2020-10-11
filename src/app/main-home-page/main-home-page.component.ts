@@ -19,6 +19,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
     console.log("scrolling...");
+    this.globalEmitterService.emitScrollingEvent($event);
   }
   @HostListener('window:resize', ['$event'])
   onResize($event) {

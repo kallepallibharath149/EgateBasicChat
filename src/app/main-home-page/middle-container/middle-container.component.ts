@@ -11,7 +11,7 @@ export class MiddleContainerComponent implements OnInit {
   constructor(private httpService?:HttpService) { }
 
   ngOnInit(): void {
-    this.getInitialLatestPosts();
+    // this.getInitialLatestPosts();
   }
 
   getInitialLatestPosts() {
