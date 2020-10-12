@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { GroupsService } from '../groups.service';
-import { groups, groupsActions, groupsListResponse, members } from '../groups.model';
+import { groups, groupsActions, groupsListResponse, members, searchMember } from '../groups.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IprofileDetails } from '@app/common/models/profile.model';
@@ -69,37 +69,11 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   @ViewChild('defaultGroup') defaultGroup;
 
   friendsArray: Array<any> = [];
-
-  cities1 = [
-    {label:'New York', value:{id:1, name: 'New York', code: 'NY'}},
-    {label:'New York', value:{id:2, name: 'New York', code: 'NY'}},
-    {label:'London', value:{id:3, name: 'London', code: 'LDN'}},
-    {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
-    {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
-];
-
-  selectedCar: any = 'BMW';
-  selectedCars3 = [
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'Ravi', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' }
-  ]
-  cars = [
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '' },
-    { profileId: 'dgdgdgdgdgdgd', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '' }];
- selectedCars2: Array<members> = [];
+  emptyMessage:string =' ';
+  cars = [];
+  selectedCars2: Array<members> = [];
   selectedFriends: Array<members> = [];
-  filteredFriendsMultiple: Array<members> = [];
+  filteredFriendsMultiple: Array<searchMember | members> = [];
   searchFriends: Array<IprofileDetails> = [
     { profileId: '1', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '', value:{id:1} },
     { profileId: '2', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '',value:{id:2}  },
@@ -109,6 +83,21 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   ];
 
   actionItems: Array<groupsActions> = [
+    {
+      "label": 'Group members',
+      "show": false,
+      "showTo": ["admin", "mainadmin","member"]
+    },
+    {
+      "label": 'Add to group',
+      "show": false,
+      "showTo": ["admin", "mainadmin"]
+    },
+    {
+      "label": 'Remove from group',
+      "show": false,
+      "showTo": ["admin", "mainadmin"]
+    },
     {
       "label": 'Invite to group',
       "show": false,
@@ -125,29 +114,14 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       "showTo": ["mainadmin", "admin"]
     },
     {
-      "label": 'Add to group',
-      "show": false,
-      "showTo": ["admin", "mainadmin"]
-    },
-    {
-      "label": 'Remove from group',
-      "show": false,
-      "showTo": ["admin", "mainadmin"]
-    },
-    {
       "label": 'Approve group request',
       "show": false,
-      "showTo": ["admin", "mainadmin"]
+      "showTo": []
     },
     {
       "label": 'Delete group',
       "show": false,
       "showTo": ["admin", "mainadmin"]
-    },
-    {
-      "label": 'Group members',
-      "show": false,
-      "showTo": ["admin", "mainadmin","member"]
     },
     {
       "label": 'Edit Group',
@@ -330,7 +304,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   confirmRemoveAdminAccess(modal, selectedFriends:Array<members>){
     if(selectedFriends.length > 0){
-    let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`
+    let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`;
     this.groupService.deleteGroupAdmin(endPoint).subscribe(resp=>{
     modal.dismiss('Cross click');
     this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Selected members admin access removed'});
@@ -356,16 +330,22 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     // });
   }
 
-  searchMembers(query){
-    if (this.filteredFriendsMultiple.length <= 0){
+  searchMembers(event){
+    if (event.query){
+      this.emptyMessage = ' ';
        //this.getFriendsList();
-      this.filteredFriendsMultiple = [{profileName: "John Doe",
-      profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
-      profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}
-    ] } else {
-     this.filteredFriendsMultiple = [{profileName: "John Doe",
-     profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
-     profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}];
+       this.filteredFriendsMultiple = [];
+    //    this.filteredFriendsMultiple = [{profileName: "John Doe",
+    //    profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
+    //    profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}
+    //  ]
+      this.getMembersToAdd(event);
+   } else {
+  //   this.filteredFriendsMultiple = [{profileName: "John Doe",
+  //   profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
+  //   profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}
+  // ]
+     this.filteredFriendsMultiple = [...this.filteredFriendsMultiple];
      }
   }
 
@@ -382,17 +362,27 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
 
 
-  getFriendsList(){
-    this.httpService.httpGet('User/111/Friends').subscribe((response)=>{
-      console.log(response);
-      if(Array.isArray(response) && response.length > 0){
-        this.friendsArray = [];
-        this.friendsArray = response;
-        this.filteredFriendsMultiple = this.friendsArray;
-      }
-     },(error)=>{
-       console.log(error);
-     });
+  getMembersToAdd(event):void{
+    let endPoint = `User/search?name=${event.query}&pageNumber=1&pagesize=5`
+    this.groupService.getMembersToAdd(endPoint).subscribe((resp:Array<searchMember>)=>{
+      let filteredProfile = [];
+     if(resp && Array.isArray(resp) && resp.length>0){
+       resp.forEach(profile=>{
+       let users =  {
+        profileName:profile.firstName + ' '+ profile.lastName,
+        profileId:profile.profileId,
+        profileImageUrl:profile.profileImageUrl,
+        profileCoverImageUrl:profile.profileCoverImageUrl
+       }
+       filteredProfile.push(users);
+      //  filteredProfile = [... this.filteredFriendsMultiple];
+       });
+      //  this.filteredFriendsMultiple = [...[]];
+        this.filteredFriendsMultiple = [...filteredProfile];  
+     } else{
+      this.emptyMessage = 'No profiles';
+     }
+    });
   }
 
 getGroupDetails() {

@@ -58,4 +58,12 @@ export class GroupsService {
   updateGroupDetails(endPoint: any,  body?): Observable<any> {
     return this.httpClient.httpUpdate(endPoint, body);
   }
+
+  addPost(endPoint: any,  body?): Observable<any> {
+    return this.httpClient.httpPost(endPoint, body);
+  }
+
+  getMembersToAdd(endPoint: any): Observable<any> {
+    return this.httpClient.httpGet(endPoint);
+  }
 }

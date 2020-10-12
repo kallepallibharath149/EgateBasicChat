@@ -75,11 +75,11 @@
     <div class="modal-body">
         <h5>Search and select members to add to this group</h5>
         <div class="friends-autocomplete">
-            <p-autoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="false" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="searchMembers($event)" styleClass="wid100"
-            [minLength]="1" placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
+            <p-autoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends w'"  [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="searchMembers($event)" 
+            [minLength]="1" [delay]="400" placeholder="Friends" field="profileName" [emptyMessage]="emptyMessage"  [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
                 <div class="" style="border-bottom:1px solid #D5D5D5">        
-                    <div>{{friend.profileName}}</div>
+                    <div>{{friend.profileName }}</div>
                 </div>
             </ng-template>
             <ng-template let-friend pTemplate="selectedItem">
@@ -165,7 +165,7 @@
     <div class="modal-body">
         <h5>Search and select members to invite to this group</h5>
         <div class="friends-autocomplete">
-            <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event)" styleClass="wid100"
+            <p-autoComplete #addAutoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event,addAutoComplete)" styleClass="wid100"
             [minLength]="1" placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
                 <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
@@ -211,8 +211,8 @@
         <div>
             <p-listbox [options]="group.members" optionLabel="profileName" [styleClass]="'h-auto'" [(ngModel)]="selectedFriends" [listStyle]="{'max-height':'250px'}">
                 <ng-template let-member pTemplate="item">
-                  <div (click)="showal(selectedCar)" class="p-helper-clearfix">
-                    <span (click)="showal(selectedCar)" style="margin:20px 10px 0 0"><b>{{member.value.profileName}}</b></span>
+                  <div class="p-helper-clearfix">
+                    <span style="margin:20px 10px 0 0"><b>{{member.value.profileName}}</b></span>
                   </div>
                 </ng-template>
                 <p-header *ngIf="group.members.length <=0">
@@ -279,8 +279,8 @@
     <div class="modal-body">
         <h5>Select members to give admin access to this group</h5>
         <div class="friends-autocomplete">
-            <p-autoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="false" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event.query)" styleClass="wid100"
-             placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
+            <p-autoComplete #addAutoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="false" [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple" (completeMethod)="filterFriendMultiple($event.query)" styleClass="wid100"
+             placeholder="Friends"  field="profileName" [multiple]="true" [dropdown]="true">
             <ng-template let-friend pTemplate="item">
                 <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">        
                     <div>{{friend.profileName}}</div>
