@@ -166,6 +166,14 @@ export class HttpService {
     return throwError(error);
   }
 
+  httpFormPost(endPoint: string, body?: FormData): Observable<any> {
+    let headers = new HttpHeaders();
+      return this.http.post(this.baseURL+endPoint, body,{headers:headers})
+      .pipe(
+        catchError(err => this.handleError(err))
+      );
+   }
+
   // httpPostOLD(url: string, data: string, methodType: string): Observable<any> {
   //   const urlFormated = url;
   //   if (this.mockDataURL !== this.baseURL && !environment.production) {

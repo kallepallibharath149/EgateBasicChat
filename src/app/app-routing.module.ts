@@ -7,10 +7,8 @@ import { GroupsComponent } from './groups/groups.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { EventsComponent } from './events/events.component';
 import { NavigateBookmarksComponent } from './navigate-bookmarks/navigate-bookmarks.component';
-import { MessengerComponent } from './messenger/messenger.component';
 import { NewsComponent } from './news/news.component';
 import { MoviesComponent } from './movies/movies.component';
-import { ConnectionsComponent } from './connections/connections.component';
 import { PhotosComponent } from './profile-details/photos/photos.component';
 import { VideosComponent } from './profile-details/videos/videos.component';
 import { FriendsComponent } from './profile-details/friends/friends.component';
@@ -43,9 +41,7 @@ const routes: Routes = [
     ]
   },
   { path: 'news', component: NewsComponent },
-  { path: 'connections', component: ConnectionsComponent },
   { path: 'movies', component: MoviesComponent },
-  { path: 'messenger', component: MessengerComponent },
   { path: 'groups', component: GroupsComponent,
   children: [
     { path: '', component: GroupsListComponent },

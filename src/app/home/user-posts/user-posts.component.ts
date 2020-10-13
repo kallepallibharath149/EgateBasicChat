@@ -11,29 +11,6 @@ import { GlobalEmittingEventsService } from '@app/services/global-emitting-event
 export class UserPostsComponent implements OnInit, OnDestroy {
   userDetails:any = null;
   @Input('postsArray')postsArray: Array<any> = [];
-   staticImages:Array<any> = [
-     {
-      imagePost: true,
-      videoPost: false,
-      imageVideoUrl:'../../assets/images/profile.jpg',
-      postComment: 'this is post comment',
-      postCategory:'share',
-      postedUserName: 'Siva Ramu'
-
-     },
-     {
-      imagePost: true,
-      videoPost: false,
-      imageVideoUrl:'../../assets/images/profile.jpg'
-
-     },
-     {
-      imagePost: true,
-      videoPost: false,
-      imageVideoUrl:'../../assets/images/profile.jpg'
-
-     }
-   ]
   Posts:Array<any>=[];
   userPostsSubscription:Subscription;
   constructor(private userPostsService:UserPostsService,
@@ -45,7 +22,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
  // this.Posts =  this.userPostsService.posts;
    this.userPostsSubscription = this.userPostsService.emitNewUserPost.subscribe(post=>{
-   this.postsArray.unshift(post);
+  //  this.postsArray.unshift(post);
    console.log(this.Posts);
     });
     this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails)=>{

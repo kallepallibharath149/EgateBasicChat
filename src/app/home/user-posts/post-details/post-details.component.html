@@ -30,13 +30,13 @@
     <ng-container *ngSwitchDefault>
       <div class="card-header">
         <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
-        <div (click)="navigateToProfile()" class="profileName">{{postDetails.userName?postDetails.userName:'Satya Sai Kumar'}}</div>
+        <div (click)="navigateToProfile()" class="profileName">{{postDetails.profileName?postDetails.profileName:'Satya Sai Kumar'}}</div>
       </div>
-      <div class="card-body p-0">
-        <div *ngIf="postDetails.postComment" class="post-comment">
-          {{postDetails.postComment?postDetails.postComment:''}}
+      <div class="card-body p-0 items-align" [ngStyle]="{'height.px': getHeight()}">
+        <div *ngIf="postDetails.posttext" class="post-comment">
+          {{postDetails.posttext?postDetails.posttext:''}}
         </div>
-        <div [ngStyle]="{'height.px': getHeight()}" class="image-section">
+        <div *ngIf="postDetails.imagePost || postDetails.videoPost" class="image-section">
           <img class="img-responsive" *ngIf="postDetails.imagePost" [src]="postDetails.imageVideoUrl"
             style="height:100%" />
           <video id="outputVideo" *ngIf="postDetails.videoPost" [src]="postDetails.imageVideoUrl" style="width:100%"

@@ -34,7 +34,6 @@ import { RightContainerComponent } from './main-home-page/right-container/right-
 import { GroupsComponent } from './groups/groups.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { EventsComponent } from './events/events.component';
-import { MessengerComponent } from './messenger/messenger.component';
 import { MainHomePageMessengerComponent } from './main-home-page-messenger/main-home-page-messenger.component';
 import { NavigateBookmarksComponent } from './navigate-bookmarks/navigate-bookmarks.component';
 import { PostDetailsComponent } from './home/user-posts/post-details/post-details.component';
@@ -95,7 +94,6 @@ import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-gr
     GroupsComponent,
     ProfileDetailsComponent,
     EventsComponent,
-    MessengerComponent,
     MainHomePageMessengerComponent,
     NavigateBookmarksComponent,
     PostDetailsComponent,

@@ -66,4 +66,8 @@ export class GroupsService {
   getMembersToAdd(endPoint: any): Observable<any> {
     return this.httpClient.httpGet(endPoint);
   }
+
+  postToGroup(endPoint: any, body:FormData): Observable<any> {
+    return this.httpClient.httpFormPost(endPoint, body);
+  }
 }

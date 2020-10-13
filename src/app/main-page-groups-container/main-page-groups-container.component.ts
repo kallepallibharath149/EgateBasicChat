@@ -31,6 +31,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
   getLatestPosts(state?) {
     this.httpService.httpGet(`Post/Posts?groupId=${this.currentGroupId}&pageNumber=1`).subscribe((response) => {
       console.log(response);
+      this.latestPosts = response;
       // if (Array.isArray(response) && response.length > 0) {
       //   let postsArray = [];
       //   response.forEach(timelinePost => {

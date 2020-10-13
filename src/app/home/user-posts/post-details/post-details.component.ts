@@ -44,7 +44,7 @@ export class PostDetailsComponent implements OnInit {
   }
   navigateToProfile() {
   this.globalEmitterService.setCurrentProfileObj(this.postDetails.userName);
-  this.route.navigate(['/profile',this.postDetails.profileId]);
+  this.route.navigate(['/profile',this.postDetails.profileid]);
   }
 
   updateLikeStatus() {
