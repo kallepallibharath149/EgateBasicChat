@@ -8,8 +8,6 @@ import { GlobalEmittingEventsService } from '@app/services/global-emitting-event
 })
 export class AccountAndProfileComponent implements OnInit {
   
-  @ViewChild('op', { static: true }) op;
-
   items:Array<any> = [
     {menuName: 'Profile',
      icon:'fa fa-user',
@@ -41,15 +39,11 @@ export class AccountAndProfileComponent implements OnInit {
   }
 
   addaHoverClass(elementRef:ElementRef,event){
-    setTimeout(()=>{
-      this.op.show(event);
-    },1000);
     this.renderer.removeClass(elementRef,'notHovered');
   this.renderer.addClass(elementRef,'hovered');
   }
 
   removeClass(elementRef:ElementRef){
-    this.op.hide();
     this.renderer.removeClass(elementRef,'hovered');
     this.renderer.addClass(elementRef,'notHovered');
   }

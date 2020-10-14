@@ -1,6 +1,6 @@
 <div class="posts-container">
-    <div class="post-content">
-     <ng-container *ngFor="let post of postsArray">
+    <div class="post-content" *ngIf="postsArray && postsArray.length > 0">
+     <ng-container *ngFor="let post of postsArray; trackBy:identify">
        <app-post-details [userDetails]="userDetails" [postDetails]="post"></app-post-details>
      </ng-container>   
     </div>

@@ -56,3 +56,13 @@
     </div>
   </div>
 </ng-template>
+<ngx-loading [show]="showLoading" [config]="{ animationType: ngxLoadingAnimationTypes,
+  backdropBackgroundColour: 'rgb(27 25 25 / 60%)',fullScreenBackdrop: true
+   }" [template]="customLoadingTemplate"></ngx-loading>
+  <ng-template #customLoadingTemplate>
+    <div class="custom-text text-center">
+        <h6>
+            Uploading your post...
+        </h6>
+    </div>
+</ng-template>

@@ -35,4 +35,8 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
   this.userPostsSubscription.unsubscribe();
   }
+
+  identify(index, item){
+    return item.id; 
+ }
 }

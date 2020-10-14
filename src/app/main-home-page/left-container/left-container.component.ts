@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Routes, Router } from '@angular/router';
+import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { groups, groupsListResponse } from '@app/groups/groups.model';
 import { GroupsService } from '@app/groups/groups.service';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
@@ -113,7 +113,8 @@ export class LeftContainerComponent implements OnInit {
 
   constructor(private router: Router,
     private globalEmitterService: GlobalEmittingEventsService,
-    private groupservice: GroupsService) { }
+    private groupservice: GroupsService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails) => {
@@ -124,6 +125,10 @@ export class LeftContainerComponent implements OnInit {
         this.navigationItems[profileIndex].profileImage = userDetails.profileImageUrl;
         this.navigationItems[profileIndex].profileName = userDetails.name;
       }
+    });
+    this.activatedRoute.paramMap.subscribe(params => {
+      // console.log(params.has('id')); // true has() ,get(),      getAll()
+      // this.currentGroupId = params.get('groupId');
     });
     
     this.getAllGroupDetails();
@@ -149,7 +154,9 @@ export class LeftContainerComponent implements OnInit {
       this.selectedGroup = this.groupsListDetails[defaultIndex];
       id = this.groupsListDetails[defaultIndex].id;
     }
-    this.router.navigate(['/home/groupsPosts', id]);
+    if(!(window.location.pathname.includes('groupsPosts'))){
+      this.router.navigate(['/home/groupsPosts', id]);
+    } 
   }
 
   navigate(navItem) {

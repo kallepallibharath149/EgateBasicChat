@@ -7,7 +7,7 @@
         <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
         <div (click)="navigateToProfile()" class="profileName">{{'Satya Sai Kumar'}} Shared this post</div>
       </div>
-      <div class="card-body p-0">
+      <!-- <div class="card-body p-0">
         <div [ngStyle]="{'height.px': getHeight()}" class="image-section {{postDetails.videoPost?'h-auto':''}} ">
           <img class="img-responsive" *ngIf="postDetails.imagePost" [src]="postDetails.imageVideoUrl"
             style="height:100%" />
@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>  -->
 
     </ng-container>
 
@@ -32,14 +32,14 @@
         <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
         <div (click)="navigateToProfile()" class="profileName">{{postDetails.profileName?postDetails.profileName:'Satya Sai Kumar'}}</div>
       </div>
-      <div class="card-body p-0 items-align" [ngStyle]="{'height.px': getHeight()}">
+      <div class="card-body p-0 {{postDetails.postTextOnly?'items-align':''}}" [ngStyle]="{'height.px': postDetails.postTextOnly?400:'auto'}">
         <div *ngIf="postDetails.posttext" class="post-comment">
           {{postDetails.posttext?postDetails.posttext:''}}
         </div>
-        <div *ngIf="postDetails.imagePost || postDetails.videoPost" class="image-section">
-          <img class="img-responsive" *ngIf="postDetails.imagePost" [src]="postDetails.imageVideoUrl"
+        <div *ngIf="postDetails.postImages.length>0 || postDetails.postVideos.length>0" class="image-section" [ngStyle]="{'height.px': getHeight()}">
+          <img class="img-responsive" *ngIf="postDetails.postImages.length>0" [src]="postDetails.postImages[0]"
             style="height:100%" />
-          <video id="outputVideo" *ngIf="postDetails.videoPost" [src]="postDetails.imageVideoUrl" style="width:100%"
+          <video id="outputVideo" *ngIf="postDetails.postVideos.length>0" [src]="postDetails.postVideos[0]" style="width:100%"
             controls></video>
         </div>
       </div>

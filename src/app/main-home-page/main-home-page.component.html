@@ -3,14 +3,11 @@
         <div #leftSideContainer id="left-container" class="groups">
             <div #sideGroup class="group">
                 <div class="left-side">
-                    <app-left-container [selectedGroup]="selectedGroup"></app-left-container>
+                    <app-left-container></app-left-container>
                 </div>
             </div>
         </div>
-        <div infiniteScroll
-        [infiniteScrollDistance]="0.3"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()" id="middle-container" class="dynamic">
+        <div id="middle-container" class="dynamic">
         <router-outlet></router-outlet>
         <!-- <app-home [posts]="latestPosts"></app-home> -->
         </div>

@@ -4,6 +4,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { UserPostsService } from '../user-posts/user-post-service/user-posts-service';
 import { ActivatedRoute } from '@angular/router';
 import { GroupsService } from '@app/groups/groups.service';
+import { ngxLoadingAnimationTypes ,NgxLoadingComponent} from '../../common/ngx-loader/lib/public_api';
+import { groupPostReloadService } from '@app/main-page-groups-container/groupPost.reload';
 
 @Component({
   selector: 'app-post-upload',
@@ -21,12 +23,15 @@ export class PostUploadComponent implements OnInit {
   modalReference : any ;
   postText : any = '';
   @ViewChild ('content') content ;
+  showLoading:boolean = false;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes.threeBounce;
   
   constructor(private modalService: NgbModal,
              private sanitizer : DomSanitizer,
              private userPostsService : UserPostsService,
              private activatedRoute: ActivatedRoute,
-             private groupService: GroupsService
+             private groupService: GroupsService,
+             private groupReloadService:groupPostReloadService
                  ) { }
 
   ngOnInit(): void {
@@ -114,7 +119,10 @@ export class PostUploadComponent implements OnInit {
     body.append('PostData', JSON.stringify(postData));
     let endPoint = `Post`
     // this.http.post(url, body);
+    this.showLoading = true;
    this.groupService.postToGroup(endPoint,body).subscribe(resp=>{
+    this.showLoading = false;
+    this.groupReloadService.reloadGroupPost(true);
     console.log('uppload file success response', resp);
    });
   this.userPostsService.addUserPost(postObject);

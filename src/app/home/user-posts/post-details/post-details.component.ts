@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { UserPostsService } from '../user-post-service/user-posts-service';
 import {MessageService} from 'primeng/api';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
+import { post } from '@app/common/models/posts.model';
 
 @Component({
   selector: 'app-post-details',
@@ -29,7 +30,7 @@ export class PostDetailsComponent implements OnInit {
     profileImageUrl:'',
   }];
 
-  @Input('postDetails') postDetails : any;
+  @Input('postDetails') postDetails : post;
   @Input('userDetails') userDetails : any;
   
 
@@ -43,7 +44,7 @@ export class PostDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
   navigateToProfile() {
-  this.globalEmitterService.setCurrentProfileObj(this.postDetails.userName);
+  this.globalEmitterService.setCurrentProfileObj(this.postDetails.profileName);
   this.route.navigate(['/profile',this.postDetails.profileid]);
   }
 

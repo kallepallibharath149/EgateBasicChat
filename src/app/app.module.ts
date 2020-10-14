@@ -75,6 +75,7 @@ import { MiddleContainerComponent } from './main-home-page/middle-container/midd
 
 import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
+import { groupPostReloadService } from './main-page-groups-container/groupPost.reload';
 
 
 
@@ -136,7 +137,7 @@ import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-gr
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
     
-    HttpService, GroupsService,
+    HttpService, GroupsService, groupPostReloadService,
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     GlobalEmittingEventsService,LoginServiceService,
               UserPostsService, MessageService,ModalOpenCanDeactivateGuardGuard,NgbActiveModal, CanRedirectToGroupsHomeGuard

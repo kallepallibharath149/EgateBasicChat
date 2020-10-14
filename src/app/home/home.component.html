@@ -6,9 +6,6 @@
         <div class="post-uplod">
          <app-post-upload></app-post-upload>
         </div>
-        <div class="text-center">
-        <p-progressSpinner *ngIf="posts.length <=0"></p-progressSpinner>
-        </div>
         <div>
         <app-user-posts [postsArray]="posts"></app-user-posts>
         </div>
