@@ -22,17 +22,35 @@
           </i><span class="item-text">Video</span></h5>
       </div>
       <div class="icons">
-        <h5><i class="fa  fa-1x fa-smile-o" aria-hidden="true"></i><span class="item-text">Feeling/Activity</span></h5>
+        <h5 (click)="open(textPost)"><i class="fa fa-1x fa-smile-o" aria-hidden="true"></i><span class="item-text">Feeling/Activity</span></h5>
       </div>
     </div>
   </div>
 </div>
-<!-- <img id="outputImage" [src]="mySrc" width="200" />
-<video id="outputVideo"  [src]="videoSrc" width="320" height="240" controls>
-    <source [attr.src]="videoSrc" type="video/mp4">
-    <source [attr.src]="videoSrc" type="video/ogg">
-  </video> -->
-<!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button> -->
+<ng-template #textPost let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create Text Post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body items-align d-flex">
+    <div class="w-100 text-break  d-flex align-items-center justify-content-center">
+      <div class="text-white"> {{postText}}</div>
+    </div>
+  </div>
+  <div class="modal-footer footer-align">
+    <div class="input-align">
+      <div class="form-group mb-0">
+        <input type="text" [(ngModel)]="postText" autocomplete="off" class="form-control w-100" id="exampleInputEmail1"
+          aria-describedby="emailHelp" placeholder="Type something here to post">
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-outline-dark" (click)="PostUserStory(modal, '', '')">Post</button>
+    </div>
+  </div>
+</ng-template>
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Create Post</h4>
@@ -59,10 +77,10 @@
 <ngx-loading [show]="showLoading" [config]="{ animationType: ngxLoadingAnimationTypes,
   backdropBackgroundColour: 'rgb(27 25 25 / 60%)',fullScreenBackdrop: true
    }" [template]="customLoadingTemplate"></ngx-loading>
-  <ng-template #customLoadingTemplate>
-    <div class="custom-text text-center">
-        <h6>
-            Uploading your post...
-        </h6>
-    </div>
+<ng-template #customLoadingTemplate>
+  <div class="custom-text text-center">
+    <h6>
+      Uploading your post...
+    </h6>
+  </div>
 </ng-template>

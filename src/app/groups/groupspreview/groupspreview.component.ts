@@ -291,6 +291,20 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     this.getGroupDetails();
   });
   }
+
+  adminAccessSelectFilter(member:members){
+    if(member.isAdmin){
+      this.selectedFriends.splice(this.selectedFriends.findIndex(item=>{item.profileId == member.profileId}),1);
+    }
+  }
+
+  memberSelectFilter(member: members) {
+    console.log(member);
+    if (member.isMember) {
+    this.selectedFriends.splice(this.selectedFriends.findIndex(item=>{item.profileId == member.profileId}),1);
+    }
+  }
+
   confirmAdminAccess(modal, selectedFriends:Array<members> ){
     if(selectedFriends.length > 0){
       let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`;
@@ -368,11 +382,19 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
       let filteredProfile = [];
      if(resp && Array.isArray(resp) && resp.length>0){
        resp.forEach(profile=>{
-       let users =  {
+       let users:members =  {
         profileName:profile.firstName + ' '+ profile.lastName,
         profileId:profile.profileId,
         profileImageUrl:profile.profileImageUrl,
         profileCoverImageUrl:profile.profileCoverImageUrl
+       }
+      let alreadyMember =  this.group.members.some(({profileId:id2})=>{
+       return profile.profileId == id2;
+       });
+       if(alreadyMember){
+        users.isMember = true; 
+       } else {
+        users.isMember = false; 
        }
        filteredProfile.push(users);
       //  filteredProfile = [... this.filteredFriendsMultiple];
@@ -400,7 +422,7 @@ getGroupDetails() {
           groupCategory: resp.groupCategory,
           memberType: resp.groupMemberType,
           defaultGrop: resp.defaultGrop,
-          members: resp.members,
+          members: this.checkMemberType(resp.members,resp.admins),
           admins: resp.admins
         } ;
         this.group = group;
@@ -409,10 +431,16 @@ getGroupDetails() {
   });
 }
 
-parseMember(members:Array<members> | null):Array<any> | null{
+checkMemberType(members:Array<members> | null,admins:Array<members> | null):Array<any> | null{
 members.forEach(member=>{
-    member.profileName = uniqueNamesGenerator(this.customConfig);
-    member.profileId = member.adminId ? member.adminId:member.userId;
+let memberStatus =  admins.some(({profileId:id2}) =>{
+    return member.profileId == id2;
+  });
+  if(memberStatus){
+    member.isAdmin = true;
+  } else{
+    member.isAdmin = false; 
+  }
 });
 return members;
 }

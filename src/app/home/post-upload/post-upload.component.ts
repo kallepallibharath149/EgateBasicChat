@@ -23,6 +23,7 @@ export class PostUploadComponent implements OnInit {
   modalReference : any ;
   postText : any = '';
   @ViewChild ('content') content ;
+  @ViewChild ('textPost') textPost;
   showLoading:boolean = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes.threeBounce;
   
@@ -48,20 +49,15 @@ export class PostUploadComponent implements OnInit {
     }, (reason) => {
       this.videoSrc =null; 
       this.imageSrc = null;
+      this.postText = null;
     });
   }
 
   handleFilesImages(data){
     const selectedFile:any = document.getElementById('imageInput');
     let dataa=<File>selectedFile.files[0];
-    // const formData:any = new FormData();
-    // let image:any = document.getElementById('outputImage');
     this.selectedImageFile = dataa;
     this.selectedImage =URL.createObjectURL(dataa);
-    // formData.append('myFile', dataa);
-    // formData.append('myfilename',dataa.name);
-    // const blob = URL.createObjectURL(this.selectedImage);
-
     this.imageSrc  = this.sanitizer.bypassSecurityTrustUrl(this.selectedImage);
     this.open(this.content);
   }
@@ -69,17 +65,10 @@ export class PostUploadComponent implements OnInit {
   handleFilesVideo(data){
     const selectedFile:any = document.getElementById('videoInput');
     let dataa=<File>selectedFile.files[0];
-    // const formData:any = new FormData();
-    // let video:any = document.getElementById('outputVideo');
     this.selectedVideoFile = dataa;
     let videosrcdata = window.URL.createObjectURL(dataa);
-    //window.URL.createObjectURL(videosrcdata.data);
     this.videoSrc =this.sanitizer.bypassSecurityTrustUrl(videosrcdata);
     this.open(this.content);
-    // console.log(videosrcdata);
-    // console.log(this.videoSrc);
-    // formData.append('myFile', dataa);
-    // formData.append('myfilename',dataa.name)
   }
 
   closeModal(modal){
@@ -115,6 +104,8 @@ export class PostUploadComponent implements OnInit {
       body.append('files',  this.selectedImageFile);
     } else if(videoSrc){
       body.append('files', this.selectedVideoFile);
+    } else{
+     // body.append('files',  null);
     }
     body.append('PostData', JSON.stringify(postData));
     let endPoint = `Post`
@@ -124,8 +115,9 @@ export class PostUploadComponent implements OnInit {
     this.showLoading = false;
     this.groupReloadService.reloadGroupPost(true);
     console.log('uppload file success response', resp);
+   },(error)=>{
+     let data= 'abcd';
    });
-  this.userPostsService.addUserPost(postObject);
   this.closeModal('');
   }
   
