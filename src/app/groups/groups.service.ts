@@ -13,11 +13,6 @@ export class GroupsService {
   ) { }
 
   groupPreviewObj: any = null;
-  newCreatedGroup = new BehaviorSubject<any>(false);
-
-  createNewGroup(groupObj) {
-    this.newCreatedGroup.next(groupObj);
-  }
 
   setGroupPreviewObject(eventObj) {
     this.groupPreviewObj = eventObj;

@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GroupsService } from '@app/groups/groups.service';
 import { ngxLoadingAnimationTypes ,NgxLoadingComponent} from '../../common/ngx-loader/lib/public_api';
 import { groupPostReloadService } from '@app/main-page-groups-container/groupPost.reload';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-post-upload',
@@ -32,7 +33,8 @@ export class PostUploadComponent implements OnInit {
              private userPostsService : UserPostsService,
              private activatedRoute: ActivatedRoute,
              private groupService: GroupsService,
-             private groupReloadService:groupPostReloadService
+             private groupReloadService:groupPostReloadService,
+             private messageService: MessageService
                  ) { }
 
   ngOnInit(): void {
@@ -116,7 +118,8 @@ export class PostUploadComponent implements OnInit {
     this.groupReloadService.reloadGroupPost(true);
     console.log('uppload file success response', resp);
    },(error)=>{
-     let data= 'abcd';
+    this.showLoading = false;
+    this.messageService.add({severity:'error', summary: 'Error Message', detail:error.message});
    });
   this.closeModal('');
   }

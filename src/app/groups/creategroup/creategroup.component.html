@@ -18,14 +18,10 @@
                 <form #groupForm="ngForm" autocomplete="off">
                     <div class="mt-4">
                         <span class="p-float-label">
-                            <input id="float-input" class="p-inputtext" type="text" required size="30"
-                                name="grouptName" [(ngModel)]="createGroupObj.groupName" pInputText>
+                            <input id="float-input" class="p-inputtext" type="text" required size="30" name="grouptName"
+                                [(ngModel)]="createGroupObj.groupName" pInputText>
                             <label style="font-weight: bold;" for="float-input">Group Name</label>
                         </span>
-                        <!-- <span class="p-float-label">
-                            <input id="float-input" type="text" pInputText [(ngModel)]="value2"> 
-                            <label for="float-input">Username</label>
-                        </span> -->
                     </div>
                     <div class="mt-4">
                         <span class="p-float-label">
@@ -61,6 +57,7 @@
             </p-card>
         </div>
     </div>
+
     <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Confirm discard</h4>

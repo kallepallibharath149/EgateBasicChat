@@ -76,6 +76,9 @@ import { MiddleContainerComponent } from './main-home-page/middle-container/midd
 import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
 import { groupPostReloadService } from './main-page-groups-container/groupPost.reload';
+import { BarComponent } from './d3Charts/bar/bar.component';
+import { PieComponent } from './d3Charts/pie/pie.component';
+import { ScatterComponent } from './d3Charts/scatter/scatter.component';
 
 
 
@@ -119,6 +122,9 @@ import { groupPostReloadService } from './main-page-groups-container/groupPost.r
      MainPageGroupsContainerComponent,
      MiddleContainerComponent,
      RedirectTogroupsComponent,
+     BarComponent,
+     PieComponent,
+     ScatterComponent,
      
   ],
   imports: [

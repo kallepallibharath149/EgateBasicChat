@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   // to hide some content in prifile page added this input. Reused this component in profile page 
   @Input('showStories')showStories: boolean = true;
   @Input('posts')posts: Array<any> = [];
-
+  showD3Chart:boolean = false;
   constructor() { }
 
   ngOnInit(): void {

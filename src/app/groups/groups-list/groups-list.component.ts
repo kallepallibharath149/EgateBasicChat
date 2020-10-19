@@ -10,67 +10,13 @@ import { GroupsService } from '../groups.service';
 })
 export class GroupsListComponent implements OnInit {
   showContentLoading:boolean = false;
-  groupList: Array<groups> = [
-    // {
-    //   groupName: 'It Employees Group',
-    //   groupDescription: 'group to share latest info related to jobs', 
-    //   privateChanel: false,
-    //   groupPhotoPath: 'assets/eventsImages/usercard.png',
-    //   groupCategory: 'Public',
-    //   memberType: 'admin',
-    //   defaultGrop: true
-    // },
-    // {
-    //   groupName: 'It Employees Group',
-    //   groupDescription: 'group to share latest info related to jobs', 
-    //   privateChanel: false,
-    //   groupPhotoPath: 'assets/eventsImages/usercard.png',
-    //   groupCategory: 'Public',
-    //   memberType: 'mainAdmin'
-    // },
-    // {
-    //   groupName: 'It Employees Group',
-    //   groupDescription: 'group to share latest info related to jobs', 
-    //   privateChanel: false,
-    //   groupPhotoPath: 'assets/eventsImages/usercard.png',
-    //   groupCategory: 'Public',
-    //   memberType: 'member'
-    // },
-    // {
-    //   groupName: 'It Employees Group',
-    //   groupDescription: 'group to share latest info related to jobs', 
-    //   privateChanel: false,
-    //   groupPhotoPath: 'assets/eventsImages/usercard.png',
-    //   groupCategory: 'Public',
-    //   memberType: 'member'
-    // }
-  ];
-
-  groupsListDetails: Array<groupsListResponse> = [
-    // {  "groupId": '1',
-    //   "groupName": "It Employees Group",
-    //   "groupCategory": "Public",
-    //   "memberType": 'member',
-    //   "defaultGrop": false
-    //  },
-    //  {"groupId": '2',
-    //   "groupName": "Hyderabd employees",
-    //   "groupCategory": "Public",
-    //   "memberType": 'member',
-    //   "defaultGrop": true
-    //  }
-  ];
+  groupList: Array<groups> = [];
+  groupsListDetails: Array<groupsListResponse> = [ ]; // response group data
 
   constructor(private router:Router,
     private groupService:GroupsService,) { }
 
   ngOnInit(): void {
-    this.groupService.newCreatedGroup.subscribe((newGroup)=>{
-      if(newGroup != false){
-        this.groupList.push(newGroup);
-      }
-    });
-   
     this.getAllGroupDetails();
   }
 
