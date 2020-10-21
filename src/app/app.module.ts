@@ -79,6 +79,7 @@ import { groupPostReloadService } from './main-page-groups-container/groupPost.r
 import { BarComponent } from './d3Charts/bar/bar.component';
 import { PieComponent } from './d3Charts/pie/pie.component';
 import { ScatterComponent } from './d3Charts/scatter/scatter.component';
+import { GroupVideoPauseService } from './services/group.video.pause.service';
 
 
 
@@ -143,7 +144,7 @@ import { ScatterComponent } from './d3Charts/scatter/scatter.component';
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
     
-    HttpService, GroupsService, groupPostReloadService,
+    HttpService, GroupsService, groupPostReloadService, GroupVideoPauseService,
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     GlobalEmittingEventsService,LoginServiceService,
               UserPostsService, MessageService,ModalOpenCanDeactivateGuardGuard,NgbActiveModal, CanRedirectToGroupsHomeGuard

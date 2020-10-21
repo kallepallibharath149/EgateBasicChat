@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { post } from '@app/common/models/posts.model';
 import { HttpService } from '@app/interceptors/http.service';
@@ -20,6 +21,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
 
   constructor(private httpService:HttpService,
              private activatedRoute: ActivatedRoute,
+             public domSanitizationService: DomSanitizer,
              private groupReloadService:groupPostReloadService) { }
 
   ngOnInit(): void {
@@ -64,7 +66,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
             post.postImages.splice(i,1,imageUrl);
           });
           post.postVideos.forEach((video,i)=>{
-            let videoUrl = `http://3.230.104.70:8888/api/${video}`;
+            let videoUrl = this.domSanitizationService.bypassSecurityTrustUrl(`http://3.230.104.70:8888/api/${video}`);
             post.postVideos.splice(i,1,videoUrl);
           });
         if(post.postImages.length <=0 && post.postVideos.length<=0){
