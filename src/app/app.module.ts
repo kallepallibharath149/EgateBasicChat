@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-  import { DragulaModule } from 'ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 //  DragulaModule
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedServiceModule } from './common/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,7 @@ import { NgxLoadingModule } from './common/ngx-loader/lib/ngx-loading.module';
 
 
 
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { GlobalEmittingEventsService } from './services/global-emitting-events.service';
 import { UserPostsService } from './home/user-posts/user-post-service/user-posts-service';
 
@@ -113,20 +113,20 @@ import { GroupVideoPauseService } from './services/group.video.pause.service';
     AboutComponent,
     CreateEventComponent,
     EventsListComponent,
-     CommentsContainerComponent,
-     MainCommentComponent, 
-     ReplyCommentComponent, LoginComponent, EventPreviewComponent, InvitationsComponent,
-     ProfileWithCommentsComponent,
-     GroupsListComponent,
-     GroupspreviewComponent,
-     CreategroupComponent,
-     MainPageGroupsContainerComponent,
-     MiddleContainerComponent,
-     RedirectTogroupsComponent,
-     BarComponent,
-     PieComponent,
-     ScatterComponent,
-     
+    CommentsContainerComponent,
+    MainCommentComponent,
+    ReplyCommentComponent, LoginComponent, EventPreviewComponent, InvitationsComponent,
+    ProfileWithCommentsComponent,
+    GroupsListComponent,
+    GroupspreviewComponent,
+    CreategroupComponent,
+    MainPageGroupsContainerComponent,
+    MiddleContainerComponent,
+    RedirectTogroupsComponent,
+    BarComponent,
+    PieComponent,
+    ScatterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -142,13 +142,13 @@ import { GroupVideoPauseService } from './services/group.video.pause.service';
     NgxContentLoadingModule,
     NgxLoadingModule.forRoot({})
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
-    
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
+
     HttpService, GroupsService, groupPostReloadService, GroupVideoPauseService,
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
-    GlobalEmittingEventsService,LoginServiceService,
-              UserPostsService, MessageService,ModalOpenCanDeactivateGuardGuard,NgbActiveModal, CanRedirectToGroupsHomeGuard
-              ],
+    GlobalEmittingEventsService, LoginServiceService,
+    UserPostsService, MessageService, ModalOpenCanDeactivateGuardGuard, NgbActiveModal, CanRedirectToGroupsHomeGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
