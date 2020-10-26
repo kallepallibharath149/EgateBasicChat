@@ -1,4 +1,5 @@
 import { Injectable, Output,EventEmitter } from '@angular/core';
+import { HttpService } from '@app/interceptors/http.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class UserPostsService {
   events: Array<any> = [];
   @Output() emitNewUserPost = new EventEmitter();
   @Output() emitNeweventCreated = new EventEmitter();
-  constructor() {
+  constructor( private httpClient: HttpService) {
     this.posts = [];
    }
 
@@ -31,5 +32,22 @@ addEvent(eventObj){
  clearPreviewEvent(){
   this.previewEvent = null;
  }
+
+ addCommentToPost(endPoint: any, body?): Observable<any> {
+  return this.httpClient.httpFormPost(endPoint, body);
+}
+
+getPostComments(endPoint: any, body?): Observable<any> {
+  return this.httpClient.httpGet(endPoint);
+}
+
+addReplyToComment(endPoint: any, body?): Observable<any> {
+  return this.httpClient.httpFormPost(endPoint, body);
+}
+
+getRepliesToComments(endPoint: any, body?): Observable<any> {
+  return this.httpClient.httpGet(endPoint);
+}
+
 
 }

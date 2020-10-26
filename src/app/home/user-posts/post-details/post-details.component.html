@@ -36,13 +36,16 @@
         <div *ngIf="postDetails.posttext" class="post-comment">
           {{postDetails.posttext?postDetails.posttext:''}}
         </div>
-        <div *ngIf="postDetails.postImages.length>0 || postDetails.postVideos.length>0" class="image-section" [ngStyle]="{'height.px': getHeight()}">
-          <img class="img-responsive" *ngIf="postDetails.postImages.length>0" [src]="postDetails.postImages[0]"
+        <div *ngIf="postDetails.resources.length>0" class="image-section" [ngStyle]="{'height.px': getHeight()}">
+          <ng-container *ngFor="let resource of postDetails.resources">
+            <img class="img-responsive" *ngIf="resource.fileType == 'image'" [src]="resource.url"
             style="height:100%" />
             <ng-container >
-              <video [ngStyle]="{display:postDetails.postVideos.length>0 ? 'block':'none'}" #postVideoRef id="outputVideo" [src]="postDetails.postVideos[0]" style="width:100%"
+              <video *ngIf="resource.fileType == 'video'" [ngStyle]="{display:resource.fileType == 'video'? 'block':'none'}" #postVideoRef id="outputVideo" [src]="resource.url" style="width:100%"
                 controls preload="metadata" controlsList="nodownload"></video>
             </ng-container>
+          </ng-container>
+
         </div>
       </div>
       </ng-container>

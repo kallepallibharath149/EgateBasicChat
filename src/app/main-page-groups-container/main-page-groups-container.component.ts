@@ -61,15 +61,13 @@ export class MainPageGroupsContainerComponent implements OnInit {
       if (Array.isArray(response) && response.length > 0) {
         response.forEach(post=>{
           post.postCategory = '';
-          post.postImages.forEach((image,i)=>{
-            let imageUrl = `http://3.230.104.70:8888/api/${image}`;
-            post.postImages.splice(i,1,imageUrl);
+          post.profileImageUrl = `http://3.230.104.70:8888/api/${post.profileImageUrl}`; 
+          post.resources.forEach((resourse,i)=>{
+            if(resourse.fileType && resourse.fileType.toLowerCase() == 'image'){
+              resourse.url = `http://3.230.104.70:8888/api/${resourse.url}`;
+            }
           });
-          post.postVideos.forEach((video,i)=>{
-            let videoUrl = this.domSanitizationService.bypassSecurityTrustUrl(`http://3.230.104.70:8888/api/${video}`);
-            post.postVideos.splice(i,1,videoUrl);
-          });
-        if(post.postImages.length <=0 && post.postVideos.length<=0){
+        if(post.resources.length <=0 ){
           post.postTextOnly = true;
         } else {
           post.postTextOnly = false; 

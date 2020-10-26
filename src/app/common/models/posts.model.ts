@@ -6,8 +6,7 @@ export interface post {
     groupid?: string;
     posttext?: string;
     createddatetime?:string;
-    postImages: Array<any>;
-    postVideos: Array<any>;
+    resources?: Array<any>;
     postTextOnly?:boolean;
     postCategory?:string;
 }

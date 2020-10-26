@@ -62,12 +62,12 @@ export class PostDetailsComponent implements OnInit, AfterViewInit ,OnDestroy{
   }
 
 ngAfterViewInit(){
-  if(this.postDetails.postVideos.length>0){
-    (<HTMLVideoElement>(this.postVideoRef.nativeElement)).addEventListener('play', (event) => {
-      console.log('playing video');
-      this.groupVideoPauseService.emitcurrentplayingVideoId(this.postDetails.id);
-    });
-  }
+  // if(this.postDetails.postVideos.length>0){
+  //   (<HTMLVideoElement>(this.postVideoRef.nativeElement)).addEventListener('play', (event) => {
+  //     console.log('playing video');
+  //     this.groupVideoPauseService.emitcurrentplayingVideoId(this.postDetails.id);
+  //   });
+  // }
 }
 
 ngOnDestroy(){
@@ -120,9 +120,9 @@ updateCommentArrayForReply(updatedObj, addedreplyPostObj,index){
     this.messageService.add({severity:'success', summary: 'Success Message', detail:'shared to your timeline'})
   }
   resetVideo(){
-    if(this.postDetails.postVideos.length>0){
-       this.postVideoRef.nativeElement.load();
-    }
+    // if(this.postDetails.postVideos.length>0){
+    //    this.postVideoRef.nativeElement.load();
+    // }
   }
 
 }
