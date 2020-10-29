@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, 
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
+import { comment } from '@app/common/models/posts.model';
 
 @Component({
   selector: 'app-main-comment',
@@ -12,7 +13,7 @@ export class MainCommentComponent implements OnInit, AfterViewInit {
   replayComment: string = '';
   @ViewChild('replyCommentInput', {read:ElementRef,  static: true }) replyCommentInput: ElementRef;
   @ViewChild('replyCommentImageInput') replyCommentImageInput: ElementRef;
-  @Input('mainCommentObj') mainCommentObj: any = null;
+  @Input('mainCommentObj') mainCommentObj: comment = null;
   @Input('userDetails') userDetails : any;
   tempReplyCommentImage: any;
   showReplyPost: boolean = false;

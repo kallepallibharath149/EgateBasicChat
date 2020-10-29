@@ -1,6 +1,6 @@
 <div>
     <!-- don't add any child elements inside start---using infinite scroll -->
-    <div infiniteScroll [infiniteScrollDistance]="0.3" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <div scrollWindow="false" [infiniteScrollDisabled]="reachedEndOfPosts" immediateCheck="true" infiniteScroll [infiniteScrollDistance]="0.3" [infiniteScrollThrottle]="150" (scrolled)="onScroll()">
         <app-home [posts]="latestPosts"></app-home>
     </div>
     <!-- don't add any child elements inside end---using infinite scroll -->

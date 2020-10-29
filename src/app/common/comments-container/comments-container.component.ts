@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Output,
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { comment } from '../models/posts.model';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
   viewInitialized: boolean = false;
   postComment: string = '';
   replyPostComment: string = '';
-  @Input() commentsArray: Array<any> = [];
+  @Input() commentsArray: Array<comment> = [];
   @Input('postDetails') postDetails: any;
   _showComments: boolean = false;
   showCommentsContainer : boolean = true;
@@ -42,6 +43,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
 
   @Output() updateCommentArray = <any>new EventEmitter();
   @Output() updateCommentArrayForReply = <any>new EventEmitter();
+  selectedCommentFiles:any;
 
   constructor(public domSanitizationService: DomSanitizer,
               private router: Router,) { }
@@ -82,7 +84,8 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
      // this.commentsArray.push(postCommentObj);
       let obj = {
         "updatedArray": this.commentsArray,
-        "addedPostObj": postCommentObj
+        "addedPostObj": postCommentObj,
+        "formFiles"   : this.selectedCommentFiles
       }
       this.updateCommentArray.emit(obj);
       // this._showComments = true;
@@ -105,6 +108,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
     let imgUrl;
     if (event.target.files.length > 0) {
       uploadedImg = event.target.files[0];
+      this.selectedCommentFiles = uploadedImg;
       imgUrl = URL.createObjectURL(uploadedImg);
       this.tempCommentImage = this.domSanitizationService.bypassSecurityTrustUrl(imgUrl);
     }
@@ -112,6 +116,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
 
   discardTempororyImg() {
     this.tempCommentImage = null;
+    this.selectedCommentFiles = null;
   }
 
   updateMainArray(updatedCommentObj,addedreplyPostObj,index){

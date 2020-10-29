@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
 import { UserPostsService } from '../user-post-service/user-posts-service';
 import {MessageService} from 'primeng/api';
 import { GlobalEmittingEventsService } from '@app/services/global-emitting-events.service';
-import { post } from '@app/common/models/posts.model';
+import { comment, post } from '@app/common/models/posts.model';
 import { GroupVideoPauseService } from '@app/services/group.video.pause.service';
 import { Subscription } from 'rxjs';
 
@@ -20,7 +20,8 @@ export class PostDetailsComponent implements OnInit, AfterViewInit ,OnDestroy{
   replyPostComment: string = '';
   likeStatus: boolean = false;
   showComments: boolean = false;
-  commentsArray : Array<any> = [];
+  showCommentsSection: boolean = false;
+  commentsArray : Array<comment> = [];
   likesArray : Array<any> = [{
     profileId: '',
     profileName: 'satya',
@@ -35,6 +36,7 @@ export class PostDetailsComponent implements OnInit, AfterViewInit ,OnDestroy{
   @ViewChild('postVideoRef',{ static: false }) postVideoRef: ElementRef; 
 
   @Input('postDetails') postDetails : post;
+  @Input('postIndex') postIndex : any;
   @Input('userDetails') userDetails : any;
   
 
@@ -68,6 +70,7 @@ ngAfterViewInit(){
   //     this.groupVideoPauseService.emitcurrentplayingVideoId(this.postDetails.id);
   //   });
   // }
+  this.getPostComments();
 }
 
 ngOnDestroy(){
@@ -93,18 +96,62 @@ ngOnDestroy(){
   }
 
 commentFocus(){
-this.showComments = true;
-this.focusInput = !this.focusInput;
+// this.showComments = true;
+// this.focusInput = !this.focusInput;
 }
 
-updateCommentArray(updatedArray, addedcommentObj){
-this.showComments = true;
- this.commentsArray.push(addedcommentObj);
+updateCommentArray(updatedArray, addedcommentObj, commentAttachedFiles?){
+ this.showComments = true;
+ console.log(addedcommentObj);
+ console.log(commentAttachedFiles);
+ let body: FormData = new FormData();
+ let postData = {
+  "postid": this.postDetails.id,
+  "groupid": this.postDetails.groupid,
+  "commenttext": addedcommentObj.commentText
+}
+
+if (commentAttachedFiles) {
+  body.append('Files', commentAttachedFiles);
+}
+body.append('PostData', JSON.stringify(postData));
+let endPoint = `post/comment`
+this.userPostsService.addCommentToPost(endPoint,body).subscribe(resp =>{
+  console.log(resp);
+ this.getPostComments();
+});
+//  this.commentsArray.push(addedcommentObj);
+
+}
+
+
+getPostComments(){
+  let endPoint = `post/comments?postID=${this.postDetails.id}&pageNumber=1&pageSize=10`
+  this.userPostsService.getPostComments(endPoint).subscribe(resp=>{
+     console.log(resp);
+     if(resp && Array.isArray(resp) && resp.length >0){
+      resp.forEach((comment:comment)=>{
+        comment.profileImageUrl = `http://3.230.104.70:8888/api/${comment.profileImageUrl}`; 
+        comment.resources.forEach((resourse,i)=>{
+          if(resourse.fileType && resourse.fileType.toLowerCase() == 'image'){
+            resourse.url = `http://3.230.104.70:8888/api/${resourse.url}`;
+          }
+        });
+      if(comment.resources.length <=0 ){
+        comment.commentTextOnly = true;
+      } else {
+        comment.commentTextOnly = false; 
+      }
+      });
+     }
+    
+     this.commentsArray = [...this.commentsArray, ...resp];
+  });
 }
 
 updateCommentArrayForReply(updatedObj, addedreplyPostObj,index){
  let repliedObj = this.commentsArray[index];
- repliedObj.commentReplayArray.push(addedreplyPostObj);
+//  repliedObj.commentReplayArray.push(addedreplyPostObj);
  this.commentsArray.splice(index,1,repliedObj);
 }
 

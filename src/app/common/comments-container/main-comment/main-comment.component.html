@@ -9,17 +9,17 @@
             </div>
             <div class="commented-section">
                 <div class="main-comment">
-                    <div class="comment-img" *ngIf="mainCommentObj.commentFileUrl">
+                    <!-- <div class="comment-img" *ngIf="mainCommentObj.commentFileUrl">
                         <img [src]="mainCommentObj.commentFileUrl" />
-                    </div>
-                    <div>{{mainCommentObj.commentText}}</div>
+                    </div> -->
+                    <div>{{mainCommentObj.commenttext}}</div>
                 </div>
                 <div class="reply" (click)="replyToComment()"><i class="fa fa-reply" aria-hidden="true"></i>Reply</div>
-                 <div class="reply-comments" *ngIf="mainCommentObj.commentReplayArray.length > 0">
+                 <!-- <div class="reply-comments" *ngIf="mainCommentObj.commentReplayArray.length > 0">
                      <ng-container *ngFor="let commentReplayItem of mainCommentObj.commentReplayArray; let replyIndex=index; ">
                          <app-reply-comment (replyToMainComment)="replyToComment()" [commentReplayItem]="commentReplayItem"></app-reply-comment>
                      </ng-container>
-                 </div>
+                 </div> -->
             </div>
             <div [class.hideReply]="!showReplyPost" class="reply-container">
                 <div class="post">

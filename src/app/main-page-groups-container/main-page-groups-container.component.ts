@@ -18,6 +18,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
   pageNumber:number = 1;
   showLoader:boolean = false;
   userMessage:Array<any> = [];
+  reachedEndOfPosts:boolean = false;
 
   constructor(private httpService:HttpService,
              private activatedRoute: ActivatedRoute,
@@ -29,6 +30,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
       // console.log(params.has('id')); // true has() ,get(),      getAll()
       this.currentGroupId = params.get('groupId');
       this.getInitialLatestPosts('initialization');
+      this.reachedEndOfPosts = false;   
       // alert(this.currentGroupId);
     });
     this.groupReloadService.reloadGroupLatestPosts.subscribe(state =>{
@@ -44,6 +46,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
     this.pageNumber = 1;
    if(APICallState == 'initialization'){
     this.latestPosts = [];
+    this.reachedEndOfPosts = false;
    }
     if(this.subscription){
       this.subscription.unsubscribe();
@@ -63,7 +66,7 @@ export class MainPageGroupsContainerComponent implements OnInit {
           post.postCategory = '';
           post.profileImageUrl = `http://3.230.104.70:8888/api/${post.profileImageUrl}`; 
           post.resources.forEach((resourse,i)=>{
-            if(resourse.fileType && resourse.fileType.toLowerCase() == 'image'){
+            if(resourse.fileType && (resourse.fileType.toLowerCase() == 'image'|| resourse.fileType.toLowerCase() == 'video' || resourse.fileType.toLowerCase() == 'other')){
               resourse.url = `http://3.230.104.70:8888/api/${resourse.url}`;
             }
           });
@@ -82,8 +85,10 @@ export class MainPageGroupsContainerComponent implements OnInit {
       } else{
         if(this.latestPosts.length <=0){
           this.userMessage = [{severity:'info', summary:'No posts. You are the first person. Please post here...', detail:''}];  
+          this.reachedEndOfPosts = true;
         } else if(this.latestPosts.length > 0 && Array.isArray(response) && response.length <= 0){
-          this.userMessage = [{severity:'info', summary:'End of Posts...', detail:''}];    
+          this.userMessage = [{severity:'info', summary:'End of Posts...', detail:''}]; 
+          this.reachedEndOfPosts = true;   
         }
       }
     }, (error) => {
@@ -92,8 +97,10 @@ export class MainPageGroupsContainerComponent implements OnInit {
   }
 
   onScroll() {
-   this.pageNumber = this.pageNumber+1; 
-   this.getLatestPosts();
+    //  if(!this.reachedEndOfPosts){
+      this.pageNumber = this.pageNumber+1; 
+      this.getLatestPosts();
+    //  }
    }
 
 }
