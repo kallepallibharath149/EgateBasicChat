@@ -41,6 +41,7 @@ input {
     .profile {
         width : 40px;
         margin: 10px;
+        margin-left: 0px;
 
         img {
             cursor       : pointer;
@@ -104,14 +105,9 @@ cursor: pointer;
 .reply-container{
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   .post{
       width: 80%;
   }
-}
-
-.reply-comments{
-    margin-left: 25px;
 }
 
 .hideReply{
@@ -120,4 +116,9 @@ cursor: pointer;
     height: 0px;
     opacity: 0;
     overflow: hidden;
+}
+
+.show-reply{
+    color: #2196F3;
+    cursor: pointer;
 }

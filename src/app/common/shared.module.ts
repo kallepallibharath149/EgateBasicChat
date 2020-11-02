@@ -34,6 +34,7 @@ import {ChartModule} from 'primeng/chart';
 import {MenuModule} from 'primeng/menu';
 import {TabMenuModule} from 'primeng/tabmenu';
 import { TooltipModule } from 'primeng/tooltip';
+import {SidebarModule} from 'primeng/sidebar';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { TooltipModule } from 'primeng/tooltip';
     MultiSelectModule,
     RadioButtonModule,
     ListboxModule,
-    TooltipModule
+    TooltipModule,
+    SidebarModule
   ],
   providers: [],
 })

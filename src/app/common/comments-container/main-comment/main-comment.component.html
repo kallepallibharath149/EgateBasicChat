@@ -5,7 +5,7 @@
                 <div class="profile-img" (click)="navigateToProfile()"> <img
                         src="../../assets/images/profile.jpg" />
                 </div>
-                <div (click)="navigateToProfile()" class="profileName"><b>{{'Satya Sai Kumar'}}</b></div>
+                <div (click)="navigateToProfile()" class="profileName"><b>{{mainCommentObj.profileName}}</b></div>
             </div>
             <div class="commented-section">
                 <div class="main-comment">
@@ -14,45 +14,55 @@
                     </div> -->
                     <div>{{mainCommentObj.commenttext}}</div>
                 </div>
-                <div class="reply" (click)="replyToComment()"><i class="fa fa-reply" aria-hidden="true"></i>Reply</div>
-                 <!-- <div class="reply-comments" *ngIf="mainCommentObj.commentReplayArray.length > 0">
-                     <ng-container *ngFor="let commentReplayItem of mainCommentObj.commentReplayArray; let replyIndex=index; ">
-                         <app-reply-comment (replyToMainComment)="replyToComment()" [commentReplayItem]="commentReplayItem"></app-reply-comment>
-                     </ng-container>
-                 </div> -->
-            </div>
-            <div [class.hideReply]="!showReplyPost" class="reply-container">
-                <div class="post">
-                    <form #replyCommentsForm autocomplete="off">
-                        <div class="flex-content">
-                            <div class="profile">
-                                <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
-                            </div>
-            
-                            <div class="comment-input">
-                                <input #replyCommentInput class="ui-inputtext w-100" name="replyComment" [(ngModel)]="replayComment"
-                                    placeholder="Write a reply..." id="float-input" type="text" size="30" pInputText>
-                                <div (click)="replyCommentImageInput.value = null; replyCommentPhotoUpload()" class="photo"><i
-                                        class="fa fa-2x fa-camera" aria-hidden="true"></i></div>
-                                <div class="wrapper">
-                                    <input type="file" name="commentimage" #replyCommentImageInput accept="image/*"
-                                        (change)="handleReplyCommentPhotoUpload($event);" />
+                <div class="d-flex">
+                    <div class="reply mr-3" (click)="replyToComment()"><i class="fa fa-reply" aria-hidden="true"></i>Reply</div>
+                    <div *ngIf="!noReplies" class="show-reply" (click)="showHideReply()" >{{showReplies?'Hide replies':'Show replies'}}</div>
+                </div>
+                <div  [class.hideReply]="(!(commentIndex == currentReplyIndex) || !showReplies)" class="reply-container">
+                    <div class="post">
+                        <form #replyCommentsForm autocomplete="off">
+                            <div class="flex-content">
+                                <div class="profile">
+                                    <div (click)="navigateToProfile()"> <img src="../../assets/images/profile.jpg" /></div>
+                                </div>
+                
+                                <div class="comment-input">
+                                    <input #replyCommentInput class="ui-inputtext w-100" name="replyComment" [(ngModel)]="replayComment"
+                                        placeholder="Write a reply..." id="float-input" type="text" size="30" pInputText>
+                                    <div (click)="replyCommentImageInput.value = null; replyCommentPhotoUpload()" class="photo"><i
+                                            class="fa fa-2x fa-camera" aria-hidden="true"></i></div>
+                                    <div class="wrapper">
+                                        <input type="file" name="commentimage" #replyCommentImageInput accept="image/*"
+                                            (change)="handleReplyCommentPhotoUpload($event);" />
+                                    </div>
+                                </div>
+                                <div class="post-button">
+                                    <p-button type="submit" (click)="newReplyCommentHandler(replyCommentsForm)" label="Reply"></p-button>
                                 </div>
                             </div>
-                            <div class="post-button">
-                                <p-button type="submit" (click)="newReplyCommentHandler(replyCommentsForm)" label="Post"></p-button>
-                            </div>
-            
-                        </div>
-                    </form>
-                    <div *ngIf="tempReplyCommentImage" class="comment-img-prev">
-                        <div class="prev-container">
-                            <img [src]="tempReplyCommentImage" />
-                            <div (click)="discardTempororyImg()" class="discard-icon">
-                                <i class="fa fa-window-close" aria-hidden="true"></i>
+                        </form>
+                        <div *ngIf="tempReplyCommentImage" class="comment-img-prev">
+                            <div class="prev-container">
+                                <img [src]="tempReplyCommentImage" />
+                                <div (click)="discardTempororyImg()" class="discard-icon">
+                                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                 <div class="reply-comments" [class.hideReply]="!showReplies" *ngIf="commentsReplyArray.length > 0">
+                     <ng-container *ngFor="let commentReplayItem of commentsReplyArray; let replyIndex=index; ">
+                         <app-reply-comment (replyToMainComment)="replyToComment()" [commentReplayItem]="commentReplayItem"></app-reply-comment>
+                     </ng-container>
+                     <div *ngIf="showLoadMore">
+                        <div class="d-flex mt-2 mb-3">
+                           <div (click)="loadMoreCommentsReplies()" class="show-reply">Load replies</div>
+                        </div>
+                    </div>
+                 </div>
+                <div class="d-flex justify-content-center">
+                    <p-progressSpinner [style]="{width: '50px', height: '50px'}" [strokeWidth]="2" [animationDuration]="2" *ngIf="showSpinner"></p-progressSpinner>
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@ export class PostDetailsComponent implements OnInit, AfterViewInit ,OnDestroy{
   replyPostComment: string = '';
   likeStatus: boolean = false;
   showComments: boolean = false;
+  commentsExpanded:boolean = false;
   showCommentsSection: boolean = false;
   commentsArray : Array<comment> = [];
   likesArray : Array<any> = [{
@@ -70,7 +71,6 @@ ngAfterViewInit(){
   //     this.groupVideoPauseService.emitcurrentplayingVideoId(this.postDetails.id);
   //   });
   // }
-  this.getPostComments();
 }
 
 ngOnDestroy(){
@@ -96,8 +96,12 @@ ngOnDestroy(){
   }
 
 commentFocus(){
-// this.showComments = true;
-// this.focusInput = !this.focusInput;
+  //  this.getPostComments();
+    this.commentsExpanded = !this.commentsExpanded;
+    this.showComments = true;
+    setTimeout(()=>{
+      this.focusInput = !this.focusInput;
+    },300); 
 }
 
 updateCommentArray(updatedArray, addedcommentObj, commentAttachedFiles?){

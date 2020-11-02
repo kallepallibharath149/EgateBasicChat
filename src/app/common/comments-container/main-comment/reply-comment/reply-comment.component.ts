@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { comment } from '@app/common/models/posts.model';
 
 @Component({
   selector: 'app-reply-comment',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ReplyCommentComponent implements OnInit {
 
-  @Input() commentReplayItem: any = null;
+  @Input() commentReplayItem: comment = null;
 
   @Output() replyToMainComment = <any>new EventEmitter();
 
