@@ -107,11 +107,11 @@ runcode(){
   }
 
   dragstart = (d) => {
-    d3.select(d3.event.currentTarget).classed("fixed", d.fixed = true);
+    // d3.select(d3.event.currentTarget).classed("fixed", d.fixed = true);
 }
 
 dblclick = (d)=> {
-  d3.select(d3.event.currentTarget).classed("fixed", d.fixed = false);
+  // d3.select(d3.event.currentTarget).classed("fixed", d.fixed = false);
 }
 
 }

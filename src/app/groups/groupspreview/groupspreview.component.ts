@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { GroupsService } from '../groups.service';
 import { groups, groupsActions, groupsListResponse, members, searchMember } from '../groups.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IprofileDetails } from '@app/common/models/profile.model';
 import * as $ from 'jquery';
 import { MessageService } from 'primeng/api';
 import { GroupsComponent } from '../groups.component';
@@ -41,7 +40,7 @@ import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'uniqu
   templateUrl: './groupspreview.component.html',
   styleUrls: ['./groupspreview.component.less']
 })
-export class GroupspreviewComponent implements OnInit,AfterViewInit {
+export class GroupspreviewComponent implements OnInit,AfterViewInit, OnDestroy {
   
 //name generator config start
  customConfig: Config = {
@@ -74,13 +73,6 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   selectedCars2: Array<members> = [];
   selectedFriends: Array<members> = [];
   filteredFriendsMultiple: Array<searchMember | members> = [];
-  searchFriends: Array<IprofileDetails> = [
-    { profileId: '1', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '', value:{id:1} },
-    { profileId: '2', name: 'raju', profileImageUrl: '', profileCoverImageUrl: '',value:{id:2}  },
-    { profileId: '3', name: 'Raghu', profileImageUrl: '', profileCoverImageUrl: '',value:{id:3}  },
-    { profileId: '4', name: 'kiran', profileImageUrl: '', profileCoverImageUrl: '',value:{id:4}  },
-    { profileId: '5', name: 'kishore', profileImageUrl: '', profileCoverImageUrl: '',value:{id:5} },
-  ];
 
   actionItems: Array<groupsActions> = [
     {
@@ -156,7 +148,10 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
     // this.filterShowActions();
   }
   ngAfterViewInit(){
-  // $('.ui-autocomplete-dropdown').click();
+  }
+
+  ngOnDestroy(){
+    this.groupService.clearGroupPreviewObject(); 
   }
 
   filterShowActions() {
@@ -227,7 +222,6 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
         this.open(this.editGroup);
       },50) 
     } else if (actionLabel == 'Give admin access'){
-      //this.getFriendsList();
       this.open(this.giveAdminAccess);
     }else if (actionLabel == 'Remove admin access'){ 
       this.open(this.removeAdminAccess);
@@ -237,7 +231,6 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
 
   deleteGroup(modal) {
-    // this.modalReference.close();
     let endPiont = `Group/${this.currentGroupId}`;
     this.groupService.deleteGroup(endPiont).subscribe(data=>{
       this.messageService.add({severity:'success', summary: 'Success Message', detail:'Group deleted successfully'});
@@ -249,8 +242,12 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   removeMembersFromGroup(modal, selectedFriends:Array<members>){
     if(selectedFriends.length>0){
-      let endPoint = `Group/${this.group.groupId}/GroupMember/${selectedFriends[0].profileId}`;
-      this.groupService.removeGroupMember(endPoint).subscribe(resp=>{
+      let selectedProfiles = [];
+      selectedFriends.forEach(member=>{
+        selectedProfiles.push(member.profileId);
+      });
+      let endPoint = `group/${this.group.groupId}/GroupMembers`;
+      this.groupService.removeGroupMember(endPoint,selectedProfiles).subscribe(resp=>{
       modal.dismiss('Cross click');
       this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members removed from this group successfully'});
       this.getGroupDetails();
@@ -267,8 +264,12 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
   addMembersToGroup(modal, selectedFriends:Array<members>){
     if(selectedFriends.length>0){
-     let endPoint = `Group/${this.group.groupId}/GroupMember/${selectedFriends[0].profileId}`
-     this.groupService.addGroupMember(endPoint).subscribe(resp=>{
+      let selectedProfiles = [];
+      selectedFriends.forEach(member=>{
+        selectedProfiles.push(member.profileId);
+      });
+     let endPoint = `group/${this.group.groupId}/GroupMembers`;
+     this.groupService.addGroupMember(endPoint, selectedProfiles).subscribe(resp=>{
      modal.dismiss('Cross click');
      this.messageService.add({severity:'success', summary: 'Success Message', detail:'Selected members added to this group successfully'});
      this.getGroupDetails();
@@ -307,8 +308,12 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   confirmAdminAccess(modal, selectedFriends:Array<members> ){
     if(selectedFriends.length > 0){
-      let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`;
-      this.groupService.addGroupAdmin(endPoint).subscribe(resp=>{
+      let selectedProfiles = [];
+      selectedFriends.forEach(member=>{
+        selectedProfiles.push(member.profileId);
+      });
+      let endPoint = `group/${this.group.groupId}/GroupAdmins`;
+      this.groupService.addGroupAdmin(endPoint, selectedProfiles).subscribe(resp=>{
       modal.dismiss('Cross click');
       this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Admin Access given to selected members'});
       this.getGroupDetails();
@@ -318,8 +323,12 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
 
   confirmRemoveAdminAccess(modal, selectedFriends:Array<members>){
     if(selectedFriends.length > 0){
-    let endPoint = `Group/${this.group.groupId}/GroupAdmin/${selectedFriends[0].profileId}`;
-    this.groupService.deleteGroupAdmin(endPoint).subscribe(resp=>{
+      let selectedProfiles = [];
+      selectedFriends.forEach(member=>{
+        selectedProfiles.push(member.profileId);
+      });
+    let endPoint = `group/${this.group.groupId}/GroupAdmins`;
+    this.groupService.deleteGroupAdmin(endPoint, selectedProfiles).subscribe(resp=>{
     modal.dismiss('Cross click');
     this.messageService.add({severity:'success', summary: 'Admin Access', detail:'Selected members admin access removed'});
     this.getGroupDetails();
@@ -328,52 +337,33 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit {
   }
 
   confirmDefaultGroup(modal){
-  this.group.defaultGrop = true;
-  modal.dismiss('Cross click');
+  let endPoint = `group/DefaultGroup?groupId=${this.group.groupId}`;
+  this.groupService.updateGroupDetails(endPoint).subscribe(resp=>{
+    modal.dismiss('Cross click');
+    this.messageService.add({severity:'success', summary: 'Default group', detail:'Updated this group as default group'});
+    this.getGroupDetails();
+  });
   }
 
   filterFriendMultiple(query) {
-    // this.countryService.getCountries().then(countries => {
-   // this.filteredFriendsMultiple = this.filterCountry(query, this.searchFriends);
     if (this.filteredFriendsMultiple.length <= 0){
-     // this.getFriendsList();
      this.filteredFriendsMultiple = [...this.group.members];
     } else {
     this.filteredFriendsMultiple = [...this.group.members];
     }
-    // });
   }
 
   searchMembers(event){
     if (event.query){
       this.emptyMessage = ' ';
-       //this.getFriendsList();
        this.filteredFriendsMultiple = [];
-    //    this.filteredFriendsMultiple = [{profileName: "John Doe",
-    //    profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
-    //    profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}
-    //  ]
       this.getMembersToAdd(event);
    } else {
-  //   this.filteredFriendsMultiple = [{profileName: "John Doe",
-  //   profileId: "0d51f375-f8fc-4d6d-849f-8e008ca800a4",
-  //   profileImageUrl: "https://i.redd.it/ih8jzz8wlji51.jpg"}
-  // ]
      this.filteredFriendsMultiple = [...this.filteredFriendsMultiple];
      }
   }
 
-  filterCountry(query, friends: IprofileDetails[]): any[] {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    let filtered: any[] = [];
-    for (let i = 0; i < friends.length; i++) {
-      let friend = friends[i];
-      if (friend.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(friend);
-      }
-    }
-    return filtered;
-  }
+
 
 
   getMembersToAdd(event):void{

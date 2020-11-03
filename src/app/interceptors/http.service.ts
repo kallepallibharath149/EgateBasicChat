@@ -89,8 +89,8 @@ export class HttpService {
    httpPost(endPoint: string, body?: any, headerPresent?): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
-    headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
-    if(headerPresent =='createGroup'){
+    // headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    if(headerPresent == true){
       return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers,
         responseType: "text"})
       .pipe(
@@ -105,25 +105,40 @@ export class HttpService {
     }
    }
 
-   httpDelete(endPoint: string, meta?: any): Observable<any> {
-    // let headers = new HttpHeaders();
-    // headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    // headerss = headerss.set('Host', '3.230.104.70:8888');
-    // headerss = headerss.set('user', 'localUser');
-    return this.http.delete(this.baseURL+endPoint)
-   .pipe(
-     catchError(err => this.handleError(err))
-   );
+   httpDelete(endPoint: string, body?: any): Observable<any> {
+     if(body){
+      return this.http.request('DELETE', this.baseURL+endPoint,  {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        }),
+        body: body
+    }).pipe(
+        catchError(err => this.handleError(err))
+      );
+     } else if(!body){
+      return this.http.delete(this.baseURL+endPoint)
+      .pipe(
+        catchError(err => this.handleError(err))
+      );
+     }
    }
 
    httpUpdate(endPoint: string, body?: any): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
-    headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
-    return this.http.put(this.baseURL+endPoint, JSON.stringify(body),{headers:headers})
-   .pipe(
-     catchError(err => this.handleError(err))
-   );
+    // headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    if(body){
+      return this.http.put(this.baseURL+endPoint, JSON.stringify(body),{headers:headers})
+      .pipe(
+        catchError(err => this.handleError(err))
+      );
+    } else {
+      return this.http.put(this.baseURL+endPoint, body)
+      .pipe(
+        catchError(err => this.handleError(err))
+      );
+    }
+
    }
   handleError(error: any, url?: any, genericErrorMes?: any) {
     if(error.foundErrorMessage){

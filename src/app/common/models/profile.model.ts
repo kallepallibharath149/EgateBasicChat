@@ -1,9 +1,9 @@
 export interface IprofileDetails {
     profileId?: string;
-    name: string;
+    profileName?: string;
     profileImageUrl?: string;
     profileCoverImageUrl?: string;
-    value: IprofileId;
+    value?: IprofileId;
 }
 
 export interface IprofileId {

@@ -33,6 +33,8 @@ addEvent(eventObj){
   this.previewEvent = null;
  }
 
+
+
  addCommentToPost(endPoint: any, body?): Observable<any> {
   return this.httpClient.httpFormPost(endPoint, body);
 }
@@ -49,5 +51,20 @@ getRepliesToComments(endPoint: any, body?): Observable<any> {
   return this.httpClient.httpGet(endPoint);
 }
 
+likePost(endPoint: any, body?): Observable<any>{
+  return this.httpClient.httpPost(endPoint,body, true);
+}
+
+revertLike(endPoint: any, body?): Observable<any>{
+  return this.httpClient.httpDelete(endPoint, body);
+}
+
+getPostLikes(endPoint: any): Observable<any>{
+  return this.httpClient.httpGet(endPoint);
+}
+
+getPostLikesSummury(endPoint: any, body?): Observable<any>{
+  return this.httpClient.httpGet(endPoint);
+}
 
 }

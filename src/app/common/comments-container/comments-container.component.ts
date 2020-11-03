@@ -132,14 +132,6 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
     this.selectedCommentFiles = null;
   }
 
-  updateMainArray(updatedCommentObj,addedreplyPostObj,index){
-    let details = {
-      updatedObj: updatedCommentObj,
-      addedreplyPostObj: addedreplyPostObj,
-      index : index
-    }
-  this.updateCommentArrayForReply.emit(details);
-  }
 
   navigateToProfile() {
     this.router.navigate(['/profile', this.userDetails.profileId]);

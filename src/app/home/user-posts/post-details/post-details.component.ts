@@ -8,6 +8,7 @@ import { GlobalEmittingEventsService } from '@app/services/global-emitting-event
 import { comment, post } from '@app/common/models/posts.model';
 import { GroupVideoPauseService } from '@app/services/group.video.pause.service';
 import { Subscription } from 'rxjs';
+import { IprofileDetails } from '@app/common/models/profile.model';
 
 @Component({
   selector: 'app-post-details',
@@ -23,23 +24,14 @@ export class PostDetailsComponent implements OnInit, AfterViewInit ,OnDestroy{
   commentsExpanded:boolean = false;
   showCommentsSection: boolean = false;
   commentsArray : Array<comment> = [];
-  likesArray : Array<any> = [{
-    profileId: '',
-    profileName: 'satya',
-    profileImageUrl:'',
-  },
-  {
-    profileId: '',
-    profileName: 'raju',
-    profileImageUrl:'',
-  }];
+  postLikesProfiles : Array<IprofileDetails> = [];
   videoPlaySubscription:Subscription;
   @ViewChild('postVideoRef',{ static: false }) postVideoRef: ElementRef; 
-
   @Input('postDetails') postDetails : post;
   @Input('postIndex') postIndex : any;
   @Input('userDetails') userDetails : any;
-  
+  loggedInUserId:string = "ed27ac86-2aa8-4341-9b92-1b162b0420d7";
+  likesPageNumber:number = 1;
 
 
   constructor(private route: Router,
@@ -57,7 +49,8 @@ export class PostDetailsComponent implements OnInit, AfterViewInit ,OnDestroy{
          }
         // console.log('playing video time',(<HTMLVideoElement>(this.postVideoRef.nativeElement)).currentTime);
       }
-    })
+    });
+    this.getPostLikes();
   }
   navigateToProfile() {
   this.globalEmitterService.setCurrentProfileObj(this.postDetails.profileName);
@@ -71,27 +64,47 @@ ngAfterViewInit(){
   //     this.groupVideoPauseService.emitcurrentplayingVideoId(this.postDetails.id);
   //   });
   // }
+  
 }
 
 ngOnDestroy(){
   this.videoPlaySubscription.unsubscribe(); 
 }
   updateLikeStatus() {
-    this.likeStatus = ! this.likeStatus;
-    let likedProfileObj = {
-      profileId: '',
-      profileName: 'raju',
-      profileImageUrl:'',
+    let body={
+      "postid":this.postDetails.id,
+      "groupid": this.postDetails.groupid,
+      "profileid": this.loggedInUserId
     }
-
-    if(this.likeStatus){
-      this.likesArray.push(likedProfileObj)
-    } else {
-     let index = this.likesArray.findIndex(likeObj=>{
-        return likeObj.profileName == 'raju';
+    if(!this.likeStatus){
+    let endPoint = `post/like`;
+      this.userPostsService.likePost(endPoint,body).subscribe(resp=>{
+        this.likeStatus = true;
+        this.getPostLikes('latest');
       });
-      this.likesArray.splice(index,1);
+    } else if(this.likeStatus){
+      let endPoint = `post/like`; 
+      this.userPostsService.revertLike(endPoint, body).subscribe(resp=>{
+        this.likeStatus = false; 
+        let index = this.postLikesProfiles.findIndex(profile=>{
+        return profile.profileId == this.loggedInUserId;
+      });
+      if(index >=0){
+        this.postLikesProfiles.splice(index,1);
+      }
+      });
     }
+    
+    // this.likeStatus = ! this.likeStatus;
+
+    // if(this.likeStatus){
+    //   this.postLikesProfiles.push(likedProfileObj)
+    // } else {
+    //  let index = this.postLikesProfiles.findIndex(likeObj=>{
+    //     return likeObj.profileName == 'raju';
+    //   });
+    //   this.postLikesProfiles.splice(index,1);
+    // }
     
   }
 
@@ -104,59 +117,30 @@ commentFocus(){
     },300); 
 }
 
-updateCommentArray(updatedArray, addedcommentObj, commentAttachedFiles?){
- this.showComments = true;
- console.log(addedcommentObj);
- console.log(commentAttachedFiles);
- let body: FormData = new FormData();
- let postData = {
-  "postid": this.postDetails.id,
-  "groupid": this.postDetails.groupid,
-  "commenttext": addedcommentObj.commentText
+getPostLikes(state?){
+ let endPoint = `post/${this.postDetails.id}/likes?groupid=${this.postDetails.groupid}&pageNumber=${this.likesPageNumber}&pageSize=10`; 
+if(state == 'latest'){
+  endPoint = `post/${this.postDetails.id}/likes?groupid=${this.postDetails.groupid}&pageNumber=1&pageSize=100`; 
 }
-
-if (commentAttachedFiles) {
-  body.append('Files', commentAttachedFiles);
-}
-body.append('PostData', JSON.stringify(postData));
-let endPoint = `post/comment`
-this.userPostsService.addCommentToPost(endPoint,body).subscribe(resp =>{
-  console.log(resp);
- this.getPostComments();
-});
-//  this.commentsArray.push(addedcommentObj);
-
-}
-
-
-getPostComments(){
-  let endPoint = `post/comments?postID=${this.postDetails.id}&pageNumber=1&pageSize=10`
-  this.userPostsService.getPostComments(endPoint).subscribe(resp=>{
-     console.log(resp);
-     if(resp && Array.isArray(resp) && resp.length >0){
-      resp.forEach((comment:comment)=>{
-        comment.profileImageUrl = `http://3.230.104.70:8888/api/${comment.profileImageUrl}`; 
-        comment.resources.forEach((resourse,i)=>{
-          if(resourse.fileType && resourse.fileType.toLowerCase() == 'image'){
-            resourse.url = `http://3.230.104.70:8888/api/${resourse.url}`;
-          }
-        });
-      if(comment.resources.length <=0 ){
-        comment.commentTextOnly = true;
-      } else {
-        comment.commentTextOnly = false; 
-      }
-      });
+ this.userPostsService.getPostLikes(endPoint).subscribe((resp:Array<IprofileDetails>)=>{
+   if(resp && Array.isArray(resp) && resp.length > 0){
+   resp.forEach(profile=>{
+     if(profile.profileId == this.loggedInUserId){
+       this.likeStatus = true;
      }
-    
-     this.commentsArray = [...this.commentsArray, ...resp];
-  });
-}
+   });
+   if(state && state =='latest'){
+    const results = resp.filter(({ profileId: profileId1 }) => !this.postLikesProfiles.some(({ profileId: profileId2 }) => profileId2 == profileId1));
+    this.postLikesProfiles = [...this.postLikesProfiles, ...results];
+   } else {
+    this.postLikesProfiles = [...this.postLikesProfiles, ...resp];
+    this.likesPageNumber = this.likesPageNumber+1;
+    this.getPostLikes();
+   }
+   } else if(resp && Array.isArray(resp) && resp.length == 0){
 
-updateCommentArrayForReply(updatedObj, addedreplyPostObj,index){
- let repliedObj = this.commentsArray[index];
-//  repliedObj.commentReplayArray.push(addedreplyPostObj);
- this.commentsArray.splice(index,1,repliedObj);
+   }
+ });
 }
 
   getHeight():number {

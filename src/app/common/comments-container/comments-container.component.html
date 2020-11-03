@@ -32,7 +32,7 @@
         </div>
         <div *ngIf="_showComments">
             <ng-container *ngFor="let mainCommentObj of commentsArray; let commentIndex=index;">
-                <app-main-comment [currentReplyIndex]="currentReplyIndex" (replyClickedMaincomment)="currentReplyIndex = $event" [commentIndex]="commentIndex" [userDetails]="userDetails" (updateReplyCommentArray)="updateMainArray($event.updatedObj,$event.addedreplyPostObj,commentIndex)"  [mainCommentObj]="mainCommentObj"></app-main-comment>
+                <app-main-comment [currentReplyIndex]="currentReplyIndex" (replyClickedMaincomment)="currentReplyIndex = $event" [commentIndex]="commentIndex" [userDetails]="userDetails"  [mainCommentObj]="mainCommentObj"></app-main-comment>
             </ng-container>
         </div>
         <div *ngIf="showLoadMore">

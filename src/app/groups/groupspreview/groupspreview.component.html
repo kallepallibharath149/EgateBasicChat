@@ -84,11 +84,12 @@
         <div class="friends-autocomplete">
             <p-autoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends w'"
                 [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple"
-                [minLength]="1" [delay]="400" placeholder="Friends"
-                field="profileName" (onSelect)="memberSelectFilter($event)" (completeMethod)="searchMembers($event)" [emptyMessage]="emptyMessage" 
-                [multiple]="true" [dropdown]="true">
+                [minLength]="1" [delay]="400" placeholder="Friends" field="profileName"
+                (onSelect)="memberSelectFilter($event)" (completeMethod)="searchMembers($event)"
+                [emptyMessage]="emptyMessage" [multiple]="true" [dropdown]="true">
                 <ng-template let-friend pTemplate="item">
-                    <div class="w-100 d-flex align-items-center justify-content-between" style="border-bottom:1px solid #D5D5D5">
+                    <div class="w-100 d-flex align-items-center justify-content-between"
+                        style="border-bottom:1px solid #D5D5D5">
                         <div class="mr-3">{{friend.profileName }}</div>
                         <div *ngIf="friend.isMember">
                             <div>
