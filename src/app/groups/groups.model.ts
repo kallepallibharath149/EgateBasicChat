@@ -9,7 +9,7 @@ export interface groups {
     isAdmin?: boolean;
     isMainAdmin?: boolean;
     memberType?: string;
-    defaultGrop?: boolean;
+    defaultGroup?: boolean;
     admins?: Array<members> | null;
     members?: Array<members> | null;
 }
@@ -25,7 +25,7 @@ export interface groupsListResponse {
     name?: string;
     createdById?: string;
     createdDateTime?: any;
-    defaultGrop?: boolean;
+    defaultGroup?: boolean;
     groupDescription?: string;
     groupCategory?: string;
     groupMemberType?: string;

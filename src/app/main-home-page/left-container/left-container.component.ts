@@ -20,7 +20,7 @@ export class LeftContainerComponent implements OnInit {
       "id": "",
       "navigate": "/profile",
       "optionalParameters": "",
-      "requiredParameters": "raju",
+      "requiredParameters": true,
       "styleObject": '',
       "classObject": ''
     },
@@ -145,7 +145,7 @@ export class LeftContainerComponent implements OnInit {
   navigateToDefaultGroup() {
     // checking default group and navigating to default group
     let defaultIndex = this.groupsListDetails.findIndex((item: groupsListResponse) => {
-      return item?.defaultGrop;
+      return item?.defaultGroup;
     });
     let id: any = 0;
     this.selectedGroup = this.groupsListDetails[0];
@@ -165,7 +165,7 @@ export class LeftContainerComponent implements OnInit {
       let profileName = this.globalEmitterService.getLoggedInUserDetails().name;
       this.globalEmitterService.setCurrentProfileObj(profileName);
       this.router.navigate([navItem.navigate, profileId]);
-    } else if (navItem.requiredParameters && navItem.requiredParameters.length > 0) {
+    } else if (navItem.requiredParameters && (navItem.requiredParameters == true)) {
       this.router.navigate([navItem.navigate, navItem.requiredParameters]);
     } else {
       this.router.navigate([navItem.navigate]);

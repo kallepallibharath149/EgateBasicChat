@@ -34,13 +34,13 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
       "groupName": "It Employees Group",
       "groupCategory": "Public",
       "memberType": 'member',
-      "defaultGrop": true
+      "defaultGroup": true
      },
      {"groupId": '2',
       "groupName": "Hyderabd employees",
       "groupCategory": "Public",
       "memberType": 'member',
-      "defaultGrop": false
+      "defaultGroup": false
      }
   ];
   selectedGroup:groups;

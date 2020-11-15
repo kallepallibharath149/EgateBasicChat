@@ -30,7 +30,7 @@
                             <h5 class="card-title"><b>{{group.groupName}}</b></h5>
                             <p class="card-text">{{group.groupDescription}}</p>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-0">
                             <div class="details">
                                 <div class="item1">
                                     <h6>Group Category</h6>
@@ -53,7 +53,7 @@
                                     <p-inputSwitch readonly="true" [(ngModel)]="group.isAdmin"></p-inputSwitch>
                                 </div>
                             </div>
-                            <div *ngIf="group.defaultGrop" class="details">
+                            <div *ngIf="group.defaultGroup" class="details">
                                 <div class="item1">
                                     <h6>Default group</h6>
                                 </div>

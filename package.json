@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng s",
+    "start": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng s --port 4100",
     "build": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer --stats-json  ",
     "test": "ng test",
     "lint": "ng lint",

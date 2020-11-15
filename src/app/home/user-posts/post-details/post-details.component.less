@@ -1,3 +1,27 @@
+:host::ng-deep {
+    .align_position {
+        p-overlayPanel {
+            .p-overlaypanel.p-component {
+                z-index: 5 !important;
+                 min-height : 100px !important;
+                 max-height: 500px ;
+            }
+            .p-overlaypanel .p-overlaypanel-content{
+                padding-right: 0px !important;
+            }
+        }
+    }
+}
+
+.overlay_panel{
+    min-height : 100px !important;
+    height: 150px;
+    max-height: 450px ;  
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-break: break-all;
+}
+
 .comment-section {
     display        : flex;
     align-items    : center;
@@ -46,13 +70,14 @@
 
 .image-section {
     //  height  : 400px;
-    overflow: hidden;
-    width   : 100%;
-    display: flex;
-    align-items: center;
+    overflow       : hidden;
+    width          : 100%;
+    display        : flex;
+    align-items    : center;
     justify-content: center;
+
     img {
-        height: 100%;
+        height : 100%;
         //width: inherit;
     }
 }
@@ -65,54 +90,80 @@
         }
     }
 }
-.like-comment-count{
+
+.like-comment-count {
     margin: 10px 0;
-    .count-section{
-        display: flex;
-        flex-direction: row;
+
+    .count-section {
+        display        : flex;
+        flex-direction : row;
         justify-content: space-between;
-        border-top : 1px solid #af9e9e8c;
-        .comment{
+        border-top     : 1px solid #af9e9e8c;
+
+        .comment {
             padding: 10px;
-            cursor: pointer;
+            cursor : pointer;
         }
-        .like{
+
+        .like {
             padding: 10px;
-            cursor: pointer;
+            cursor : pointer;
         }
     }
 }
 
-.postUserName{
-    text-align: start;
-    padding: 10px;
-    cursor: pointer;
+.postUserName {
+    text-align : start;
+    padding    : 10px;
+    cursor     : pointer;
     font-weight: bolder;
 }
 
-.shared-profile{
-        margin: 10px 0px;
-        display: flex;
-        width: 100%;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        .container{
-            width: 75%;
-            background: #f0f2f5;   
-        }
+.shared-profile {
+    margin         : 10px 0px;
+    display        : flex;
+    width          : 100%;
+    flex-direction : row;
+    align-items    : center;
+    justify-content: center;
+    overflow       : hidden;
+
+    .container {
+        width     : 75%;
+        background: #f0f2f5;
+    }
 }
 
-.items-align{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-image: url("/assets/images/backgroudimages.jpg");
+.items-align {
+    display          : flex;
+    flex-direction   : column;
+    justify-content  : center;
+    background-image : url("/assets/images/backgroudimages.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
-    .post-comment{
+    background-size  : cover;
+
+    .post-comment {
         height: auto;
         color : white;
+    }
+}
+
+.profile-name{
+    cursor: pointer;
+}
+.likes-profile-img{
+    img {
+        cursor       : pointer;
+        width        : 30px;
+        height       : 30px;
+        border-radius: 25px;
+
     }   
+    .no-profile-img{
+        cursor       : pointer;
+        width        : 30px;
+        height       : 30px;
+        border-radius: 25px;
+        background-image: linear-gradient(90deg, rgb(2, 0, 36) 6%, rgba(107, 9, 121, 0.97) 57%, rgb(141, 0, 255) 89%);   
+    }
 }

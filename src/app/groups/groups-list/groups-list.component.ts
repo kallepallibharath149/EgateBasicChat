@@ -36,7 +36,7 @@ export class GroupsListComponent implements OnInit {
             groupPhotoPath: 'assets/eventsImages/usercard.png',
             groupCategory:groupResp.groupCategory,
             memberType: groupResp.groupMemberType,
-            defaultGrop: groupResp.defaultGrop,
+            defaultGroup: groupResp.defaultGroup,
             members:groupResp.members,
             admins:groupResp.admins
           } ;

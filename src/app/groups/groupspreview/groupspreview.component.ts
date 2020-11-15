@@ -411,7 +411,7 @@ getGroupDetails() {
           groupPhotoPath: 'assets/eventsImages/usercard.png',
           groupCategory: resp.groupCategory,
           memberType: resp.groupMemberType,
-          defaultGrop: resp.defaultGrop,
+          defaultGroup: resp.defaultGroup,
           members: this.checkMemberType(resp.members,resp.admins),
           admins: resp.admins
         } ;

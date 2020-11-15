@@ -35,12 +35,14 @@ import {MenuModule} from 'primeng/menu';
 import {TabMenuModule} from 'primeng/tabmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import {SidebarModule} from 'primeng/sidebar';
+import { RippleModule } from 'primeng/ripple';
 
 
 @NgModule({
   declarations: [],
   imports: [ButtonModule,FormsModule,CommonModule, HttpClientModule],
   exports: [
+    RippleModule,
    // FormsModule,
     ToastModule,
     MessagesModule,

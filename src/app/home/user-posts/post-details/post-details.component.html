@@ -4,8 +4,8 @@
     <!-- shared  post view -->
     <ng-container *ngSwitchCase="'share'">
       <div class="card-header">
-        <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
-        <div (click)="navigateToProfile()" class="profileName">{{'Satya Sai Kumar'}} Shared this post</div>
+        <div (click)="navigateToProfile(postDetails.profileName, postDetails.profileid)"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
+        <div (click)="navigateToProfile(postDetails.profileName, postDetails.profileid)" class="profile-name profileName">{{'Satya Sai Kumar'}} Shared this post</div>
       </div>
       <!-- <div class="card-body p-0">
         <div [ngStyle]="{'height.px': getHeight()}" class="image-section {{postDetails.videoPost?'h-auto':''}} ">
@@ -29,8 +29,8 @@
     <!-- default post view -->
     <ng-container *ngSwitchDefault>
       <div class="card-header">
-        <div (click)="navigateToProfile()"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
-        <div (click)="navigateToProfile()" class="profileName">{{postDetails.profileName?postDetails.profileName:'Satya Sai Kumar'}}</div>
+        <div (click)="navigateToProfile(postDetails.profileName, postDetails.profileid)"> <img [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
+        <div (click)="navigateToProfile(postDetails.profileName, postDetails.profileid)" class="profile-name profileName">{{postDetails.profileName?postDetails.profileName:'Satya Sai Kumar'}}</div>
       </div>
       <div class="card-body p-0 {{postDetails.postTextOnly?'items-align':''}}" [ngStyle]="{'height.px': postDetails.postTextOnly?400:'auto'}">
         <div *ngIf="postDetails.posttext" class="post-comment">
@@ -53,9 +53,9 @@
   </ng-container>
    
     <div class="like-comment-count">
-      <div *ngIf="postLikesProfiles.length > 0" class="count-section">
-        <div class="like">
-          {{postLikesProfiles.length + 'Likes'}}
+      <div *ngIf="postDetails.postLikesCount > 0" class="count-section">
+        <div class="like" id="{{'likesCount'+postIndex}}" (click)="showLikesFriendsSummury($event)">
+          {{postDetails.postLikesCount + 'Likes'}}
         </div>
         <!-- <div (click)="showComments = !showComments" class="comment" *ngIf="commentsArray.length > 0">
           {{commentsArray.length + 'comments'}}
@@ -90,4 +90,27 @@
       </div>
     </div>
   </div>
+</div>
+<div  class="align_position" [ngClass]="{'lastItem':lastItem}" >
+  <p-overlayPanel [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [style]="{width: '300px'}"  #friendsPannel [dismissable]="true" [showCloseIcon]="true">
+    <ng-template pTemplate>
+       <div class="overlay_panel">
+         <div class="profiles">
+         <ng-container *ngFor="let profile of postLikesProfiles; let i=index;">
+           <div class="d-flex {{i!=0? 'mt-3': ''}} align-items-center">
+             <div (click)="navigateToProfile(profile.profileName, profile.profileId)" class="likes-profile-img mr-3">
+               <img *ngIf="profile.profileImageUrl" [src]="'http://3.230.104.70:8888/api/'+profile.profileImageUrl"/>
+               <div *ngIf="!profile.profileImageUrl" class="no-profile-img"></div>
+            </div>
+            <div class="profile-name" (click)="navigateToProfile(profile.profileName, profile.profileId)"><b>{{profile.profileName}}</b></div>
+            </div>
+         </ng-container>
+         </div>
+         <div class="d-flex mt-2 justify-content-center" *ngIf="!showLikesPanelLoader && showLoadMoreLikes">
+           <div><button pButton pRipple type="button" (click)="loadMoreLikes()" label="Load More" class="p-button-rounded"></button></div>
+         </div>
+        <p-progressSpinner class="d-flex" *ngIf="showLikesPanelLoader"></p-progressSpinner> 
+       </div>
+    </ng-template>
+  </p-overlayPanel>
 </div>

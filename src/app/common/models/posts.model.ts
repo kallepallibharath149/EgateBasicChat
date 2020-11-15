@@ -9,6 +9,8 @@ export interface post {
     resources?: Array<any>;
     postTextOnly?:boolean;
     postCategory?:string;
+    postLikedByMe?: boolean;
+    postLikesCount?: number;
 }
 
 export interface comment {
