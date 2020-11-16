@@ -65,4 +65,17 @@ export class GroupsService {
   postToGroup(endPoint: any, body:FormData): Observable<any> {
     return this.httpClient.httpFormPost(endPoint, body);
   }
+  
+  inviteToGroup(endPoint: any,  body?): Observable<any> {
+    return this.httpClient.httpPost(endPoint, body, true);
+  }
+
+  getGroupInvitations(endPoint: any,  body?): Observable<any> {
+    return this.httpClient.httpGet(endPoint);
+  }
+
+  approveRejectInvitations(endPoint: any,  body?): Observable<any> {
+    return this.httpClient.httpUpdate(endPoint, body);
+  }
+
 }

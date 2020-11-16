@@ -55,3 +55,30 @@ export interface searchMember {
     profileImageUrl?: string;
     profileCoverImageUrl?: string;
 }
+
+export interface invitedMembers {
+    id: string; 
+
+    groupid: string;
+
+    profileid: string;
+
+    profileName: string;
+
+    profileImageUrl: string;
+
+    invitetext: string;
+
+    invitedbyprofileid?:string;
+
+    actionByAdminProfileid?:string; 
+
+    status?: string;
+
+    invitationSentTime?: any;
+
+    invitationAdminActionTime?: any; 
+
+    inviteeActionTime?: any; 
+}
+

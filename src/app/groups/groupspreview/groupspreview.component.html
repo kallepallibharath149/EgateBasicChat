@@ -16,9 +16,11 @@
                             </div>
 
                         </ng-template>
-                        <div placement="left" triggers="manual" #p="ngbPopover" (click)="p.open()"
-                            [autoClose]="'outside'" [ngbPopover]="popTitle" container="body" class="ellipse-icon"><i
-                                class="fa fa-2x fa-ellipsis-v" aria-hidden="true"></i></div>
+                        <div placement="left" triggers="manual" #p="ngbPopover" (click)="p.open()" [autoClose]="'outside'"
+                            [ngbPopover]="popTitle" container="body" class="ellipse-icon"><i class="fa fa-2x fa-ellipsis-v"
+                                aria-hidden="true"></i>
+                            <div class="ml2 invite-count-hint" *ngIf="groupInvitationsCount !=0"><b class="">{{groupInvitationsCount}}</b></div>
+                            </div>
                         <div class="image-wrapper">
                             <div class="blur-photo">
                                 <img class="img-fluid" [src]="group.groupPhotoPath" />
@@ -167,28 +169,35 @@
         </button>
     </div>
     <div class="modal-body">
-        <p-multiSelect [options]="cars" optionLabel="profileName" [styleClass]="'w-100'"
-            (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedCars2"
+        <p-multiSelect dataKey="id" [options]="groupInvitations" optionLabel="profileName" [styleClass]="'w-100'"
+            (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedInvitedMembers"
             [panelStyle]="{minWidth:'12em'}">
             <ng-template let-value pTemplate="selectedItems">
                 <div class="d-flex flex-wrap">
-                    <div (click)="showal(selectedCars2)" *ngFor="let option of selectedCars2"
+                    <div *ngFor="let option of selectedInvitedMembers"
                         class="p-1 m-1 bg-primary text-white ui-multiselected-item-token ui-corner-all">
                         <!-- <img src="assets/showcase/images/demo/car/{{val}}.png" style="width:20px;vertical-align:middle;margin-right:.5em" /> -->
                         <span>{{option.profileName}}</span>
                     </div>
                 </div>
-                <span *ngIf="!selectedCars2 || selectedCars2.length === 0"
+                <span *ngIf="!selectedInvitedMembers || selectedInvitedMembers.length === 0"
                     class="ui-multiselected-empty-token ui-corner-all">Choose invited members to approve</span>
             </ng-template>
-            <ng-template let-car pTemplate="item">
+            <ng-template let-friend pTemplate="item">
                 <!-- <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;display:inline-block;vertical-align:middle"/> -->
-                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+                <div class="d-flex justify-content-between">
+                  <div class="" style="font-size:14px;margin-top:4px; min-width: 150px;">{{friend.label}}</div>   
+                  <div (click)="stopPropagation($event)" class="w-50 ml-3 button-actions position-relative">
+                    <button type="button"  (click)="approveRejectMembers(modal,[friend.value],'approve', 'approveFromItem')" class="btn btn-success mr-3">Approve</button>
+                    <button type="button" (click)="approveRejectMembers(modal,[friend.value], 'reject', 'rejectFromItem')" class="btn btn-danger">Reject</button>   
+                  </div>
+                </div>
             </ng-template>
         </p-multiSelect>
     </div>
     <div class="modal-footer">
-        <button type="button" (click)="approveMembers(modal)" class="btn btn-outline-success">Approve</button>
+        <button type="button" (click)="approveRejectMembers(modal,selectedInvitedMembers,'approve')" class="btn btn-outline-success">Approve</button>
+        <button type="button" (click)="approveRejectMembers(modal,selectedInvitedMembers, 'reject')" class="btn btn-outline-danger">Reject</button>
         <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
     </div>
 </ng-template>
@@ -201,12 +210,12 @@
         </button>
     </div>
     <div class="modal-body">
-        <h5>Search and select members to invite to this group</h5>
+        <!-- <h5>Search and select members to invite to this group</h5> -->
         <div class="friends-autocomplete">
-            <p-autoComplete #addAutoComplete class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true"
+            <!-- <p-autoComplete #addAutoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends'" [autoHighlight]="true"
                 [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple"
                 (completeMethod)="filterFriendMultiple($event)" styleClass="wid100" [minLength]="1"
-                placeholder="Friends" field="profileName" [multiple]="true" [dropdown]="true">
+                placeholder="Friends" field="profileName" [emptyMessage]="emptyMessage" [multiple]="true" [dropdown]="true">
                 <ng-template let-friend pTemplate="item">
                     <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                         <div>{{friend.profileName}}</div>
@@ -215,11 +224,38 @@
                 <ng-template let-friend pTemplate="selectedItem">
                     <span class="ui-autocomplete-token-label">{{friend.profileName}}</span>
                 </ng-template>
-            </p-autoComplete>
+            </p-autoComplete> -->
+            <div class="mb-3 mt-3">
+                <span class="p-float-label">
+                    <input id="float-input" class="p-inputtext-sm" type="text" autocomplete="off" pInputText [(ngModel)]="InvitationComments"> 
+                    <label for="float-input">Invitation Comment</label>
+                </span> 
+            </div>
+            <p-autoComplete dataKey="profileId" class="friendsAutoComplete" [styleClass]="'friends w'"
+            [(ngModel)]="selectedFriends" [panelStyle]="{overflow:'auto'}" [suggestions]="filteredFriendsMultiple"
+            [minLength]="1" [delay]="400" placeholder="Friends" field="profileName"
+            (onSelect)="memberSelectFilter($event)" (completeMethod)="searchMembers($event)"
+            [emptyMessage]="emptyMessage" [multiple]="true" [dropdown]="true">
+            <ng-template let-friend pTemplate="item">
+                <div class="w-100 d-flex align-items-center justify-content-between"
+                    style="border-bottom:1px solid #D5D5D5">
+                    <div class="mr-3">{{friend.profileName }}</div>
+                    <div *ngIf="friend.isMember">
+                        <div>
+                            <button pButton pRipple type="button" label="Member" icon="pi pi-user"
+                                class="p-button-rounded p-button-sm p-button-secondary"></button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template let-friend pTemplate="selectedItem">
+                <span class="ui-autocomplete-token-label">{{friend.profileName}}</span>
+            </ng-template>
+        </p-autoComplete>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" (click)="inviteMembers(modal)" class="btn btn-outline-success">Invite</button>
+        <button type="button" (click)="inviteMembers(modal, selectedFriends)" class="btn btn-outline-success">Invite</button>
         <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-outline-dark">Cancel</button>
     </div>
 </ng-template>
