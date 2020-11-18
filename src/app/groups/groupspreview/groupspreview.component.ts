@@ -471,7 +471,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit, OnDestroy {
           groupCategory: resp.groupCategory,
           memberType: resp.groupMemberType,
           defaultGroup: resp.defaultGroup,
-          members: this.checkMemberType(resp.members, resp.admins),
+          members: this.checkMemberType(resp.members, resp.admins, resp.createdById),
           admins: resp.admins
         };
         this.group = group;
@@ -499,7 +499,7 @@ getGroupInvitations(){
   });
 }
 
-checkMemberType(members:Array<members> | null,admins:Array<members> | null):Array<any> | null{
+checkMemberType(members:Array<members> | null,admins:Array<members> | null, createdById?:string):Array<any> | null{
 members.forEach(member=>{
 let memberStatus =  admins.some(({profileId:id2}) =>{
     return member.profileId == id2;
@@ -508,6 +508,11 @@ let memberStatus =  admins.some(({profileId:id2}) =>{
     member.isAdmin = true;
   } else{
     member.isAdmin = false; 
+  }
+  if(member.profileId == createdById ){
+    member.isMainAdmin = true;
+  } else {
+    member.isMainAdmin = false;
   }
 });
 return members;

@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GlobalEmittingEventsService } from '../services/global-emitting-events.service';
 import { Router } from '@angular/router';
-import { gsap } from "gsap";
-import { PixiPlugin } from "gsap/PixiPlugin.js";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin.js";
 
 @Component({
   selector: 'app-page-not-found',
@@ -12,8 +9,6 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin.js";
 })
 export class PageNotFoundComponent implements OnInit,AfterViewInit {
   
-  @ViewChild('mushroom') box: ElementRef;
-
 
   constructor(private router:Router,
               private globalEmitterService:GlobalEmittingEventsService ) { }

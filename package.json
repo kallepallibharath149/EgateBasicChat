@@ -32,10 +32,10 @@
     "d3": "^6.2.0",
     "dragula": "^3.7.2",
     "font-awesome": "^4.7.0",
-    "gsap": "^3.4.2",
     "jquery": "^3.5.1",
     "ng2-dragula": "^2.1.1",
     "ngx-infinite-scroll": "^9.0.0",
+    "ngx-slick-carousel": "^0.5.1",
     "popper.js": "^1.16.1",
     "primeicons": "^4.0.0",
     "primeng": "^10.0.0",
@@ -45,6 +45,7 @@
     "tslib": "^1.10.0",
     "underscore": "^1.11.0",
     "unique-names-generator": "^4.3.1",
+    "viewerjs": "^1.8.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

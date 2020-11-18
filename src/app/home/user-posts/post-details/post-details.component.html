@@ -36,20 +36,34 @@
         <div *ngIf="postDetails.posttext" class="post-comment">
           {{postDetails.posttext?postDetails.posttext:''}}
         </div>
-        <div *ngIf="postDetails.resources.length>0" class="image-section" [ngStyle]="{'height.px': getHeight()}">
-          <ng-container *ngFor="let resource of postDetails.resources">
+        <div *ngIf="postDetails.resources.length>0" class="image-section" [ngStyle]="{'max-height.px': getHeight()}">
+          <!-- <ng-container *ngFor="let resource of postDetails.resources">
             <img class="img-responsive" *ngIf="resource.fileType == 'image'" [src]="resource.url"
             style="height:100%" />
             <ng-container >
               <video *ngIf="resource.fileType == 'video'" [ngStyle]="{display:resource.fileType == 'video'? 'block':'none'}" #postVideoRef id="outputVideo" [src]="resource.url" style="width:100%"
                 controls controlsList="nodownload"></video>
             </ng-container>
-          </ng-container>
-
+          </ng-container> -->
+        <div class="image-video-section w-100" [ngStyle]="{'max-height.px': getHeight()}">
+          <ngx-slick-carousel class="carousel w-100 courosel-comp" #slickModal="slick-carousel" [config]="PostSlideConfig">
+            <div ngxSlickItem *ngFor="let resource of postDetails.resources" class="slide">
+              <div class="" *ngIf="resource.fileType == 'image'">
+                <img class="courosel-image img-fluid" [src]="resource.url">
+              </div>
+              <div *ngIf="resource.fileType == 'video'">
+                <video [ngStyle]="{display:resource.fileType == 'video'? 'block':'none'}" #postVideoRef id="outputVideo" [src]="resource.url" style="width:100%"
+                  controls controlsList="nodownload"></video>
+              </div>
+              <!-- <div *ngIf="resource.fileType == 'video'">
+                <embed src="path_of_your_pdf/your_pdf_file.pdf" type="application/pdf"   height="700px" width="500">
+              </div> -->
+            </div>
+          </ngx-slick-carousel>
+        </div>
         </div>
       </div>
       </ng-container>
-
   </ng-container>
    
     <div class="like-comment-count">
@@ -91,6 +105,8 @@
     </div>
   </div>
 </div>
+
+<!-- Likes prifiles overlay panel -->
 <div  class="align_position" [ngClass]="{'lastItem':lastItem}" >
   <p-overlayPanel [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [style]="{width: '300px'}"  #friendsPannel [dismissable]="true" [showCloseIcon]="true">
     <ng-template pTemplate>

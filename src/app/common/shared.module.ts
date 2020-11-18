@@ -36,12 +36,14 @@ import {TabMenuModule} from 'primeng/tabmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import {SidebarModule} from 'primeng/sidebar';
 import { RippleModule } from 'primeng/ripple';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 @NgModule({
   declarations: [],
   imports: [ButtonModule,FormsModule,CommonModule, HttpClientModule],
   exports: [
+    SlickCarouselModule,
     RippleModule,
    // FormsModule,
     ToastModule,

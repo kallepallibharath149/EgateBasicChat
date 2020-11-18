@@ -141,7 +141,7 @@
                     <div class="mr-3"> {{member.label}}</div>
                     <div>
                         <div *ngIf="member.value.isAdmin">
-                            <button pButton pRipple type="button" label="Admin" icon="pi pi-bookmark"
+                            <button pButton pRipple type="button" label="{{member.value.isMainAdmin?'Main Admin':'Admin'}}" icon="pi pi-bookmark"
                                 class="p-button-rounded p-button-sm p-button-secondary"></button>
                         </div>
                         <div *ngIf="!member.value.isAdmin">
@@ -169,7 +169,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <p-multiSelect dataKey="id" [options]="groupInvitations" optionLabel="profileName" [styleClass]="'w-100'"
+        <p-multiSelect dataKey="id" virtualScrol="true"  placeholder="'Select a City'"  [options]="groupInvitations" optionLabel="profileName" [styleClass]="'w-100'"
             (onChange)="changeEvent($event.value,$event.itemValue)" [(ngModel)]="selectedInvitedMembers"
             [panelStyle]="{minWidth:'12em'}">
             <ng-template let-value pTemplate="selectedItems">
@@ -181,15 +181,16 @@
                     </div>
                 </div>
                 <span *ngIf="!selectedInvitedMembers || selectedInvitedMembers.length === 0"
-                    class="ui-multiselected-empty-token ui-corner-all">Choose invited members to approve</span>
+                    class="ui-multiselected-empty-token ui-corner-all">Choose members to approve</span>
             </ng-template>
             <ng-template let-friend pTemplate="item">
                 <!-- <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;display:inline-block;vertical-align:middle"/> -->
-                <div class="d-flex justify-content-between">
-                  <div class="" style="font-size:14px;margin-top:4px; min-width: 150px;">{{friend.label}}</div>   
-                  <div (click)="stopPropagation($event)" class="w-50 ml-3 button-actions position-relative">
-                    <button type="button"  (click)="approveRejectMembers(modal,[friend.value],'approve', 'approveFromItem')" class="btn btn-success mr-3">Approve</button>
-                    <button type="button" (click)="approveRejectMembers(modal,[friend.value], 'reject', 'rejectFromItem')" class="btn btn-danger">Reject</button>   
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                  <div class="profile_name">
+                    {{friend.label}}</div>   
+                  <div (click)="stopPropagation($event)" class="ml-3 profile_accept button-actions position-relative">
+                    <button type="button"  (click)="approveRejectMembers(modal,[friend.value],'approve', 'approveFromItem')" class="btn btn-success mr-3"><i class="pi pi-check"></i></button>
+                    <button type="button" (click)="approveRejectMembers(modal,[friend.value], 'reject', 'rejectFromItem')" class="btn btn-danger"><i class="pi pi-times"></i></button>   
                   </div>
                 </div>
             </ng-template>
@@ -292,7 +293,7 @@
                         <div class="mr-3"><b>{{member.value.profileName}}</b></div>
                         <div>
                             <div *ngIf="member.value.isAdmin">
-                                <button pButton pRipple type="button" label="Admin" icon="pi pi-bookmark"
+                                <button pButton pRipple type="button" label="{{member.value.isMainAdmin?'Main Admin':'Admin'}}" icon="pi pi-bookmark"
                                     class="p-button-sm p-button-rounded p-button-secondary"></button>
                             </div>
                             <div *ngIf="!member.value.isAdmin">

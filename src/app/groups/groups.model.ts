@@ -46,6 +46,7 @@ export interface members {
     isAdmin?: boolean;
     profileCoverImageUrl?: string;
     isMember? :boolean;
+    isMainAdmin?:boolean;
 }
 
 export interface searchMember {
