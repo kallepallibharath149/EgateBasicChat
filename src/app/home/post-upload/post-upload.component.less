@@ -84,3 +84,70 @@
     background-image: url("/assets/images/backgroudimages.jpg");
     min-height: 100px;
 }
+
+.photoUpload{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    .wrapper {
+        visibility: hidden;
+        width     : 0px;
+        height    : 0px;
+        opacity   : 0;
+    }
+    i{
+        font-size: 25px;
+    }
+}
+.courosel-image {
+    left      : 50%;
+    transform : translate(-50%, 0%);
+    position  : relative;
+    text-align: center;
+    max-height: 390px;
+    width  : auto;
+}
+
+@media only screen and (max-width: 500px) {
+    .courosel-image {
+        max-height: auto;
+        max-width  : 100%;
+    }
+}
+
+.upload-icon{
+    font-size: 1rem;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    font-weight: bolder;
+}
+
+.upload_wrapper {
+    visibility: hidden;
+    width     : 0px;
+    height    : 0px;
+    opacity   : 0;
+}
+// .remove-item{
+//     width: 30px;
+//     height: 30px;
+//     background: #5cffe1;
+//     border-radius: 75px;
+//     position: absolute;
+//     top: 0px;
+//     right: 0px;
+//     cursor: pointer;
+//     &:hover{
+//         width: 40px;
+//         height: 40px;   
+//     }
+//     i{
+//         color: white;
+//         font-weight: bolder;
+//         position: absolute;
+//         top: 50%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+//     }
+// }

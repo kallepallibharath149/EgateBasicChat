@@ -37,15 +37,18 @@ import { TooltipModule } from 'primeng/tooltip';
 import {SidebarModule} from 'primeng/sidebar';
 import { RippleModule } from 'primeng/ripple';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {TreeModule} from 'primeng/tree';
+import {TreeNode} from 'primeng/api';
 
 
 @NgModule({
   declarations: [],
   imports: [ButtonModule,FormsModule,CommonModule, HttpClientModule],
   exports: [
-    SlickCarouselModule,
-    RippleModule,
+    SlickCarouselModule,    RippleModule,
    // FormsModule,
+   TreeModule,
     ToastModule,
     MessagesModule,
     MessageModule,
@@ -76,7 +79,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     RadioButtonModule,
     ListboxModule,
     TooltipModule,
-    SidebarModule
+    SidebarModule,
+    PdfViewerModule
   ],
   providers: [],
 })

@@ -38,7 +38,9 @@
               "node_modules/dragula/dist/dragula.css",
 
               "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss"
+              "node_modules/slick-carousel/slick/slick-theme.scss",
+
+              "node_modules/viewerjs/dist/viewer.min.css"
             ],
             
             "scripts": [

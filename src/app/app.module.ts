@@ -140,7 +140,7 @@ import { GroupVideoPauseService } from './services/group.video.pause.service';
     InfiniteScrollModule,
     DragulaModule.forRoot(),
     NgxContentLoadingModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
 

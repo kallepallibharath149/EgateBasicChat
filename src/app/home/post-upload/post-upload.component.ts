@@ -7,6 +7,7 @@ import { GroupsService } from '@app/groups/groups.service';
 import { ngxLoadingAnimationTypes, NgxLoadingComponent } from '../../common/ngx-loader/lib/public_api';
 import { groupPostReloadService } from '@app/main-page-groups-container/groupPost.reload';
 import { MessageService } from 'primeng/api';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-post-upload',
@@ -16,17 +17,16 @@ import { MessageService } from 'primeng/api';
 export class PostUploadComponent implements OnInit {
   currentGroupId: string = '';
   closeResult = '';
-  selectedImage: any;
-  selectedImageFile: any;
-  selectedVideoFile: any;
-  imageSrc: any;
-  videoSrc: any;
+  selectedImageVideoFiles: Array<File>;
+  selectedImageVideoFilesObjectURLs: Array<any>;
   modalReference: any;
   postText: any = '';
   @ViewChild('content') content;
   @ViewChild('textPost') textPost;
   showLoading: boolean = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes.threeBounce;
+
+  PostSlideConfig = { "initialSlide": 0, "slidesToShow": 1, "slidesToScroll": 1, "dots": true, "centerPadding": '0px', "centerMode": true, "lazyLoad": 'ondemand' };
 
   constructor(private modalService: NgbModal,
     private sanitizer: DomSanitizer,
@@ -45,55 +45,104 @@ export class PostUploadComponent implements OnInit {
   }
 
   open(content) {
-    this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true });
+    this.modalReference = this.modalService.open(content, { windowClass: 'postUpload-preview', ariaLabelledBy: 'modal-basic-title', centered: true });
     this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.videoSrc = null;
-      this.imageSrc = null;
       this.postText = null;
+      this.clearBlobObjects();
     });
   }
 
-  handleFilesImages(data) {
-    const selectedFile: any = document.getElementById('imageInput');
-    let dataa = <File>selectedFile.files[0];
-    this.selectedImageFile = dataa;
-    this.selectedImage = URL.createObjectURL(dataa);
-    this.imageSrc = this.sanitizer.bypassSecurityTrustUrl(this.selectedImage);
+  clearBlobObjects() {
+    this.selectedImageVideoFilesObjectURLs.forEach(selectedFile => {
+      URL.revokeObjectURL(selectedFile['blobUrl']);
+    });
+    this.selectedImageVideoFilesObjectURLs = [];
+    let file = Array.from(this.selectedImageVideoFiles);
+    file.splice(0, file.length);
+    this.selectedImageVideoFiles = file;
+  }
+
+  handleFiles(event) {
+    this.selectedImageVideoFilesObjectURLs = [];
+    this.selectedImageVideoFiles = [];
+    this.selectedImageVideoFiles = [...event.target.files];
+    Array.from(this.selectedImageVideoFiles).forEach(file => {
+      console.log('selected files', file.type);
+      let fileObj: any = {};
+      let url = URL.createObjectURL(file);
+      let imageIndex = file.type.indexOf('image');
+      let videoIndex = file.type.indexOf('video');
+      let pdfIndex = file.type.indexOf('pdf');
+      if (imageIndex >= 0) {
+        fileObj['fileType'] = 'image';
+        // URL.revokeObjectURL(imgObj['url']); 
+      }
+      if (videoIndex >= 0) {
+        fileObj['fileType'] = 'video';
+      }
+      if (pdfIndex >= 0) {
+        fileObj['fileType'] = 'pdf';
+      }
+      if (pdfIndex >= 0) {
+        fileObj['url'] = url;
+      } else {
+        fileObj['url'] = this.sanitizer.bypassSecurityTrustUrl(url);
+      }
+      fileObj['blobUrl'] = url;
+      this.selectedImageVideoFilesObjectURLs.push(fileObj);
+    });
     this.open(this.content);
   }
 
-  handleFilesVideo(data) {
-    const selectedFile: any = document.getElementById('videoInput');
-    let dataa = <File>selectedFile.files[0];
-    this.selectedVideoFile = dataa;
-    let videosrcdata = window.URL.createObjectURL(dataa);
-    this.videoSrc = this.sanitizer.bypassSecurityTrustUrl(videosrcdata);
-    this.open(this.content);
+  handleFilesImageOrVideo(event) {
+    const selectedFile: any = document.getElementById('upload_new_images_videos');
+    let addedNewFiles: Array<File> = event.target.files;
+    Array.from(addedNewFiles).forEach(file => {
+      console.log('selected files', file.type);
+      let fileObj: any = {};
+      let ImageIndex = file.type.indexOf('image');
+      let videoIndex = file.type.indexOf('video');
+      let pdfIndex = file.type.indexOf('pdf');
+      let url = URL.createObjectURL(file);
+      if (ImageIndex >= 0) {
+        fileObj['fileType'] = 'image';
+      }
+      if (videoIndex >= 0) {
+        fileObj['fileType'] = 'video';
+      }
+      if (pdfIndex >= 0) {
+        fileObj['fileType'] = 'pdf';
+      }
+      if (pdfIndex >= 0) {
+        fileObj['url'] = url;
+      } else {
+        fileObj['url'] = this.sanitizer.bypassSecurityTrustUrl(url);
+      }
+      fileObj['blobUrl'] = url;
+      this.selectedImageVideoFilesObjectURLs.push(fileObj);
+      // URL.revokeObjectURL(imgObj['url']);
+    });
+    let slidePos = this.selectedImageVideoFiles.length;
+    this.selectedImageVideoFiles = [...this.selectedImageVideoFiles, ...addedNewFiles];
+    let configObj = Object.assign({}, this.PostSlideConfig);
+    configObj.initialSlide = slidePos + 1;
+    // this.PostSlideConfig = Object.assign({},);
   }
 
   closeModal(modal) {
     this.modalReference.close();
-    this.videoSrc = null;
-    this.imageSrc = null;
     this.postText = '';
-    this.selectedVideoFile = null;
-    this.selectedVideoFile = null;
   }
-  PostUserStory(modal, imageSrc, videoSrc) {
-    let postObject = {
-      imagePost: false,
-      videoPost: false,
-      imageVideoUrl: null,
-      postComment: this.postText
-    };
-    if (imageSrc) {
-      postObject.imagePost = true;
-      postObject.imageVideoUrl = this.imageSrc;
-    } else if (videoSrc) {
-      postObject.videoPost = true;
-      postObject.imageVideoUrl = this.videoSrc;
+
+  PostUserStory(modal, postType?) {
+    if(postType =='textPost' && (!this.postText || this.postText.length <=0 )){
+      this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Please enter text to add new post'  });
+      return;
+    } else if(postType == 'filesPost' && (this.selectedImageVideoFiles.length <= 0 && !this.postText)){
+      this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Please select files or provide post text'});
+      return;
     }
     let body: FormData = new FormData();
     let postData = {
@@ -101,14 +150,9 @@ export class PostUploadComponent implements OnInit {
       "groupid": this.currentGroupId,
       "posttext": this.postText
     }
-
-    if (imageSrc) {
-      body.append('files', this.selectedImageFile);
-    } else if (videoSrc) {
-      body.append('files', this.selectedVideoFile);
-    } else {
-      // body.append('files',  null);
-    }
+    Array.from(this.selectedImageVideoFiles).forEach(file => {
+      body.append('files', file);
+    });
     body.append('PostData', JSON.stringify(postData));
     let endPoint = `Post`
     // this.http.post(url, body);
@@ -124,5 +168,27 @@ export class PostUploadComponent implements OnInit {
     this.closeModal('');
   }
 
+  newPostUploading(uploadType) {
+    if (uploadType == 'image') {
+      $("#upload_new_photos").click();
+    } else if (uploadType == 'video') {
+      $("#upload_new_videos").click();
+    } else if (uploadType == 'imageOrvideo') {
+      $("#upload_new_images_videos").click();
+    }
+  }
 
+  removeSelectedUploadPost(itemIndex, resource) {
+    URL.revokeObjectURL(this.selectedImageVideoFilesObjectURLs[itemIndex]['blobUrl']);
+    this.selectedImageVideoFilesObjectURLs.splice(itemIndex, 1);
+    let file = Array.from(this.selectedImageVideoFiles);
+    file.splice(itemIndex, 1);
+    this.selectedImageVideoFiles = file;
+    //  console.log('after deleting items',this.selectedImageFilesObjectURLs);
+    //  console.log('after deleting items',file);
+  }
+
+  showVal(data) {
+    console.log('data', data)
+  }
 }

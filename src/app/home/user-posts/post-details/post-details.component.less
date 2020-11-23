@@ -13,23 +13,24 @@
         }
     }
 
-    .slick-prev,
-    .slick-next {
-        // background-color: black !important;
-    }
-
-    .slick-prev:hover,
-    .slick-prev:focus,
-    .slick-next:hover,
-    .slick-next:focus {
-        // background-color: rgb(79, 17, 196) !important;
-    }
     .slick-prev:before, .slick-next:before{
         color: black !important;
     }
-
+    .slick-prev,
+    .slick-next {
+      &:hover {
+        &:before {
+          font-size: 30px !important;
+        }
+      }
+    }
     .slick-dots li button:before {
         font-size: 12px !important;
+    }
+    .slick-dots li button{
+        &:hover:before{
+            font-size: 16px !important;     
+        }
     }
 
     .slick-prev.slick-arrow {

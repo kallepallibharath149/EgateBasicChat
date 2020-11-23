@@ -11,22 +11,34 @@
     <hr />
     <div class="body">
       <div class="icons">
-        <h5><i class="fa fa-1x fa-picture-o" aria-hidden="true">
-            <input type="file" #fileImageInput name="image" id="imageInput" (click)="fileImageInput.value = null"
-              accept="image/*" (change)="handleFilesImages($event);"></i><span class="item-text">Photo</span></h5>
+        <div (click)="fileImageInput.value =null; newPostUploading('image');" [title]="'Upload new image post'"
+          class="photoUpload">
+          <div class="wrapper">
+            <input type="file" #fileImageInput accept="image/*,application/pdf" multiple (change)="handleFiles($event);"
+              id="upload_new_photos" />
+          </div>
+          <i class="fa fa-1x fa-picture-o" aria-hidden="true"></i>
+        </div>
       </div>
       <div class="icons">
-        <h5><i class="fa fa-1x fa-video-camera" aria-hidden="true">
-            <input type="file" #fileVideoInput name="video" id="videoInput" (click)="fileVideoInput.value = null"
-              accept="video/mp4,video/x-m4v,video/*" (change)="handleFilesVideo($event);">
-          </i><span class="item-text">Video</span></h5>
+        <div (click)="fileVideoInput.value =null; newPostUploading('video');" [title]="'Upload new video post'"
+          class="photoUpload">
+          <div class="wrapper">
+            <input type="file" #fileVideoInput name="video" multiple id="upload_new_videos"
+              (click)="fileVideoInput.value = null" accept="video/mp4,video/x-m4v,video/*"
+              (change)="handleFiles($event);">
+          </div>
+          <i class="fa fa-1x fa-video-camera" aria-hidden="true"></i>
+        </div>
       </div>
       <div class="icons">
-        <h5 (click)="open(textPost)"><i class="fa fa-1x fa-smile-o" aria-hidden="true"></i><span class="item-text">Feeling/Activity</span></h5>
+        <h5 (click)="open(textPost)"><i [title]="'Upload text post'" class="fa font-weight-bold fa-1x fa-smile-o"
+            aria-hidden="true"></i></h5>
       </div>
     </div>
   </div>
 </div>
+
 <ng-template #textPost let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Create Text Post</h4>
@@ -47,10 +59,11 @@
       </div>
     </div>
     <div>
-      <button type="button" class="btn btn-outline-dark" (click)="PostUserStory(modal, '', '')">Post</button>
+      <button type="button" class="btn btn-outline-dark" (click)="PostUserStory(modal,'textPost')">Post</button>
     </div>
   </div>
 </ng-template>
+
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Create Post</h4>
@@ -59,8 +72,37 @@
     </button>
   </div>
   <div class="modal-body">
-    <img id="outputImage" class="image-review" *ngIf="imageSrc" [src]="imageSrc" />
-    <video id="outputVideo" class="video-review" *ngIf="videoSrc" [src]="videoSrc" controls></video>
+    <div class="w-100" [ngStyle]="{'max-height.px': 400}">
+      <ngx-slick-carousel class="carousel w-100 courosel-comp" #slickModal="slick-carousel" [config]="PostSlideConfig">
+        <div ngxSlickItem *ngFor="let resource of selectedImageVideoFilesObjectURLs; let i=index;" class="slide">
+          <div (click)="showVal(resource)" class="position-relative" *ngIf="resource.fileType == 'image'">
+            <img class="courosel-image img-fluid" [src]="resource.url">
+            <div title="Remove item" (click)="removeSelectedUploadPost(i,resource)" class="remove-item"><i
+                class="pi pi-times"></i></div>
+          </div>
+          <div (click)="showVal(resource)" class="position-relative" *ngIf="resource.fileType == 'video'">
+            <video [ngStyle]="{display:resource.fileType == 'video'? 'block':'none'}" #postVideoRef id="outputVideo"
+              [src]="resource.url" style="width:100%" controls controlsList="nodownload"></video>
+            <div title="Remove item" (click)="removeSelectedUploadPost(i,resource)" class="remove-item"><i
+                class="pi pi-times"></i></div>
+          </div>
+          <div (click)="showVal(resource)" class="position-relative" *ngIf="resource.fileType == 'pdf'">
+          <pdf-viewer 
+                    [src]="resource.url" 
+                    [original-size]="false" 
+                    [autoresize]="true"
+                    [render-text]="true"  
+                    [show-borders]="true"
+                    [render-text-mode]="1"
+                    [zoom-scale]="'page-height'" 
+                    style="display: block;  height: 400px; max-width:100%;">
+          </pdf-viewer>
+          <div title="Remove item" (click)="removeSelectedUploadPost(i,resource)" class="remove-item"><i
+            class="pi pi-times"></i></div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
   </div>
   <div class="modal-footer footer-align">
     <div class="input-align">
@@ -69,14 +111,25 @@
           aria-describedby="emailHelp" placeholder="Type something here to post">
       </div>
     </div>
+    <div (click)="fileImageVideoInput.value = null;newPostUploading('imageOrvideo');" class="position-relative mr-2"><i
+        class="pi pi-images" style="font-size: 2rem"></i> <i class="upload-icon pi pi-plus" style="font-size: 1rem"></i>
+    </div>
     <div>
-      <button type="button" class="btn btn-outline-dark" (click)="PostUserStory(modal,imageSrc,videoSrc)">Post</button>
+      <button type="button" class="btn btn-outline-dark" (click)="PostUserStory(modal, 'filesPost')">Post</button>
     </div>
   </div>
 </ng-template>
-<ngx-loading [show]="showLoading" [config]="{ animationType: ngxLoadingAnimationTypes,
-  backdropBackgroundColour: 'rgb(27 25 25 / 60%)',fullScreenBackdrop: true
-   }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="upload_wrapper">
+  <input type="file" #fileImageVideoInput name="ImageOrvideo" multiple id="upload_new_images_videos"
+    (click)="fileImageVideoInput.value = null;" accept="video/mp4,video/x-m4v,video/*,image/*,application/pdf"
+    (change)="handleFilesImageOrVideo($event);">
+</div>
+
+<ngx-loading [show]="showLoading"
+  [config]="{ animationType: ngxLoadingAnimationTypes,backdropBackgroundColour: 'rgb(27 25 25 / 60%)',fullScreenBackdrop: true}"
+  [template]="customLoadingTemplate"></ngx-loading>
+
 <ng-template #customLoadingTemplate>
   <div class="custom-text text-center">
     <h6>

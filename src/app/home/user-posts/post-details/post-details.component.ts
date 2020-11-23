@@ -10,6 +10,7 @@ import { GroupVideoPauseService } from '@app/services/group.video.pause.service'
 import { Subscription } from 'rxjs';
 import { IprofileDetails } from '@app/common/models/profile.model';
 declare var $;
+import Viewer from 'viewerjs';
 
 @Component({
   selector: 'app-post-details',
@@ -32,8 +33,8 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('postDetails') postDetails: post;
   @Input('postIndex') postIndex: any;
   @Input('userDetails') userDetails: any;
-  _lastItem: any;
   @Input('lastItem') lastItem: any;
+  photoOverlayViewer:any;
   loggedInUserId: string = "ed27ac86-2aa8-4341-9b92-1b162b0420d7";
 
   likesPageNumber: number = 1;
@@ -42,7 +43,16 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   showLoadMoreLikes: boolean = false;
   initialLikesPannelAPITriggred: boolean = false;
 
-  PostSlideConfig = { "slidesToShow": 1, "slidesToScroll": 1, "dots": true, "centerPadding": '10px', "centerMode": true, "lazyLoad": 'ondemand' };
+  PostSlideConfig = {
+    "lazyLoad": 'ondemand',
+    "slidesToShow": 1,
+    "slidesToScroll": 1,
+    "dots": true,
+    "centerPadding": '0px',
+    "centerMode": true,
+    "edgeFriction": 0.3,
+    "touchThreshold": 10
+  };
 
   constructor(private route: Router,
     public domSanitizationService: DomSanitizer,
@@ -67,6 +77,10 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.PostSlideConfig.dots = false;
     }
     // this.getPostLikes();
+    // let obj: any = {};
+    // obj['fileType'] = 'pdf';
+    // obj['url'] = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+    // this.postDetails.resources.push(obj);
   }
   navigateToProfile(profileName, profileid) {
     this.globalEmitterService.setCurrentProfileObj(profileName);
@@ -82,11 +96,13 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     // }
     // let className = `.slick${this.postIndex}`;
     // $(className).slick();
-
   }
 
   ngOnDestroy() {
     this.videoPlaySubscription.unsubscribe();
+    if(this.photoOverlayViewer){
+      this.photoOverlayViewer.destroy();
+    }
   }
   updateLikeStatus() {
     let body = {
@@ -205,6 +221,22 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   loadMoreLikes() {
     this.likesPageNumber = this.likesPageNumber + 1;
     this.getPostLikes();
+  }
+
+  imagePreview(resourceIndex) {
+    let that = this;
+    this.photoOverlayViewer = new Viewer(document.getElementById(`images${this.postIndex}`), {
+      inline: false,
+      fullscreen: true,
+      title: false,
+      initialViewIndex: resourceIndex,
+      shown() {
+      },
+      hidden() {
+        that.photoOverlayViewer.destroy();
+      }
+    });
+    this.photoOverlayViewer.show();
   }
 
   showVal(last) {
