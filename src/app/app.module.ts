@@ -80,6 +80,7 @@ import { BarComponent } from './d3Charts/bar/bar.component';
 import { PieComponent } from './d3Charts/pie/pie.component';
 import { ScatterComponent } from './d3Charts/scatter/scatter.component';
 import { GroupVideoPauseService } from './services/group.video.pause.service';
+import { SecureFilesUrlPipe } from './common/pipes/secureFiles.pipe';
 
 
 
@@ -126,6 +127,7 @@ import { GroupVideoPauseService } from './services/group.video.pause.service';
     BarComponent,
     PieComponent,
     ScatterComponent,
+    SecureFilesUrlPipe
 
   ],
   imports: [

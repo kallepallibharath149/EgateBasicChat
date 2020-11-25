@@ -1,16 +1,36 @@
 <div class="profile-section">
     <div class="menu-items">
-        <div class="item" *ngFor="let menu of items;let i=index;">
-            <div #itemRef (mouseenter)="addaHoverClass(itemRef,$event)" (mouseleave)="removeClass(itemRef)"
-                [title]="menu.menuName" class="item-align">
-                <i class="{{menu.icon}} fa-2x " aria-hidden="true"></i>
+        <div class="item d-flex align-items-end">
+            <div class="item-align mr-4">
+                <span class="p-overlay-badge p-mr-5" (click)="notificationPannel.toggle($event)">
+                    <i class="fa fa-bell text-white" style="font-size: 24px" aria-hidden="true"></i>
+                    <span class="p-badge p-badge-danger">2</span>
+                </span>
+            </div>
+            <div class="item-align  mr-4 position-relative" #actualTarget id="profile-details" >
+                <img style="width:33px;height: 33px; border-radius: 20px;" (click)="accountsPannel.toggle($event)" [src]="'assets/images/profile.jpg'" />
             </div>
         </div>
     </div>
 </div>
 
-<!-- <p-overlayPanel hideTransitionOptions="2s linear"  #op [showCloseIcon]="false" [style]="{width: 'auto'}">
-    <ng-template pTemplate>
-   <h3>This is overlay componet</h3>
-    </ng-template>
-</p-overlayPanel> -->
+<p-overlayPanel class="align_position" #accountsPannel [showTransitionOptions]="'150ms'"  [hideTransitionOptions]="'100ms'"  [dismissable]="true"
+[style]="{minWidth: '200px', maxWidth: '300px', minHeight: '150px', right:'10px'}"
+[styleClass]="'d-flex align-items-end justify-content-center'">
+<ng-template pTemplate>
+    <div class="container-profile">
+        <button pButton pRipple type="button" (click)="logOut()" label="Logout"
+            class="p-button-rounded pl-4 pr-4 p-button-secondary"></button>
+    </div>
+</ng-template>
+</p-overlayPanel>
+
+<p-overlayPanel class="align_position" #notificationPannel [showTransitionOptions]="'150ms'"  [hideTransitionOptions]="'100ms'"  [dismissable]="true"
+[style]="{minWidth: '200px', maxWidth: '300px', minHeight: '150px', right:'40px'}"
+[styleClass]="'d-flex'">
+<ng-template pTemplate>
+    <div class="container-profile">
+<h4>Notifications Panel</h4>
+    </div>
+</ng-template>
+</p-overlayPanel>

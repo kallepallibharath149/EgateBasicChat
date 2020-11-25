@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { IprofileDetails } from '@app/common/models/profile.model';
 declare var $;
 import Viewer from 'viewerjs';
+import {DialogService} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-post-details',

@@ -40,6 +40,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {TreeModule} from 'primeng/tree';
 import {TreeNode} from 'primeng/api';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {TreeNode} from 'primeng/api';
   exports: [
     SlickCarouselModule,    RippleModule,
    // FormsModule,
+   DynamicDialogModule,
    TreeModule,
     ToastModule,
     MessagesModule,

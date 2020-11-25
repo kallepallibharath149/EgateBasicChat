@@ -1,16 +1,31 @@
-.profile-section{
-  .menu-items{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      .item{
-          margin-right: 10px;
-          cursor: pointer;
-          .item-align{
-           position: relative;
-          }
+:host::ng-deep {
+  p-overlayPanel.align_position {
+    .p-overlaypanel.p-component {
+      left: auto !important;
+      top : auto !important;
+    }
+
+    .p-overlaypanel .p-overlaypanel-content {
+      padding-right: 0px !important;
+    }
+  }
+}
+
+.profile-section {
+  .menu-items {
+    display        : flex;
+    flex-direction : row;
+    align-items    : center;
+    flex-wrap      : wrap;
+    justify-content: flex-end;
+
+    .item {
+      margin-right: 10px;
+      cursor      : pointer;
+
+      .item-align {
+        position: relative;
       }
-  }  
+    }
+  }
 }

@@ -31,8 +31,7 @@ import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-gr
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  {
-    path: 'home', component: MainHomePageComponent,
+  { path: 'home', component: MainHomePageComponent,
     children: [
    // { path: 'latestPosts', component: MiddleContainerComponent },
       { path: 'redirect', component:RedirectTogroupsComponent,
@@ -73,7 +72,7 @@ const routes: Routes = [
   canDeactivate: [ModalOpenCanDeactivateGuardGuard]},
   // { path: 'profile/:id/:photos', component: PhotosComponent },
   { path: 'bookmarks', component: NavigateBookmarksComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

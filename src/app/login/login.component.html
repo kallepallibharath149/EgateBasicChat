@@ -1,8 +1,12 @@
 <div class="login-container">
-    <form #loginForm autocomplete="off" class="box" action="index.html" method="post">
-        <h1>Login</h1>
-        <input type="text" [(ngModel)]="userName" name="userName" placeholder="Username">
-        <input type="password" [(ngModel)]="password" name="password" placeholder="Password">
-        <input type="button" (click)="validateLogin(loginForm)" name="" value="Login">
-      </form>
+  <form #loginForm="ngForm" autocomplete="off" class="box" action="index.html" method="post">
+    <h1>Login</h1>
+    <input type="text" [(ngModel)]="userName" required name="email" placeholder="Username">
+    <input type="password" [(ngModel)]="password" required name="password" placeholder="Password">
+    <input type="button" (click)="validateLogin(loginForm)" name="" value="Login">
+  </form>
 </div>
+
+<ngx-loading [show]="showLoading"
+  [config]="{ animationType: ngxLoadingAnimationTypes,backdropBackgroundColour: 'rgb(27 25 25 / 60%)',fullScreenBackdrop: true}">
+</ngx-loading>

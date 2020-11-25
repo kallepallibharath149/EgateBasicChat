@@ -1,31 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '@app/interceptors/http.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginServiceService {
 
-  loggedInState: boolean = false;
+  constructor(private router: Router,
+    private httpClient: HttpService) { }
 
-  constructor(private router: Router) { }
-
-  getLoggedInstate():boolean{
-    return this.loggedInState;
-  }
-
-  setLoggedInState(state){
-    this.loggedInState = state;
-    if(!state){
-      this.router.navigate(['/login']);
-    }   
-  }
-
-  checkLogInStateAndNavigate(){
-    if(!this.loggedInState){
-   //  window.location.href = 'http://localhost:4200/#/login'
-    //  window.location.href =  'http://ganainteriors.freetzi.com/#/login'
-    }
+  logIn(endPoint: any, body?): Observable<any> {
+    return this.httpClient.httpPost(endPoint, body, true);
   }
 
 }

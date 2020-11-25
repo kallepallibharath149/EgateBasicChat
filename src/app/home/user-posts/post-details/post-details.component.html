@@ -32,7 +32,7 @@
       <ng-container *ngSwitchDefault>
         <div class="card-header">
           <div (click)="navigateToProfile(postDetails.profileName, postDetails.profileid)"> <img
-              [src]="postDetails.profileImageUrl?postDetails.profileImageUrl:'../../assets/images/profile.jpg'" /></div>
+              [src]="postDetails.profileImageUrl" /></div>
           <div (click)="navigateToProfile(postDetails.profileName, postDetails.profileid)"
             class="profile-name profileName">{{postDetails.profileName?postDetails.profileName:'Satya Sai Kumar'}}</div>
         </div>
@@ -52,17 +52,20 @@
           </ng-container> -->
             <div class="image-video-section w-100" [ngStyle]="{'max-height.px': 400}">
               <div style="max-width:0px;max-height: 0px; opacity: 0; overflow: hidden;">
-               <ul class="p-0" style="width: 0px; padding: 0px;" id="{{'images'+postIndex}}">
-                 <ng-container *ngFor="let resource of postDetails.resources; let resourceIndex = index;">
-                  <li *ngIf="resource.fileType == 'image'"><img style="width: 0px; height: 0px;" [src]="resource.url"/></li>
-                 </ng-container>
-               </ul>
+                <ul class="p-0" style="width: 0px; padding: 0px;" id="{{'images'+postIndex}}">
+                  <ng-container *ngFor="let resource of postDetails.resources; let resourceIndex = index;">
+                    <li *ngIf="resource.fileType == 'image'"><img style="width: 0px; height: 0px;"
+                        [src]="resource.url" /></li>
+                  </ng-container>
+                </ul>
               </div>
               <ngx-slick-carousel class="carousel w-100 courosel-comp" #slickModal="slick-carousel"
                 [config]="PostSlideConfig">
-                <div ngxSlickItem *ngFor="let resource of postDetails.resources; let resourceIndex = index;" class="slide">
+                <div ngxSlickItem *ngFor="let resource of postDetails.resources; let resourceIndex = index;"
+                  class="slide">
                   <div (dblclick)="imagePreview(resourceIndex)" *ngIf="resource.fileType == 'image'">
-                    <img id="{{'image'+postIndex+resourceIndex}}" class="courosel-image img-fluid" [attr.data-lazy]="resource.url">
+                    <img id="{{'image'+postIndex+resourceIndex}}" class="courosel-image img-fluid"
+                      [src]="resource.url">
                   </div>
                   <div class="d-flex justify-content-center" *ngIf="resource.fileType == 'video'">
                     <video [ngStyle]="{display:resource.fileType == 'video'? 'block':'none'}" #postVideoRef
@@ -70,15 +73,9 @@
                       controlsList="nodownload"></video>
                   </div>
                   <div *ngIf="resource.fileType == 'other'">
-                    <pdf-viewer 
-                    [src]="resource.url" 
-                    [original-size]="false" 
-                    [autoresize]="true"
-                    [render-text]="true"  
-                    [show-borders]="true"
-                    [render-text-mode]="1"
-                    [zoom-scale]="'page-height'" 
-                    style="display: block;  height: 400px; max-width:100%;"></pdf-viewer>
+                    <pdf-viewer [src]="resource.url" [original-size]="false" [autoresize]="true" [render-text]="true"
+                      [show-borders]="true" [render-text-mode]="1" [zoom-scale]="'page-height'"
+                      style="display: block;  height: 400px; max-width:100%;"></pdf-viewer>
                     <!-- <ngx-doc-viewer 
                     [url]="https://file-examples.com/wp-content/uploads/2017/02/file-sample_100kB.doc"
                     viewer="office" style="width:100%;height:50vh;">

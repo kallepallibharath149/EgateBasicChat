@@ -91,8 +91,7 @@ export class HttpService {
     headers = headers.set('Content-Type', 'application/json');
     // headers= headers.set("Authorization","Basic YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
     if(headerPresent == true){
-      return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers,
-        responseType: "text"})
+      return this.http.post(this.baseURL+endPoint, JSON.stringify(body),{headers:headers})
       .pipe(
         catchError(err => this.handleError(err))
       );
@@ -143,40 +142,40 @@ export class HttpService {
     if(error.foundErrorMessage){
       return;
     }
-    if (error.error.respStatus !== undefined ) {
-      if (error.status && (error.status === 409 || error.status === 400)) {
-        if (error.error.errorDetails && error.error.errorDetails.errorCode !== 'VAMS-5110') {
-         // this.messageService.showFormattedErrorMessage(error.error.errorDetails.errorDescription, error.error.errorDetails.errorCode);
-        }
-      }
-      if (error.status && error.status === 500) {
-        const commonErrMsg = 'Please accept our apologies. There was an error processing this request. Please return in a few minutes to attempt again. We appreciate your business and apologize for any inconvenience. Thank you for your patience.';
-       // this.cuiMessageService.sendMessage('error', commonErrMsg, '', 0);
-      }
-      return Observable.throw(error.error);
-    }
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    const time = moment().format("MM ddd, YYYY hh:mm:ss a")
-    const errorObj: any = {
-      errorUrl: url,
-      err: error,
-      time: time,
-      error: error.error,
-      errorMessage: errorMessage
-    };
-    this.errorObj.push(errorObj);
-  //  this.loadAnimationService.removeAllLoadAction();
-    if (genericErrorMes === undefined || genericErrorMes) {
-      const commonErrMsg = 'Please accept our apologies. There was an error processing this request. Please return in a few minutes to attempt again. We appreciate your business and apologize for any inconvenience. Thank you for your patience.';
-    //  this.cuiMessageService.sendMessage('error', commonErrMsg, '', 0);
-    }
+  //   if (error.error.respStatus !== undefined ) {
+  //     if (error.status && (error.status === 409 || error.status === 400)) {
+  //       if (error.error.errorDetails && error.error.errorDetails.errorCode !== 'VAMS-5110') {
+  //        // this.messageService.showFormattedErrorMessage(error.error.errorDetails.errorDescription, error.error.errorDetails.errorCode);
+  //       }
+  //     }
+  //     if (error.status && error.status === 500) {
+  //       const commonErrMsg = 'Please accept our apologies. There was an error processing this request. Please return in a few minutes to attempt again. We appreciate your business and apologize for any inconvenience. Thank you for your patience.';
+  //      // this.cuiMessageService.sendMessage('error', commonErrMsg, '', 0);
+  //     }
+  //     return Observable.throw(error.error);
+  //   }
+  //   let errorMessage = '';
+  //   if (error.error instanceof ErrorEvent) {
+  //     // client-side error
+  //     errorMessage = `Error: ${error.error.message}`;
+  //   } else {
+  //     // server-side error
+  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  //   }
+  //   const time = moment().format("MM ddd, YYYY hh:mm:ss a")
+  //   const errorObj: any = {
+  //     errorUrl: url,
+  //     err: error,
+  //     time: time,
+  //     error: error.error,
+  //     errorMessage: errorMessage
+  //   };
+  //   this.errorObj.push(errorObj);
+  // //  this.loadAnimationService.removeAllLoadAction();
+  //   if (genericErrorMes === undefined || genericErrorMes) {
+  //     const commonErrMsg = 'Please accept our apologies. There was an error processing this request. Please return in a few minutes to attempt again. We appreciate your business and apologize for any inconvenience. Thank you for your patience.';
+  //   //  this.cuiMessageService.sendMessage('error', commonErrMsg, '', 0);
+  //   }
     return throwError(error);
   }
 
