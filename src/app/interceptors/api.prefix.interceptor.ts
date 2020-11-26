@@ -7,30 +7,25 @@ import { environment } from '@env/environment';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '@app/services/auth.service';
 import { Router } from '@angular/router';
+import { authNotrequiredAPI } from '@app/common/global.constants';
 
-
-// import { SharedService } from 'src/app/shared/shared.service';
-
-/**
- * Prefixes all requests not starting with `http[s]` with `environment.serverUrl`.
- */
 @Injectable({
     providedIn: 'root'
 })
 export class ApiPrefixInterceptor implements HttpInterceptor {
-    requestCount = 0;
+    authNotrequiredAPI: any = authNotrequiredAPI;
     constructor(private authService: AuthService,
         private router: Router) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let url = request.url;
-        let logIndex = url.indexOf('login');
-        if (logIndex < 0) {
+        let authRequired = this.checkAuthRequiredAPI(url);
+        if (authRequired) {
             if ("authDetails" in localStorage) {
                 let authDetails = JSON.parse(localStorage.getItem("authDetails"));
-                if (authDetails['data']['token']) {
+                if (authDetails['token']) {
                     request = request.clone({
                         setHeaders: {
-                            'Authorization': authDetails['data']['token']
+                            'Authorization': authDetails['token']
                         }
                     });
                 } else {
@@ -43,14 +38,20 @@ export class ApiPrefixInterceptor implements HttpInterceptor {
             }
         }
 
-
         return next.handle(request).pipe(
             finalize(() => {
-                this.requestCount--;
-                if (this.requestCount === 0) {
-                    // this.sharedService.displayLoader(false);
-                }
+
             }));
 
+    }
+
+    checkAuthRequiredAPI(url: string): boolean {
+        let status = false;
+        this.authNotrequiredAPI.forEach(APIName => {
+            if (url.indexOf(APIName) >= 0) {
+                status = true;
+            }
+        });
+        return !status;
     }
 }

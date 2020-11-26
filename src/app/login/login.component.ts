@@ -15,7 +15,31 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   userName: string;
   password: string;
-  showLoading:boolean = false;
+
+  signUpObj = {
+    "firstName": "",
+
+    "lastName": "",
+
+    "city": "",
+
+    "state": "",
+
+    "country": "",
+
+    "phone": "",
+
+    "email": "",
+
+    "password": "",
+
+    "confirmPassword": ""
+  } 
+
+  displaySignUpModal: boolean = false;
+  visibleSidebar: boolean = false;
+  forgottPassword: boolean = false;
+  showLoading: boolean = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes.threeBounce;
   constructor(private router: Router,
     private loginService: LoginServiceService,
@@ -27,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-   
+
   }
 
   validateLogin(loginForm: NgForm) {
@@ -37,12 +61,40 @@ export class LoginComponent implements OnInit, OnDestroy {
       console.log('login form', loginForm.value);
       this.loginService.logIn(endPoint, loginForm.value).subscribe(resp => {
         this.showLoading = false;
-        this.authService.setAuthDetails(resp);
-        this.router.navigate(['/home']);
-      },(error)=>{
+        if (resp.success) {
+          this.authService.setAuthDetails(resp.data);
+          this.router.navigate(['/home']);
+        }
+      }, (error) => {
         this.showLoading = false;
-        this.messageService.add({severity:'error', summary: 'Error Message', detail:error.message});
+        this.messageService.add({ severity: 'error', summary: 'Error Message', detail: error.message });
       });
     }
   }
+
+  createAccount(signUpForm: NgForm) {
+    let endPoint = 'User/Register';
+    if (signUpForm.valid) {
+      this.showLoading = true;
+      let signUpDetails = Object.assign({}, this.signUpObj);
+      delete signUpDetails.confirmPassword;
+      this.loginService.registerUser(endPoint, signUpDetails).subscribe(resp => {
+        this.showLoading = false;
+        if (resp.success) {
+          signUpForm.reset();
+          this.visibleSidebar = false;
+          this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Profile created successfully. Please login.' });
+        }
+      }, (error) => {
+        this.showLoading = false;
+        this.messageService.add({ severity: 'error', summary: 'Error Message', detail: error.message });
+      });
+    }
+  }
+
+  clearSignUp(signUpForm: NgForm){
+    signUpForm.reset();
+    this.visibleSidebar=false
+  }
+
 }

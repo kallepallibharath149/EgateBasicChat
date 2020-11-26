@@ -1,71 +1,100 @@
 .login-container {
-  position   : fixed;
-  top        : 0;
-  right      : 0;
-  left       : 0;
-  bottom     : 0;
-  margin     : 0;
-  padding    : 0;
-  font-family: sans-serif;
-  background : #34495e;
-  z-index    : 1100;
-  overflow   : auto;
+  position         : fixed;
+  top              : 0;
+  right            : 0;
+  left             : 0;
+  bottom           : 0;
+  margin           : 0;
+  padding          : 0;
+  font-family      : sans-serif;
+  background-color : #34495e;
+  background-image : url("/assets/images/background2.jpg");
+  background-repeat: repeat;
+  z-index          : 1100;
+  overflow         : auto;
 }
 
-.box {
-  min-width : 400px;
-  padding   : 40px;
-  position  : absolute;
-  top       : 50%;
-  left      : 50%;
-  transform : translate(-50%, -50%);
-  background: #191919;
-  text-align: center;
+
+.box-container {
+  width              : 80%;
+  height             : 75%;
+  background-color   : #FFF;
+  transform          : translate(-50%, -50%);
+  position           : absolute;
+  top                : 50%;
+  left               : 50%;
+  border-radius      : 15px;
+  background-image   : url("/assets/images/svgs/mother-child.svg"), url("/assets/images/svgs/selfie.svg"), url("/assets/images/svgs/circle.svg"), url("/assets/images/svgs/circle.svg"), url("/assets/images/svgs/circle.svg");
+  background-size    : 344px 250px, 300px 270px, 35px 35px, 35px 35px, 35px 35px;
+  background-repeat  : no-repeat;
+  background-position: left bottom, right bottom, 40px 110px, 100px 40px, 160px 110px;
 }
 
-.box h1 {
-  color         : white;
-  text-transform: uppercase;
-  font-weight   : 500;
+.login-inputs {
+  width    : 100%;
+  position : absolute;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-50%, -50%);
 }
 
-.box input[type="text"],
-.box input[type="password"] {
-  border       : 0;
-  background   : none;
-  display      : block;
-  margin       : 20px auto;
-  text-align   : center;
-  border       : 2px solid #3498db;
-  padding      : 14px 10px;
-  width        : 200px;
-  outline      : none;
-  color        : white;
-  border-radius: 24px;
-  transition   : 0.25s;
+.user-inputs {
+  height: 44px;
+  width : 290px;
 }
 
-.box input[type="text"]:focus,
-.box input[type="password"]:focus {
-  width       : 280px;
-  border-color: #2ecc71;
+.item-margin {
+  margin-right: 63px;
 }
 
-.box input[type="button"] {
-  border       : 0;
-  background   : none;
-  display      : block;
-  margin       : 20px auto;
-  text-align   : center;
-  border       : 2px solid #2ecc71;
-  padding      : 14px 40px;
-  outline      : none;
-  color        : white;
-  border-radius: 24px;
-  transition   : 0.25s;
-  cursor       : pointer;
+.logo {
+  position: absolute;
+  top: -48px;
+  left: 6px;
+  color: #FE661F;
+  font-weight: bold;
+  letter-spacing: -2.33px;
+  h3{
+    font-size: 40px;
+  }
 }
 
-.box input[type="button"]:hover {
-  background: #2ecc71;
+.sign-in {
+  position: relative;
+  width   : 100%;
+  height  : 100%;
+}
+
+.forgot-pass {
+  font-size: 12px;
+  color    : #D83B3E;
+  cursor   : pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .item-margin {
+    margin-right: 0px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .user-inputs {
+    width: auto;
+  }
+}
+
+:host::ng-deep {
+  p-dialog {
+    .recoverPassdialog {
+      .p-dialog-header {
+        color: #D83B3E !important;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .recoverPassdialog {
+        width: 300px !important;
+      }
+    }
+  }
 }

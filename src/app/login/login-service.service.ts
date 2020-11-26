@@ -15,4 +15,8 @@ export class LoginServiceService {
     return this.httpClient.httpPost(endPoint, body, true);
   }
 
+  registerUser(endPoint: any, body?): Observable<any> {
+    return this.httpClient.httpPost(endPoint, body, true);
+  }
+
 }

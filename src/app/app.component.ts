@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   logInCheck() {
     if ("authDetails" in localStorage) {
       let authDetails = JSON.parse(localStorage.getItem("authDetails"));
-      if (authDetails['data']['token']) {
+      if (authDetails['token']) {
 
       } else {
         this.router.navigate(['login'])
