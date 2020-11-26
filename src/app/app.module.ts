@@ -34,8 +34,6 @@ import { RightContainerComponent } from './main-home-page/right-container/right-
 import { GroupsComponent } from './groups/groups.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { EventsComponent } from './events/events.component';
-import { MainHomePageMessengerComponent } from './main-home-page-messenger/main-home-page-messenger.component';
-import { NavigateBookmarksComponent } from './navigate-bookmarks/navigate-bookmarks.component';
 import { PostDetailsComponent } from './home/user-posts/post-details/post-details.component';
 import { NewsComponent } from './news/news.component';
 import { ProfileCoverPhotosComponent } from './profile-details/profile-cover-photos/profile-cover-photos.component';
@@ -70,19 +68,17 @@ import { GroupsListComponent } from './groups/groups-list/groups-list.component'
 import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.component';
 import { CreategroupComponent } from './groups/creategroup/creategroup.component';
 import { GroupsService } from './groups/groups.service';
-import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
-import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
 
-import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
-import { groupPostReloadService } from './main-page-groups-container/groupPost.reload';
 import { BarComponent } from './d3Charts/bar/bar.component';
 import { PieComponent } from './d3Charts/pie/pie.component';
 import { ScatterComponent } from './d3Charts/scatter/scatter.component';
 import { GroupVideoPauseService } from './services/group.video.pause.service';
 import { SecureFilesUrlPipe } from './common/pipes/secureFiles.pipe';
-
-
+import { NavigateBookmarksComponent } from './top-banner/navigate-bookmarks/navigate-bookmarks.component';
+import { groupPostReloadService } from './main-home-page/main-page-groups-container/groupPost.reload';
+import { RedirectTogroupsComponent } from './main-home-page/main-page-groups-container/redirect-togroups/redirect-togroups.component';
+import { MainPageGroupsContainerComponent } from './main-home-page/main-page-groups-container/main-page-groups-container.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +96,6 @@ import { SecureFilesUrlPipe } from './common/pipes/secureFiles.pipe';
     GroupsComponent,
     ProfileDetailsComponent,
     EventsComponent,
-    MainHomePageMessengerComponent,
     NavigateBookmarksComponent,
     PostDetailsComponent,
     NewsComponent,
@@ -116,19 +111,20 @@ import { SecureFilesUrlPipe } from './common/pipes/secureFiles.pipe';
     EventsListComponent,
     CommentsContainerComponent,
     MainCommentComponent,
-    ReplyCommentComponent, LoginComponent, EventPreviewComponent, InvitationsComponent,
+    ReplyCommentComponent,
+    LoginComponent,
+    EventPreviewComponent,
+    InvitationsComponent,
     ProfileWithCommentsComponent,
     GroupsListComponent,
     GroupspreviewComponent,
     CreategroupComponent,
     MainPageGroupsContainerComponent,
-    MiddleContainerComponent,
     RedirectTogroupsComponent,
     BarComponent,
     PieComponent,
     ScatterComponent,
     SecureFilesUrlPipe
-
   ],
   imports: [
     BrowserModule,
@@ -145,11 +141,18 @@ import { SecureFilesUrlPipe } from './common/pipes/secureFiles.pipe';
     NgxLoadingModule.forRoot({}),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
-
-    HttpService, GroupsService, groupPostReloadService, GroupVideoPauseService,
+    HttpService,
+    GroupsService,
+    groupPostReloadService,
+    GroupVideoPauseService,
     // { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
-    GlobalEmittingEventsService, LoginServiceService,
-    UserPostsService, MessageService, ModalOpenCanDeactivateGuardGuard, NgbActiveModal, CanRedirectToGroupsHomeGuard
+    GlobalEmittingEventsService,
+    LoginServiceService,
+    UserPostsService,
+    MessageService,
+    ModalOpenCanDeactivateGuardGuard,
+    NgbActiveModal,
+    CanRedirectToGroupsHomeGuard
   ],
   bootstrap: [AppComponent]
 })

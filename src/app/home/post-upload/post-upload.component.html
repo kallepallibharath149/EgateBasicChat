@@ -87,18 +87,12 @@
                 class="pi pi-times"></i></div>
           </div>
           <div (click)="showVal(resource)" class="position-relative" *ngIf="resource.fileType == 'pdf'">
-          <pdf-viewer 
-                    [src]="resource.url" 
-                    [original-size]="false" 
-                    [autoresize]="true"
-                    [render-text]="true"  
-                    [show-borders]="true"
-                    [render-text-mode]="1"
-                    [zoom-scale]="'page-height'" 
-                    style="display: block;  height: 400px; max-width:100%;">
-          </pdf-viewer>
-          <div title="Remove item" (click)="removeSelectedUploadPost(i,resource)" class="remove-item"><i
-            class="pi pi-times"></i></div>
+            <pdf-viewer [src]="resource.url" [original-size]="false" [autoresize]="true" [render-text]="true"
+              [show-borders]="true" [render-text-mode]="1" [zoom-scale]="'page-height'"
+              style="display: block;  height: 400px; max-width:100%;">
+            </pdf-viewer>
+            <div title="Remove item" (click)="removeSelectedUploadPost(i,resource)" class="remove-item"><i
+                class="pi pi-times"></i></div>
           </div>
         </div>
       </ngx-slick-carousel>

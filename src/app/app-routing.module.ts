@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainHomePageComponent } from './main-home-page/main-home-page.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { EventsComponent } from './events/events.component';
-import { NavigateBookmarksComponent } from './navigate-bookmarks/navigate-bookmarks.component';
 import { NewsComponent } from './news/news.component';
 import { MoviesComponent } from './movies/movies.component';
 import { PhotosComponent } from './profile-details/photos/photos.component';
@@ -23,17 +21,15 @@ import { InvitationsComponent } from './events/invitations/invitations.component
 import { GroupsListComponent } from './groups/groups-list/groups-list.component';
 import { GroupspreviewComponent } from './groups/groupspreview/groupspreview.component';
 import { CreategroupComponent } from './groups/creategroup/creategroup.component';
-import { MainPageGroupsContainerComponent } from './main-page-groups-container/main-page-groups-container.component';
-import { MiddleContainerComponent } from './main-home-page/middle-container/middle-container.component';
-import { RedirectTogroupsComponent } from './main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-groups-home.guard';
-
+import { NavigateBookmarksComponent } from './top-banner/navigate-bookmarks/navigate-bookmarks.component';
+import { MainPageGroupsContainerComponent } from './main-home-page/main-page-groups-container/main-page-groups-container.component';
+import { RedirectTogroupsComponent } from './main-home-page/main-page-groups-container/redirect-togroups/redirect-togroups.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: MainHomePageComponent,
     children: [
-   // { path: 'latestPosts', component: MiddleContainerComponent },
       { path: 'redirect', component:RedirectTogroupsComponent,
       canActivate: [CanRedirectToGroupsHomeGuard],},
       { path: 'groupsPosts/:groupId', component:MainPageGroupsContainerComponent  },

@@ -5,9 +5,10 @@ import { UserPostsService } from '../user-posts/user-post-service/user-posts-ser
 import { ActivatedRoute } from '@angular/router';
 import { GroupsService } from '@app/groups/groups.service';
 import { ngxLoadingAnimationTypes, NgxLoadingComponent } from '../../common/ngx-loader/lib/public_api';
-import { groupPostReloadService } from '@app/main-page-groups-container/groupPost.reload';
+import { groupPostReloadService } from '@app/main-home-page/main-page-groups-container/groupPost.reload';
 import { MessageService } from 'primeng/api';
 import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-post-upload',
@@ -137,11 +138,11 @@ export class PostUploadComponent implements OnInit {
   }
 
   PostUserStory(modal, postType?) {
-    if(postType =='textPost' && (!this.postText || this.postText.length <=0 )){
-      this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Please enter text to add new post'  });
+    if (postType == 'textPost' && (!this.postText || this.postText.length <= 0)) {
+      this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Please enter text to add new post' });
       return;
-    } else if(postType == 'filesPost' && (this.selectedImageVideoFiles.length <= 0 && !this.postText)){
-      this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Please select files or provide post text'});
+    } else if (postType == 'filesPost' && (this.selectedImageVideoFiles.length <= 0 && !this.postText)) {
+      this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Please select files or provide post text' });
       return;
     }
     let body: FormData = new FormData();

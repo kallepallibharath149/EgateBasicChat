@@ -1,9 +1,9 @@
 <div>
-    <!-- don't add any child elements inside start---using infinite scroll -->
+    <!-- don't add any child elements inside start--- infinite scroll -->
     <div scrollWindow="false" [infiniteScrollDisabled]="reachedEndOfPosts" immediateCheck="true" infiniteScroll [infiniteScrollDistance]="0.3" [infiniteScrollThrottle]="150" (scrolled)="onScroll()">
         <app-home [posts]="latestPosts"></app-home>
     </div>
-    <!-- don't add any child elements inside end---using infinite scroll -->
+    <!-- don't add any child elements inside end--- infinite scroll -->
 
     <div class="text-center">
         <p-progressSpinner *ngIf="showLoader"></p-progressSpinner>

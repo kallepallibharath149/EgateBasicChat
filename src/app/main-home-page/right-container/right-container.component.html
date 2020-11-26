@@ -4,6 +4,7 @@
             <h4>Events</h4>
         </div>
         <hr />
+        
         <div class="events-container nav-section">
             <div class="p-2 item-top" (click)="navigate(event)" *ngFor="let event of currentEvents">
                 <div class="nav-item" [ngClass]="event.classObject" [ngStyle]="event.styleObject"
@@ -14,12 +15,12 @@
             </div>
         </div>
         <hr />
+
         <div class="current-chat-container">
             <div>
                 <h4>Contacts</h4>
             </div>
             <hr />
-            <app-main-home-page-messenger></app-main-home-page-messenger>
         </div>
     </div>
 </div>

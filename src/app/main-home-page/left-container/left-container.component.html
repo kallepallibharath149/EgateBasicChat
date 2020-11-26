@@ -3,15 +3,18 @@
     <div class="p-2 item-top" (click)="navigate(navItem)" *ngFor="let navItem of navigationItems">
       <div class="nav-item" [ngClass]="navItem.classObject" [ngStyle]="navItem.styleObject" class="{{navItem?.class}}"
         id="{{navItem?.id}}">
-        <div><i *ngIf="!navItem.profileImage" class="icon {{navItem?.icon}}"></i><img class="profile-image" *ngIf="navItem.profileImage" [src]="navItem.profileImage"/>{{navItem.profileImage?navItem.profileName:navItem?.label}}</div>
+        <div><i *ngIf="!navItem.profileImage" class="icon {{navItem?.icon}}"></i><img class="profile-image"
+            *ngIf="navItem.profileImage"
+            [src]="navItem.profileImage" />{{navItem.profileImage?navItem.profileName:navItem?.label}}</div>
       </div>
     </div>
   </div>
-  <p-accordion  styleClass="p-accordion" [activeIndex]="0">
+  <p-accordion styleClass="p-accordion" [activeIndex]="0">
     <p-accordionTab styleClass="p-accordion-header" header="My Groups">
       <div>
         <div>
-          <p-listbox (onClick)="navigateGroup($event.value)" [options]="groupsListDetails" [styleClass]="'h-auto'" optionLabel="name"  [(ngModel)]="selectedGroup" >
+          <p-listbox (onClick)="navigateGroup($event.value)" [options]="groupsListDetails" [styleClass]="'h-auto'"
+            optionLabel="name" [(ngModel)]="selectedGroup">
             <ng-template let-group pTemplate="item">
               <div pTooltip="{{group.value.name}}" class="ui-helper-clearfix">
                 <span tooltipPosition="right" style="margin:20px 10px 0 0">{{group.value.name}}</span>
@@ -23,6 +26,5 @@
         </div>
       </div>
     </p-accordionTab>
-</p-accordion>
-<!-- <p-tree [value]="files2"></p-tree> -->
+  </p-accordion>
 </div>

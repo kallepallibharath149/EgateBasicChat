@@ -11,11 +11,11 @@ import { GroupsService } from '@app/groups/groups.service';
   styleUrls: ['./main-home-page.component.less']
 })
 export class MainHomePageComponent implements OnInit, AfterContentInit, AfterViewInit {
-  loggedInUserDetails:any;
+  loggedInUserDetails: any;
   latestPosts: Array<any> = [];
   element: ElementRef;
-  @HostBinding('style.color') color: string;
-  @HostBinding('style.border-color') borderColor: string;
+  // @HostBinding('style.color') color: string;
+  // @HostBinding('style.border-color') borderColor: string;
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
     console.log("scrolling...");
@@ -26,24 +26,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
     console.log(window.innerHeight);
     console.log(window.innerWidth);
     this.setLeftRightcontainerStyles();
-
   }
-
-  groupsListDetails: Array<groups> = [
-    {  "groupId": '1',
-      "groupName": "It Employees Group",
-      "groupCategory": "Public",
-      "memberType": 'member',
-      "defaultGroup": true
-     },
-     {"groupId": '2',
-      "groupName": "Hyderabd employees",
-      "groupCategory": "Public",
-      "memberType": 'member',
-      "defaultGroup": false
-     }
-  ];
-  selectedGroup:groups;
 
   public setLeftRightcontainerStyles() {
     let topBannerHeight = 0;
@@ -65,7 +48,7 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
   constructor(private _elementRef: ElementRef,
     private renderer: Renderer2,
     private globalEmitterService: GlobalEmittingEventsService,
-    private httpService:HttpService,
+    private httpService: HttpService,
     private router: Router,
     private groupservice: GroupsService) {
     this.element = this._elementRef.nativeElement;
@@ -73,18 +56,6 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
 
   ngOnInit(): void {
     this.globalEmitterService.emitcurrentNavigation('/home/redirect');
-   // this.getInitialLatestPosts();
-    // checking default group and navigating to default group
-    // let defaultIndex = this.groupsListDetails.findIndex((item:groups)=>{
-    //   return item.defaultGrop;
-    //  });
-    //  let id:any = 0;
-    //  this.selectedGroup = this.groupsListDetails[0];
-    //  if(defaultIndex >= 0){
-    //   this.selectedGroup = this.groupsListDetails[defaultIndex];
-    //   id = this.groupsListDetails[defaultIndex].groupId;  
-    //  }
-    //  this.router.navigate(['/home/groupsPosts', id]);
   }
 
   ngAfterViewInit() {
@@ -93,48 +64,6 @@ export class MainHomePageComponent implements OnInit, AfterContentInit, AfterVie
 
   ngAfterContentInit() {
     //this.setLeftRightcontainerStyles();
-  }
-
-  getInitialLatestPosts() {
-  this.getLatestPosts('initialization');
-  }
-
-  getLatestPosts(state?) {
-    this.httpService.httpGet('User/111/LatestPosts').subscribe((response) => {
-      console.log(response);
-      if (Array.isArray(response) && response.length > 0) {
-        let postsArray = [];
-        response.forEach(timelinePost => {
-          let postDetails: any = {};
-          postDetails.profileId = timelinePost.profileId;
-          postDetails.userName = timelinePost.userName;
-          postDetails.isMine = timelinePost.isMine;
-          if (timelinePost.postDetails.postType == 'Image') {
-            postDetails.imagePost = true;
-            postDetails.videoPost = false;
-          } else if (timelinePost.postDetails.postType == 'Video') {
-            postDetails.videoPost = true;
-            postDetails.imagePost = false;
-          }
-          postDetails.imageVideoUrl = timelinePost.postDetails.postUrl;
-          postDetails.postComment = timelinePost.postDetails.postText;
-          postsArray.push(postDetails);
-        });
-        if(state == 'initialization'){
-          this.latestPosts = [];
-        }
-        if (Array.isArray(postsArray) && postsArray.length > 0) {
-          this.latestPosts = [...this.latestPosts, ...postsArray];
-        } 
-      }
-    }, (error) => {
-      console.log(error);
-    });
-  }
-
-
-  onScroll() {
-   // this.getLatestPosts();
   }
 
 }
