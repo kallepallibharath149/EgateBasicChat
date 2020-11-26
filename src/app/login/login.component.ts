@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   visibleSidebar: boolean = false;
   forgottPassword: boolean = false;
   showLoading: boolean = false;
+
+  showWarning:boolean = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes.threeBounce;
   constructor(private router: Router,
     private loginService: LoginServiceService,
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   validateLogin(loginForm: NgForm) {
+    this.showWarning = false;
     if (loginForm.valid) {
       this.showLoading = true;
       let endPoint = 'User/login';
@@ -69,6 +72,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.showLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Error Message', detail: error.message });
       });
+    } else {
+      this.showWarning = true; 
     }
   }
 
@@ -95,6 +100,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   clearSignUp(signUpForm: NgForm){
     signUpForm.reset();
     this.visibleSidebar=false
+  }
+
+  showSignUp(){
+    this.visibleSidebar = true;
   }
 
 }

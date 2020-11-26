@@ -2,16 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DragulaModule } from 'ng2-dragula';
 //  DragulaModule
-import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedServiceModule } from './common/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgxContentLoadingModule } from './common/ngx-content-loading/ngx-content-loading.module';
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+// import { NgxContentLoadingModule } from './common/ngx-content-loading/ngx-content-loading.module';
 import { NgxLoadingModule } from './common/ngx-loader/lib/ngx-loading.module';
 
 
@@ -80,6 +79,8 @@ import { groupPostReloadService } from './main-home-page/main-page-groups-contai
 import { RedirectTogroupsComponent } from './main-home-page/main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { MainPageGroupsContainerComponent } from './main-home-page/main-page-groups-container/main-page-groups-container.component';
 
+import { CustomPreloadingService } from './services/custom.preloading.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,18 +127,15 @@ import { MainPageGroupsContainerComponent } from './main-home-page/main-page-gro
     ScatterComponent,
     SecureFilesUrlPipe
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    NgbModule,
-    NgbPaginationModule,
-    NgbAlertModule,
+    // NgbModule,
     SharedServiceModule,
-    InfiniteScrollModule,
     DragulaModule.forRoot(),
-    NgxContentLoadingModule,
     NgxLoadingModule.forRoot({}),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
@@ -149,6 +147,7 @@ import { MainPageGroupsContainerComponent } from './main-home-page/main-page-gro
     GlobalEmittingEventsService,
     LoginServiceService,
     UserPostsService,
+    CustomPreloadingService,
     MessageService,
     ModalOpenCanDeactivateGuardGuard,
     NgbActiveModal,

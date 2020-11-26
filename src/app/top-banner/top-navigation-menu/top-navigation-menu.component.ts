@@ -66,7 +66,7 @@ export class TopNavigationMenuComponent implements OnInit , OnDestroy {
 
   ngOnInit(): void {
    //this.currentActiveMenuItem = this.items[0];
-   this.navigationEmitterSubscription = this.globalEmitterService.navigationEventEmitter.subscribe(navigation=>{
+     this.navigationEmitterSubscription = this.globalEmitterService.navigationEventEmitter.subscribe(navigation=>{
       let filteredItem =  this.items.filter(item=>{
           return item.navigationRoute == navigation;
         });

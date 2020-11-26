@@ -25,9 +25,12 @@ import { CanRedirectToGroupsHomeGuard } from './common/guards/can-redirect-to-gr
 import { NavigateBookmarksComponent } from './top-banner/navigate-bookmarks/navigate-bookmarks.component';
 import { MainPageGroupsContainerComponent } from './main-home-page/main-page-groups-container/main-page-groups-container.component';
 import { RedirectTogroupsComponent } from './main-home-page/main-page-groups-container/redirect-togroups/redirect-togroups.component';
+import { CustomPreloadingService } from './services/custom.preloading.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  // {path: 'app', loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)},
+   {path: 'test',  data: { preload: true }, loadChildren: () => import('./main-app-module/main-app.module').then(m => m.MainAppModule)},
   { path: 'home', component: MainHomePageComponent,
     children: [
       { path: 'redirect', component:RedirectTogroupsComponent,
@@ -66,14 +69,13 @@ const routes: Routes = [
     { path: 'about', component: AboutComponent }
   ],
   canDeactivate: [ModalOpenCanDeactivateGuardGuard]},
-  // { path: 'profile/:id/:photos', component: PhotosComponent },
   { path: 'bookmarks', component: NavigateBookmarksComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true,scrollPositionRestoration: 'enabled' })],//,enableTracing:true
+  imports: [RouterModule.forRoot(routes, { useHash: true,scrollPositionRestoration: 'enabled',preloadingStrategy: CustomPreloadingService})],//,enableTracing:true
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
