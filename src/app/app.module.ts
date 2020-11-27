@@ -80,6 +80,7 @@ import { RedirectTogroupsComponent } from './main-home-page/main-page-groups-con
 import { MainPageGroupsContainerComponent } from './main-home-page/main-page-groups-container/main-page-groups-container.component';
 
 import { CustomPreloadingService } from './services/custom.preloading.service';
+import { NewImplementationComponent } from './new-implementation/new-implementation.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { CustomPreloadingService } from './services/custom.preloading.service';
     BarComponent,
     PieComponent,
     ScatterComponent,
-    SecureFilesUrlPipe
+    SecureFilesUrlPipe,
+    NewImplementationComponent
   ],
 
   imports: [

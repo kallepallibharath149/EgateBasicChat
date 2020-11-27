@@ -26,6 +26,7 @@ import { NavigateBookmarksComponent } from './top-banner/navigate-bookmarks/navi
 import { MainPageGroupsContainerComponent } from './main-home-page/main-page-groups-container/main-page-groups-container.component';
 import { RedirectTogroupsComponent } from './main-home-page/main-page-groups-container/redirect-togroups/redirect-togroups.component';
 import { CustomPreloadingService } from './services/custom.preloading.service';
+import { NewImplementationComponent } from './new-implementation/new-implementation.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   },
   { path: 'news', component: NewsComponent },
   { path: 'movies', component: MoviesComponent },
+  { path: 'implementation', component: NewImplementationComponent },
   { path: 'groups', component: GroupsComponent,
   children: [
     { path: '', component: GroupsListComponent },
