@@ -15,7 +15,7 @@ export class CanRedirectToGroupsHomeGuard implements CanActivate {
     console.log('routerSnapShot', window.location.href);
     console.log('routerSnapShot', state);
     console.log('routerSnapShot', next);
-    if (window.location.href.indexOf("groupsPosts")! < 0) {
+    if (window.location.href.indexOf("groupsPosts/details") < 0) {
       return true;
     } else {
       return false;

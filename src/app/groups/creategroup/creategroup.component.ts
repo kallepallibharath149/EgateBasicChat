@@ -58,7 +58,7 @@ export class CreategroupComponent implements OnInit {
    }
    this.groupService.createGroup(endPoint, groupDetails ).subscribe(resp=>{
       groupForm.reset();
-      this.router.navigate(['/groups']);
+      this.router.navigate(['testtt/groups']);
    });
    }
 
@@ -85,7 +85,7 @@ export class CreategroupComponent implements OnInit {
     confirmDiscard(eventForm:NgForm){
       this.closeModal('');
       eventForm.reset();
-      this.router.navigate(['/groups']);
+      this.router.navigate(['testtt/groups']);
     }
 
 }

@@ -50,6 +50,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.checkAlreadyLoggedIn();
+  }
+
+  checkAlreadyLoggedIn(){
+    if ("authDetails" in localStorage) {
+      let authDetails = JSON.parse(localStorage.getItem("authDetails"));
+      if (authDetails['token']) {
+        this.router.navigate(['testtt/groupsPosts']);
+      } else {
+        this.router.navigate(['login']);
+      }
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   ngOnDestroy() {
@@ -66,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.showLoading = false;
         if (resp.success) {
           this.authService.setAuthDetails(resp.data);
-          this.router.navigate(['/home']);
+          this.router.navigate(['testtt/groupsPosts']);
         }
       }, (error) => {
         this.showLoading = false;

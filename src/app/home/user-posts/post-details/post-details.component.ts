@@ -85,7 +85,7 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   navigateToProfile(profileName, profileid) {
     this.globalEmitterService.setCurrentProfileObj(profileName);
-    this.route.navigate(['/profile', profileid]);
+    this.route.navigate(['testtt/profile', profileid]);
   }
 
   ngAfterViewInit() {

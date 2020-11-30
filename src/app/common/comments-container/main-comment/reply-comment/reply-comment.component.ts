@@ -23,7 +23,7 @@ export class ReplyCommentComponent implements OnInit {
   }
 
   navigateToProfile() {
-    this.router.navigate(['/profile', 'raju']);
+    this.router.navigate(['testtt/profile', 'raju']);
   }
 
 }

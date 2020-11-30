@@ -66,14 +66,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     if ("authDetails" in localStorage) {
       let authDetails = JSON.parse(localStorage.getItem("authDetails"));
       if (authDetails['token']) {
-
+        // this.router.navigate(['testtt/groupsPosts']);
       } else {
-        this.router.navigate(['login'])
+        this.router.navigate(['login']);
       }
     } else {
-
+      this.router.navigate(['login']);
     }
-
   }
 
   hideApplicationLoader() {

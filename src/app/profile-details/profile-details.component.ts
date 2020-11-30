@@ -105,10 +105,10 @@ export class ProfileDetailsComponent implements OnInit {
   navigate(navItem) {
     if(navItem.navigate && navItem.navigate.length>0){
     //this.router.navigateByUrl(`profile/${this.currentProfileId}${navItem.navigate?'/'+navItem.navigate:''}`);
-    this.router.navigate([`/profile/${this.currentProfileId}`,navItem.navigate]);
+    this.router.navigate([`testtt/profile/${this.currentProfileId}`,navItem.navigate]);
     } else if(!navItem.navigate){
       if(navItem.label =='Timeline'){
-        this.router.navigate([`/profile/${this.currentProfileId}`]);
+        this.router.navigate([`testtt/profile/${this.currentProfileId}`]);
       }
     }  
   }

@@ -77,12 +77,12 @@ export class CreateEventComponent implements OnInit {
    let newEventObj = Object.assign({},this.createEvent);
    this.userPostsService.addEvent(newEventObj);
    eventForm.reset();
-   this.router.navigate(['/events']);
+   this.router.navigate(['testtt/events']);
     }
 
     confirmDiscard(eventForm:NgForm){
       this.closeModal('');
       eventForm.reset();
-      this.router.navigate(['/events']);
+      this.router.navigate(['testtt/events']);
     }
 }

@@ -43,9 +43,9 @@ currentOverlayObj: any = null;
 
   navigate(){
     if(this.photosGrid == 'photosGrid'){
-      this.route.navigate([`/profile/${this.currentProfileId}`,'photos']);
+      this.route.navigate([`testtt/profile/${this.currentProfileId}`,'photos']);
    } else if(this.photosGrid == 'friendsGrid'){
-    this.route.navigate([`/profile/${this.currentProfileId}`,'connections']);
+    this.route.navigate([`testtt/profile/${this.currentProfileId}`,'connections']);
    }  
   }
   navigatingTo(obj){
@@ -54,7 +54,7 @@ currentOverlayObj: any = null;
       this.currentOverlayObj = obj;
    } else if(this.photosGrid == 'friendsGrid'){
      this.globalEmitterService.setCurrentProfileObj(obj.profileName);
-    this.route.navigate([`/profile/${obj.profileId}`]);
+    this.route.navigate([`testtt/profile/${obj.profileId}`]);
    } 
   }
 

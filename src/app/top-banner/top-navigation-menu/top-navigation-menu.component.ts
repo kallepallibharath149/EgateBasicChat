@@ -17,21 +17,21 @@ export class TopNavigationMenuComponent implements OnInit , OnDestroy {
    {
      menuName: 'Home',
      icon: 'fa fa-home',
-     navigationRoute: "/home/redirect",
+     navigationRoute: "testtt/groupsPosts/redirect",
      class: '',
      id: ''
    },
    {
      menuName: 'News',
      icon: 'fa fa-newspaper-o',
-     navigationRoute: "/news",
+     navigationRoute: "testtt/news",
      class: '',
      id: ''
    },
    {
      menuName: 'Movies',
      icon: 'fa fa-youtube-play',
-     navigationRoute: "/movies",
+     navigationRoute: "testtt/movies",
      class: '',
      id: ''
    },
@@ -46,7 +46,7 @@ export class TopNavigationMenuComponent implements OnInit , OnDestroy {
    {
      menuName: 'Groups',
      icon: 'fa fa-users',
-     navigationRoute: "/groups",
+     navigationRoute: "testtt/groups",
      class: '',
      id: ''
    },
@@ -54,7 +54,7 @@ export class TopNavigationMenuComponent implements OnInit , OnDestroy {
    {
      menuName: 'Hamburger',
      icon: 'fa fa-bars',
-     navigationRoute: "/bookmarks",
+     navigationRoute: "testtt/bookmarks",
      class: '',
      id: 'hamburger'
    }

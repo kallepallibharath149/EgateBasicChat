@@ -39,7 +39,7 @@ export class LeftContainerComponent implements OnInit {
       "icon": "fa fa-calendar-o",
       "class": "",
       "id": "",
-      "navigate": "/events",
+      "navigate": "testtt/events",
       "optionalParameters": "",
       "styleObject": '',
       "classObject": ''
@@ -49,7 +49,7 @@ export class LeftContainerComponent implements OnInit {
       "icon": "fa fa-user",
       "class": "",
       "id": "",
-      "navigate": "/groups",
+      "navigate": "testtt/groups",
       "optionalParameters": "",
       "styleObject": '',
       "classObject": ''
@@ -94,7 +94,7 @@ export class LeftContainerComponent implements OnInit {
   }
 
   navigateGroup(group: groupsListResponse) {
-    this.router.navigate(['home/groupsPosts', group.id]);
+    this.router.navigate(['testtt/groupsPosts/details', group.id]);
   }
 
   constructor(private router: Router,
@@ -140,7 +140,7 @@ export class LeftContainerComponent implements OnInit {
       id = this.groupsListDetails[defaultIndex].id;
     }
     if (!(window.location.pathname.includes('groupsPosts'))) {
-      this.router.navigate(['/home/groupsPosts', id]);
+      this.router.navigate(['testtt/groupsPosts/details', id]);
     }
   }
 

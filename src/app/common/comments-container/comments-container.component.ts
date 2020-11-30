@@ -134,7 +134,7 @@ export class CommentsContainerComponent implements OnInit, AfterViewInit {
 
 
   navigateToProfile() {
-    this.router.navigate(['/profile', this.userDetails.profileId]);
+    this.router.navigate(['testtt/profile', this.userDetails.profileId]);
   }
 
   getPostComments(state?){

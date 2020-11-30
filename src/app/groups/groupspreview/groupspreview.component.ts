@@ -246,7 +246,7 @@ export class GroupspreviewComponent implements OnInit,AfterViewInit, OnDestroy {
     this.groupService.deleteGroup(endPiont).subscribe(data=>{
       this.messageService.add({severity:'success', summary: 'Success Message', detail:'Group deleted successfully'});
       modal.dismiss('Cross click');
-      this.router.navigate(['/groups']);
+      this.router.navigate(['testtt/groups']);
     });
    
   }

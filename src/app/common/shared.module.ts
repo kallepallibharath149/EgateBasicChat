@@ -58,7 +58,7 @@ import { ConfirmPasswordEqualValidatorDirective } from './directives/confirm.pas
     NgxContentLoadingModule,
     RippleModule,
     InfiniteScrollModule,
-    // FormsModule,
+     FormsModule,
     NgbModule,
     DynamicDialogModule,
     InputMaskModule,

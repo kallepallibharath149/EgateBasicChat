@@ -77,7 +77,8 @@
         <!--  <input type="text"  #phone="ngModel" 
           id="phonefiled" required name="phone" [(ngModel)]="signUpObj.phone" placeholder="Phone No"> -->
         <p-inputMask [required]="true" #phone="ngModel" [class.is-invalid]="(phone.touched && phone.invalid)"
-          id="phonefiled" name="phone" placeholder="xxx-xxx-xxx-xxxx" [(ngModel)]="signUpObj.phone" mask="999-999-999-9999">
+          id="phonefiled" name="phone" placeholder="xxx-xxx-xxx-xxxx" [(ngModel)]="signUpObj.phone"
+          mask="999-999-999-9999" styleClass="form-control {{phone.touched && phone.invalid ? 'is-invalid':''}}">
         </p-inputMask>
         <span class="invalid-feedback" *ngIf="(phone.touched && phone.invalid)">Phone number is
           required</span>
@@ -128,7 +129,7 @@
     </form>
   </div>
   <button pButton pRipple type="button" label="Sign Up" (click)="createAccount(signUpForm);"
-     class="p-button-rounded pl-4 pr-4  pt-2 pb-2 mr-2 mt-3 p-button-danger"></button>
+    class="p-button-rounded pl-4 pr-4  pt-2 pb-2 mr-2 mt-3 p-button-danger"></button>
   <button pButton pRipple type="button" label="Cancel" (click)="clearSignUp(signUpForm);"
     class="p-button-rounded p-button-outlined pl-4 pr-4  pt-2 pb-2 mt-3 p-button-danger"></button>
 </p-sidebar>

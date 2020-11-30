@@ -107,7 +107,7 @@ export class InvitationsComponent implements OnInit {
 
   eventPrevievNavigation(eventObj) {
     this.userPostsService.setPreviewEvent(eventObj);
-    this.router.navigate(['events/preview']);
+    this.router.navigate(['testtt/events/preview']);
   }
 
   stopPropagation(event) {

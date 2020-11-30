@@ -16,14 +16,14 @@ export class GroupsComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeItem = 'Group list'
-    this.globalEmitterService.emitcurrentNavigation('/groups');
+    this.globalEmitterService.emitcurrentNavigation('testtt/groups');
   }
 
   navigateCreateGroup(){
-   this.router.navigate(['/groups/create']);
+   this.router.navigate(['testtt/groups/create']);
   }
   navigateGroupList(){
-    this.router.navigate(['/groups']);  
+    this.router.navigate(['testtt/groups']);  
   }
 
 }

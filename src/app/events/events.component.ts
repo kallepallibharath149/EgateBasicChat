@@ -19,15 +19,15 @@ export class EventsComponent implements OnInit {
 
   handleEvents(route?){
     if(route && route !='events'){
-      this.router.navigate([`/events/${route}`]);
+      this.router.navigate([`testtt/events/${route}`]);
     } else {
-      this.router.navigate([`/events`]);   
+      this.router.navigate([`testtt/events`]);   
     }
    
   }
 
   createEvent(){
-   this.router.navigate(['/events/create']);
+   this.router.navigate(['testtt/events/create']);
   }
 
 }

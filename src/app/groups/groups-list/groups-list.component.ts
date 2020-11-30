@@ -64,7 +64,7 @@ export class GroupsListComponent implements OnInit {
   }
   groupPrevievNavigation(group:groups){
   this.groupService.setGroupPreviewObject(group);
-  this.router.navigate(['/groups/preview', group.groupId]);
+  this.router.navigate(['testtt/groups/preview', group.groupId]);
   }
 
 }

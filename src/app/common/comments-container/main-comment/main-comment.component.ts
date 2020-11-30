@@ -46,7 +46,7 @@ export class MainCommentComponent implements OnInit, AfterViewInit {
   }
 
   navigateToProfile() {
-    this.router.navigate(['/profile', this.userDetails.profileId]);
+    this.router.navigate(['testtt/profile', this.userDetails.profileId]);
   }
 
   newReplyCommentHandler(commentForm: NgForm) {

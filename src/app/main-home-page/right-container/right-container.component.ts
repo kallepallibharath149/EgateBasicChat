@@ -15,7 +15,7 @@ export class RightContainerComponent implements OnInit {
       "icon": "fa fa-user",
       "class": "",
       "id": "",
-      "navigate": "/profile",
+      "navigate": "testtt/profile",
       "requiredParameters": "raju",
       "optionalParameters": "",
       "styleObject":'',
@@ -26,7 +26,7 @@ export class RightContainerComponent implements OnInit {
       "icon": "fa fa-users",
       "class": "",
       "id": "",
-      "navigate": "/connections",
+      "navigate": "testtt/connections",
       "optionalParameters": "",
       "styleObject":'',
       "classObject":''
@@ -36,7 +36,7 @@ export class RightContainerComponent implements OnInit {
       "icon": "fa fa-calendar-o",
       "class": "",
       "id": "",
-      "navigate": "/events",
+      "navigate": "testtt/events",
       "optionalParameters": "",
       "styleObject":'',
       "classObject":''
@@ -46,7 +46,7 @@ export class RightContainerComponent implements OnInit {
       "icon": "fa fa-user",
       "class": "",
       "id": "",
-      "navigate": "/groups",
+      "navigate": "testtt/groups",
       "optionalParameters": "",
       "styleObject":'',
       "classObject":''
@@ -56,7 +56,7 @@ export class RightContainerComponent implements OnInit {
       "icon": "fa fa-user",
       "class": "",
       "id": "",
-      "navigate": "/messenger",
+      "navigate": "testtt/messenger",
       "optionalParameters": "",
       "styleObject":'',
       "classObject":''
@@ -66,7 +66,7 @@ export class RightContainerComponent implements OnInit {
       "icon": "fa fa-user",
       "class": "",
       "id": "",
-      "navigate": "/watch",
+      "navigate": "testtt/watch",
       "optionalParameters": "",
       "styleObject":'',
       "classObject":''

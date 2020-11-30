@@ -19,8 +19,8 @@ export class PageNotFoundComponent implements OnInit,AfterViewInit {
   }
 
   navigateToHome(){
-    this.globalEmitterService.emitcurrentNavigation('/home');
-    this.router.navigate(['/home']);
+    this.globalEmitterService.emitcurrentNavigation('testtt/groupsPosts');
+    this.router.navigate(['testtt/groupsPosts']);
   }
 
   ngAfterViewInit(){
