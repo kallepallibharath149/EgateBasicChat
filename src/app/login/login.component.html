@@ -72,10 +72,13 @@
         <span class="invalid-feedback" *ngIf="(email.touched && email.errors?.required)"> Email is required</span>
         <span class="invalid-feedback" *ngIf="(email.touched && email.errors?.pattern)"> Email is invallid</span>
       </div>
-      <div class="form-group">
-        <label for="phonefiled">Phone No<sup>*</sup></label>
-        <input type="text" class="form-control" #phone="ngModel" [class.is-invalid]="(phone.touched && phone.invalid)"
-          id="phonefiled" required name="phone" [(ngModel)]="signUpObj.phone" placeholder="Phone No">
+      <div class="form-group p-grid p-fluid">
+        <label for="phonefiled" class="d-block">Phone No<sup>*</sup></label>
+        <!--  <input type="text"  #phone="ngModel" 
+          id="phonefiled" required name="phone" [(ngModel)]="signUpObj.phone" placeholder="Phone No"> -->
+        <p-inputMask [required]="true" #phone="ngModel" [class.is-invalid]="(phone.touched && phone.invalid)"
+          id="phonefiled" name="phone" placeholder="xxx-xxx-xxx-xxxx" [(ngModel)]="signUpObj.phone" mask="999-999-999-9999">
+        </p-inputMask>
         <span class="invalid-feedback" *ngIf="(phone.touched && phone.invalid)">Phone number is
           required</span>
       </div>
@@ -125,7 +128,7 @@
     </form>
   </div>
   <button pButton pRipple type="button" label="Sign Up" (click)="createAccount(signUpForm);"
-    [disabled]="signUpForm.invalid" class="p-button-rounded pl-4 pr-4  pt-2 pb-2 mr-2 mt-3 p-button-danger"></button>
+     class="p-button-rounded pl-4 pr-4  pt-2 pb-2 mr-2 mt-3 p-button-danger"></button>
   <button pButton pRipple type="button" label="Cancel" (click)="clearSignUp(signUpForm);"
     class="p-button-rounded p-button-outlined pl-4 pr-4  pt-2 pb-2 mt-3 p-button-danger"></button>
 </p-sidebar>

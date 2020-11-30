@@ -41,6 +41,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import {InputMaskModule} from 'primeng/inputmask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxContentLoadingModule } from './ngx-content-loading/ngx-content-loading.module';
@@ -60,6 +61,7 @@ import { ConfirmPasswordEqualValidatorDirective } from './directives/confirm.pas
     // FormsModule,
     NgbModule,
     DynamicDialogModule,
+    InputMaskModule,
     TreeModule,
     ToastModule,
     MessagesModule,
