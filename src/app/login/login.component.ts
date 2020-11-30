@@ -94,12 +94,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.showLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Error Message', detail: error.message });
       });
+    } else {
+      signUpForm.control.markAllAsTouched();
     }
   }
 
   clearSignUp(signUpForm: NgForm){
     signUpForm.reset();
     this.visibleSidebar=false
+  }
+
+  sideBarHide(signUpForm: NgForm){
+    signUpForm.reset();
   }
 
   showSignUp(){

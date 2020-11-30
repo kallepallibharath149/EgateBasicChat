@@ -43,60 +43,89 @@
 </div>
 
 
-<p-sidebar [(visible)]="visibleSidebar" position="right" [baseZIndex]="10000"
+<p-sidebar (onHide)="sideBarHide(signUpForm)" [(visible)]="visibleSidebar" position="right" [baseZIndex]="10000"
   [style]="{width: '300px',height:'100%',overflow:'auto'}">
   <h3 class="text-danger font-weight-bold">Create Account</h3>
   <div>
     <form #signUpForm="ngForm" autocomplete="off">
       <div class="form-group">
-        <label for="firstNamefiled">First Name</label>
-        <input type="text" class="form-control" id="firstNamefiled" [(ngModel)]="signUpObj.firstName" required
-          name="firstName" placeholder="First Name">
+        <label for="firstNamefiled" class="control-label">First Name<sup>*</sup></label>
+        <input type="text" class="form-control" [class.is-invalid]="(firstName.touched && firstName.invalid)"
+          id="firstNamefiled" #firstName="ngModel" [(ngModel)]="signUpObj.firstName" required name="firstName"
+          placeholder="First Name">
+        <span class="invalid-feedback" *ngIf="(firstName.touched && firstName.invalid)">First Name is
+          required</span>
       </div>
       <div class="form-group">
-        <label for="lastNamefiled">Last Name</label>
-        <input type="text" class="form-control" id="lastNamefiled" required [(ngModel)]="signUpObj.lastName"
-          name="lastName" placeholder="Last Name">
+        <label for="lastNamefiled">Last Name<sup>*</sup></label>
+        <input type="text" class="form-control" [class.is-invalid]="(lastName.touched && lastName.invalid)"
+          id="lastNamefiled" #lastName="ngModel" required [(ngModel)]="signUpObj.lastName" name="lastName"
+          placeholder="Last Name">
+        <span class="invalid-feedback" *ngIf="(lastName.touched && lastName.invalid)">Last Name is
+          required</span>
       </div>
       <div class="form-group">
-        <label for="emailfiled">Email</label>
-        <input type="text" class="form-control" id="emailfiled" required name="email" [(ngModel)]="signUpObj.email"
-          placeholder="Email">
+        <label for="emailfiled">Email<sup>*</sup></label>
+        <input type="text" class="form-control" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+          #email="ngModel" [class.is-invalid]="(email.touched && email.invalid)" id="emailfiled" required name="email"
+          [(ngModel)]="signUpObj.email" placeholder="Email">
+        <span class="invalid-feedback" *ngIf="(email.touched && email.errors?.required)"> Email is required</span>
+        <span class="invalid-feedback" *ngIf="(email.touched && email.errors?.pattern)"> Email is invallid</span>
       </div>
       <div class="form-group">
-        <label for="phonefiled">Phone No</label>
-        <input type="text" class="form-control" id="phonefiled" required name="phone" [(ngModel)]="signUpObj.phone"
-          placeholder="Phone No">
+        <label for="phonefiled">Phone No<sup>*</sup></label>
+        <input type="text" class="form-control" #phone="ngModel" [class.is-invalid]="(phone.touched && phone.invalid)"
+          id="phonefiled" required name="phone" [(ngModel)]="signUpObj.phone" placeholder="Phone No">
+        <span class="invalid-feedback" *ngIf="(phone.touched && phone.invalid)">Phone number is
+          required</span>
       </div>
       <div class="form-group">
-        <label for="cityfiled">City</label>
-        <input type="text" class="form-control" id="cityfiled" required name="city" [(ngModel)]="signUpObj.city"
-          placeholder="City">
+        <label for="cityfiled">City<sup>*</sup></label>
+        <input type="text" class="form-control" #city="ngModel" [class.is-invalid]="(city.touched && city.invalid)"
+          id="cityfiled" required name="city" [(ngModel)]="signUpObj.city" placeholder="City">
+        <span class="invalid-feedback" *ngIf="(city.touched && city.invalid)">City is
+          required</span>
       </div>
       <div class="form-group">
-        <label for="statefiled">State</label>
-        <input type="text" class="form-control" id="statefiled" required name="state" [(ngModel)]="signUpObj.state"
-          placeholder="State">
+        <label for="statefiled">State<sup>*</sup></label>
+        <input type="text" class="form-control" #state="ngModel" [class.is-invalid]="(state.touched && state.invalid)"
+          id="statefiled" required name="state" [(ngModel)]="signUpObj.state" placeholder="State">
+        <span class="invalid-feedback" *ngIf="(state.touched && state.invalid)">State is
+          required</span>
       </div>
       <div class="form-group">
-        <label for="countryfiled">Country</label>
-        <input type="text" class="form-control" id="countryfiled" required name="country"
+        <label for="countryfiled">Country<sup>*</sup></label>
+        <input type="text" class="form-control" #country="ngModel"
+          [class.is-invalid]="(country.touched && country.invalid)" id="countryfiled" required name="country"
           [(ngModel)]="signUpObj.country" placeholder="Country">
+        <span class="invalid-feedback" *ngIf="(country.touched && country.invalid)">Country is
+          required</span>
       </div>
       <div class="form-group">
-        <label for="passwordfiled">Password</label>
-        <input type="password" class="form-control" id="passwordfiled" required name="password"
-          [(ngModel)]="signUpObj.password" placeholder="Password">
+        <label for="passwordfiled">Password<sup>*</sup></label>
+        <input type="password" class="form-control" #Password="ngModel"
+          [class.is-invalid]="(Password.touched && Password.invalid)" id="countryfiled" required name="country"
+          id="passwordfiled" required name="password" [(ngModel)]="signUpObj.password" placeholder="Password"
+          (input)="confirmPassword.control.updateValueAndValidity()">
+        <span class="invalid-feedback" *ngIf="(Password.touched && Password.invalid)">Password is equired</span>
       </div>
       <div class="form-group">
-        <label for="confirmPasswordfiled">Confirm Password</label>
-        <input type="text" class="form-control" id="confirmPasswordfiled" required name="confirmPassword"
-          [(ngModel)]="signUpObj.confirmPassword" placeholder="Confirm Password">
+        <label for="confirmPasswordfiled">Confirm Password<sup>*</sup></label>
+        <input type="text" class="form-control" #confirmPassword="ngModel"
+          [class.is-invalid]="(confirmPassword.touched && confirmPassword.invalid)" id="confirmPasswordfiled" required
+          appConfirmEqualValidator="password" name="confirmPassword" [(ngModel)]="signUpObj.confirmPassword"
+          placeholder="Confirm Password">
+        <span class="invalid-feedback" *ngIf="(confirmPassword.touched && confirmPassword.errors?.required)">Confirm
+          Password is required</span>
+        <span class="invalid-feedback" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual &&
+            !confirmPassword.errors?.required">
+          Password and Confirm Password does not match
+        </span>
       </div>
     </form>
   </div>
-  <button pButton pRipple type="button" label="Sign Up" (click)="createAccount(signUpForm)"
-    class="p-button-rounded pl-4 pr-4  pt-2 pb-2 mr-2 mt-3 p-button-danger"></button>
+  <button pButton pRipple type="button" label="Sign Up" (click)="createAccount(signUpForm);"
+    [disabled]="signUpForm.invalid" class="p-button-rounded pl-4 pr-4  pt-2 pb-2 mr-2 mt-3 p-button-danger"></button>
   <button pButton pRipple type="button" label="Cancel" (click)="clearSignUp(signUpForm);"
     class="p-button-rounded p-button-outlined pl-4 pr-4  pt-2 pb-2 mt-3 p-button-danger"></button>
 </p-sidebar>

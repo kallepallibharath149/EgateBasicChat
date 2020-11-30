@@ -44,12 +44,15 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxContentLoadingModule } from './ngx-content-loading/ngx-content-loading.module';
+import { ConfirmPasswordEqualValidatorDirective } from './directives/confirm.password.equal.validator';
+
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ConfirmPasswordEqualValidatorDirective],
   imports: [ButtonModule, FormsModule, CommonModule, HttpClientModule],
   exports: [
+    ConfirmPasswordEqualValidatorDirective,
     SlickCarouselModule,
     NgxContentLoadingModule,
     RippleModule,
