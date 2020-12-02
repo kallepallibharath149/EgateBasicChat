@@ -50,6 +50,7 @@ import { MainCommentComponent } from '@app/common/comments-container/main-commen
 import { ReplyCommentComponent } from '@app/common/comments-container/main-comment/reply-comment/reply-comment.component';
 import { ProfileWithCommentsComponent } from '@app/common/profile-with-comments/profile-with-comments.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoGroupsInfoComponent } from '../main-home-page/no-groups-info/no-groups-info.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProfileWithCommentsComponent,
 
     SecureFilesUrlPipe,
+
+    NoGroupsInfoComponent,
   ],
   imports: [
     CommonModule,

@@ -1,33 +1,13 @@
 .post-upload-container {
     .card {
-        border-radius: 10px;
-
-        .header {
-            display        : flex;
-            align-items    : center;
-            justify-content: flex-start;
-            padding        : 10px;
-
-            .info-text {
-                flex-grow: 1;
-
-                button {
-                    width: 100%;
-                }
-            }
-
-            img {
-                width        : 50px;
-                height       : 50px;
-                border-radius: 25px;
-            }
-        }
+        border-radius: 4px;
 
         .body {
             display        : flex;
             align-items    : center;
             flex-direction : row;
             justify-content: space-around;
+            height         : 78px;
 
             .icons {
                 position: relative;
@@ -87,9 +67,12 @@
 }
 
 .photoUpload {
-    width : 30px;
-    height: 30px;
-    cursor: pointer;
+    width          : 42px;
+    height         : 42px;
+    cursor         : pointer;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
 
     .wrapper {
         visibility: hidden;
@@ -99,7 +82,14 @@
     }
 
     i {
-        font-size: 25px;
+        font-size: 20px;
+
+        &.image {
+            color: #D83B3E;
+        }
+        &.video{
+            color: #FFD765;
+        }
     }
 }
 
@@ -132,4 +122,55 @@
     width     : 0px;
     height    : 0px;
     opacity   : 0;
+}
+
+.bg-upload-image {
+    width           : 42px;
+    height          : 42px;
+    background-color: #FF718D;
+    border          : 0.8px solid #D83B3E;
+    opacity         : 0.2;
+    top             : 0px;
+    border-radius   : 22px;
+}
+
+.bg-upload-video {
+    width           : 42px;
+    height          : 42px;
+    background-color: #FFD765;
+    opacity         : 0.2;
+    top             : 0px;
+    border-radius   : 22px;
+    border          : 0.8px solid #FFC727;
+}
+
+.bg-upload-text{
+    width           : 42px;
+    height          : 42px;
+    top             : 0px;
+    border-radius   : 22px;
+    border: 0.8px solid rgba(0,122,198,0.5);
+    opacity: 0.3;
+    background-color: #C4E0FF;
+}
+
+.text-image{
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-icon{
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #007bff;
+    padding: 5px;
+    font-weight: bolder;
 }

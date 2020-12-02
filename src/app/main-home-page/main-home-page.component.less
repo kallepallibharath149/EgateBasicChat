@@ -1,21 +1,22 @@
 .main-home-continer {
-  .dynamic {
-    padding: 10px;
-  }
+  width          : 100%;
+  display        : flex;
+  justify-content: center;
 
   .body {
-    display       : flex;
-    flex-direction: row;
-    width         : 100%;
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
 
     .groups {
-      width   : 20%;
-      position: sticky;
+      width    : 20%;
+      min-width: 270px;
+      // padding  : 0 20px 0px 20px;
+      position : sticky;
 
       .group {
+        overflow-x: hidden;
         overflow-y: hidden;
-
-        .left-side {}
 
         &:hover {
           overflow-y         : auto;
@@ -26,13 +27,16 @@
     }
 
     .curren-chat {
-      position: sticky;
-      width   : 20%;
+      position : sticky;
+      width    : 20%;
+      min-width: 270px;
+      // padding  : 0 20px 0 20px;
 
       .group {
         .right-side {}
 
         overflow-y: hidden;
+        overflow-x: hidden;
 
         &:hover {
           overflow-y         : auto;
@@ -43,7 +47,8 @@
     }
 
     .dynamic {
-      width: 60%;
+      width  : calc(100% - 540px);
+      padding: 20px;
     }
   }
 
@@ -55,22 +60,28 @@
     }
 
     #middle-container {
-      width  : 100%;
-      padding: 0px;
+      width   : 100%;      // width: calc(100% - 500px);
+      padding-top : 20px;
     }
   }
 
   @media only screen and (min-width: 801px) and (max-width: 1100px) {
-    #left-container {
-      width: 35%;
-    }
-
     #middle-container {
-      width: 65%;
+      width: calc(100% - 270px);
     }
-
     #right-container {
       display: none;
     }
+  }
+}
+
+.body {
+  max-width: 1464px;
+  width    : 100%;
+}
+
+@media (max-width: 1920px) {
+  .body {
+    max-width: none;
   }
 }

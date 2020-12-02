@@ -11,21 +11,9 @@ import { GlobalEmittingEventsService } from '@app/services/global-emitting-event
 })
 export class LeftContainerComponent implements OnInit {
 
-  navigationItems: Array<any> = [
+  menuOptions: Array<any> = [
     {
-      "label": "Profile",
-      "profileImage": '../../assets/images/profile.jpg',
-      "icon": "fa fa-user",
-      "class": "",
-      "id": "",
-      "navigate": "/profile",
-      "optionalParameters": "",
-      "requiredParameters": true,
-      "styleObject": '',
-      "classObject": ''
-    },
-    {
-      "label": "Connections",
+      "label": "My Connections",
       "icon": "fa fa-users",
       "class": "",
       "id": "",
@@ -35,7 +23,7 @@ export class LeftContainerComponent implements OnInit {
       "classObject": ''
     },
     {
-      "label": "Events",
+      "label": "My Events",
       "icon": "fa fa-calendar-o",
       "class": "",
       "id": "",
@@ -43,48 +31,10 @@ export class LeftContainerComponent implements OnInit {
       "optionalParameters": "",
       "styleObject": '',
       "classObject": ''
-    },
-    {
-      "label": "Groups Details",
-      "icon": "fa fa-user",
-      "class": "",
-      "id": "",
-      "navigate": "testtt/groups",
-      "optionalParameters": "",
-      "styleObject": '',
-      "classObject": ''
-    },
-    {
-      "label": "Messenger",
-      "icon": "fa fa-user",
-      "class": "",
-      "id": "",
-      "navigate": "/messenger",
-      "optionalParameters": "",
-      "styleObject": '',
-      "classObject": ''
-    },
-    {
-      "label": "Videos",
-      "icon": "fa fa-user",
-      "class": "",
-      "id": "",
-      "navigate": "/watch",
-      "optionalParameters": "",
-      "styleObject": '',
-      "classObject": ''
-    },
-    {
-      "label": "Profile",
-      "icon": "fa fa-user",
-      "class": "",
-      "id": "",
-      "navigate": "",
-      "optionalParameters": "",
-      "styleObject": '',
-      "classObject": ''
-    },
+    }
   ];
+
+  selectedOptions:string ="";
 
   groupsListDetails: Array<groupsListResponse> = [];
   @Input('selectedGroup') selectedGroup: groupsListResponse;
@@ -103,15 +53,15 @@ export class LeftContainerComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails) => {
-      if (userDetails != false) {
-        let profileIndex = this.navigationItems.findIndex((item) => {
-          return item.label == 'Profile';
-        });
-        this.navigationItems[profileIndex].profileImage = userDetails.profileImageUrl;
-        this.navigationItems[profileIndex].profileName = userDetails.name;
-      }
-    });
+    // this.globalEmitterService.loggedInDetailsEmit.subscribe((userDetails) => {
+    //   if (userDetails != false) {
+    //     let profileIndex = this.navigationItems.findIndex((item) => {
+    //       return item.label == 'Profile';
+    //     });
+    //     this.navigationItems[profileIndex].profileImage = userDetails.profileImageUrl;
+    //     this.navigationItems[profileIndex].profileName = userDetails.name;
+    //   }
+    // });
     this.activatedRoute.paramMap.subscribe(params => {
       // console.log(params.has('id')); // true has() ,get(),      getAll()
       // this.currentGroupId = params.get('groupId');
@@ -129,28 +79,27 @@ export class LeftContainerComponent implements OnInit {
 
   navigateToDefaultGroup() {
     // checking default group and navigating to default group
-    let defaultIndex = this.groupsListDetails.findIndex((item: groupsListResponse) => {
-      return item?.defaultGroup;
-    });
-    let id: any = 0;
-    this.selectedGroup = this.groupsListDetails[0];
-    id = this.groupsListDetails[0].id;
-    if (defaultIndex >= 0) {
-      this.selectedGroup = this.groupsListDetails[defaultIndex];
-      id = this.groupsListDetails[defaultIndex].id;
-    }
-    if (!(window.location.pathname.includes('groupsPosts'))) {
-      this.router.navigate(['testtt/groupsPosts/details', id]);
+    if (this.groupsListDetails.length > 0) {
+      let defaultIndex = this.groupsListDetails.findIndex((item: groupsListResponse) => {
+        return item?.defaultGroup;
+      });
+      let id: any = 0;
+      this.selectedGroup = this.groupsListDetails[0];
+      id = this.groupsListDetails[0].id;
+      if (defaultIndex >= 0) {
+        this.selectedGroup = this.groupsListDetails[defaultIndex];
+        id = this.groupsListDetails[defaultIndex].id;
+      }
+      if (!(window.location.pathname.includes('groupsPosts'))) {
+        this.router.navigate(['testtt/groupsPosts/details', id]);
+      }
+    } else if (this.groupsListDetails.length <= 0) {
+      this.router.navigate(['testtt/groupsPosts/noGroups']);
     }
   }
 
   navigate(navItem) {
-    if (navItem.label == 'Profile') {
-      let profileId = this.globalEmitterService.getLoggedInUserDetails().profileId;
-      let profileName = this.globalEmitterService.getLoggedInUserDetails().name;
-      this.globalEmitterService.setCurrentProfileObj(profileName);
-      this.router.navigate([navItem.navigate, profileId]);
-    } else if (navItem.requiredParameters && (navItem.requiredParameters == true)) {
+    if (navItem.requiredParameters && (navItem.requiredParameters == true)) {
       this.router.navigate([navItem.navigate, navItem.requiredParameters]);
     } else {
       this.router.navigate([navItem.navigate]);

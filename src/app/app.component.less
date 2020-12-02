@@ -1,15 +1,25 @@
+.app-top-parent {
+  position: relative;
+  width   : 100%;
+  min-height  : 100%;
 
-.top-sticky{
-  position: sticky;
-  top: 0px;
-  z-index: 10;  
-}
-.main-dynamic-container{
-  background: #f0f2f5;
-}
+  .main-dynamic-container {
+    position: relative;
+    z-index : auto;
+  }
 
-@media only screen and (max-width: 400px) {
-  // .app-top-parent{
-  //   overflow: hidden;
-  // }
+  .bg-image {
+    position             : absolute;
+    left                 : 0px;
+    right                : 0px;
+    top                  : 0px;
+    bottom               : 0px;
+    z-index              : -20;
+    background-color     : #f0f2f5;
+    background-image     : url(/assets/images/background3.JPG);
+    background-repeat    : repeat;
+    background-attachment: fixed;
+    opacity              : 0.1;
+
+  }
 }

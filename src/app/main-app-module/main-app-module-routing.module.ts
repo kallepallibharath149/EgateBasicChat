@@ -14,6 +14,7 @@ import { GroupspreviewComponent } from '@app/groups/groupspreview/groupspreview.
 import { MainHomePageComponent } from '@app/main-home-page/main-home-page.component';
 import { MainPageGroupsContainerComponent } from '@app/main-home-page/main-page-groups-container/main-page-groups-container.component';
 import { RedirectTogroupsComponent } from '@app/main-home-page/main-page-groups-container/redirect-togroups/redirect-togroups.component';
+import { NoGroupsInfoComponent } from '@app/main-home-page/no-groups-info/no-groups-info.component';
 import { MoviesComponent } from '@app/movies/movies.component';
 import { NewsComponent } from '@app/news/news.component';
 import { AboutComponent } from '@app/profile-details/about/about.component';
@@ -37,7 +38,7 @@ const routes: Routes = [
           { path: 'redirect', component:RedirectTogroupsComponent,
           canActivate: [CanRedirectToGroupsHomeGuard],},
           { path: 'details/:groupId', component:MainPageGroupsContainerComponent  },
-          // { path: 'invitations', component: InvitationsComponent }
+          { path: 'noGroups', component: NoGroupsInfoComponent  }
         ]
       },
 

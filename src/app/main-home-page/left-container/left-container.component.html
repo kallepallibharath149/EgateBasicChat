@@ -1,14 +1,31 @@
 <div class="left-cont" style="height:800px">
-  <div class="nav-section">
+  <!-- <div class="nav-section">
     <div class="p-2 item-top" (click)="navigate(navItem)" *ngFor="let navItem of navigationItems">
       <div class="nav-item" [ngClass]="navItem.classObject" [ngStyle]="navItem.styleObject" class="{{navItem?.class}}"
         id="{{navItem?.id}}">
-        <div><i *ngIf="!navItem.profileImage" class="icon {{navItem?.icon}}"></i><img class="profile-image"
-            *ngIf="navItem.profileImage"
-            [src]="navItem.profileImage" />{{navItem.profileImage?navItem.profileName:navItem?.label}}</div>
+        <div><i *ngIf="!navItem.profileImage"
+            class="icon {{navItem?.icon}}"></i>{{navItem.profileImage?navItem.profileName:navItem?.label}}</div>
       </div>
     </div>
+  </div> -->
+
+  <!-- <div>
+    <div class="rectangle">Inline Flex Container</div> 
+  </div> -->
+
+  <div>
+    <p-listbox [options]="menuOptions" [(ngModel)]="selectedOptions" [metaKeySelection]="false" optionLabel="label" [style]="{'width':'248px'}">
+      <ng-template let-option pTemplate="item">
+          <div class="country-item">
+              <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /> -->
+              <div>{{option.label}}</div>
+          </div>
+      </ng-template>
+  </p-listbox>
   </div>
+
+  <!-- <div class="box p-d-inline-flex">Inline Flex Container</div> -->
+
   <p-accordion styleClass="p-accordion" [activeIndex]="0">
     <p-accordionTab styleClass="p-accordion-header" header="My Groups">
       <div>
@@ -27,4 +44,5 @@
       </div>
     </p-accordionTab>
   </p-accordion>
+
 </div>

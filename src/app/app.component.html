@@ -1,10 +1,8 @@
 <div class="app-top-parent">
-  <!-- <div #topBanner id="topBanner" class="top-sticky">
-    <app-top-banner></app-top-banner>
-  </div> -->
   <div class="main-dynamic-container">
     <router-outlet></router-outlet>
   </div>
+  <div class="bg-image"></div>
 </div>
 <p-toast [autoZIndex]="true" [baseZIndex]="2000" [style]="{marginTop: '0px'}"
   (onClose)="closeToastMessage($event.message)"></p-toast>

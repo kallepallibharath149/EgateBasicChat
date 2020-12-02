@@ -1,23 +1,15 @@
 <div class="post-upload-container">
   <div class="card">
-    <div class="header">
-      <div>
-        <img src="../../assets/images/profile.jpg" />
-      </div>
-      <div class="info-text">
-        <button class="btn btn-light">What's on your mind</button>
-      </div>
-    </div>
-    <hr />
     <div class="body">
       <div class="icons">
         <div (click)="fileImageInput.value =null; newPostUploading('image');" [title]="'Upload new image post'"
-          class="photoUpload">
+          class="photoUpload position-relative">
           <div class="wrapper">
             <input type="file" #fileImageInput accept="image/*,application/pdf" multiple (change)="handleFiles($event);"
               id="upload_new_photos" />
           </div>
-          <i class="fa fa-1x fa-picture-o" aria-hidden="true"></i>
+          <i class="fa fa-1x fa-picture-o image" aria-hidden="true"></i>
+          <div class="position-absolute bg-upload-image"></div>
         </div>
       </div>
       <div class="icons">
@@ -28,12 +20,20 @@
               (click)="fileVideoInput.value = null" accept="video/mp4,video/x-m4v,video/*"
               (change)="handleFiles($event);">
           </div>
-          <i class="fa fa-1x fa-video-camera" aria-hidden="true"></i>
+          <i class="fa fa-1x fa-video-camera video" aria-hidden="true"></i>
+          <div class="position-absolute bg-upload-video"></div>
         </div>
       </div>
       <div class="icons">
-        <h5 (click)="open(textPost)"><i [title]="'Upload text post'" class="fa font-weight-bold fa-1x fa-smile-o"
-            aria-hidden="true"></i></h5>
+        <h5 class="m-0 text-image" [title]="'Upload new text post'" (click)="open(textPost)">
+          <div  class="text-icon">
+            T
+          </div>
+          <div class="position-absolute bg-upload-text"></div>
+        </h5>
+      </div>
+      <div class="icons">
+        <h5 (click)="open(textPost)"><i class="pi pi-ellipsis-v"></i></h5>
       </div>
     </div>
   </div>

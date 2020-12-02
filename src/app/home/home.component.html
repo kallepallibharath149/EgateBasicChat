@@ -1,13 +1,10 @@
 <div class="home-container">
     <div class="home">
-        <div *ngIf="showStories" class="stories">
-            <h5>User Stories Container</h5>
-        </div>
         <div class="post-uplod">
             <app-post-upload></app-post-upload>
         </div>
 
-        <div>
+        <!-- <div>
             <div class="text-center">
                 <button (click)="showD3Chart = !showD3Chart"
                     class="btn btn-primary">{{showD3Chart?'Hide D3 chart': 'Show D3 chart'}}</button>
@@ -15,7 +12,7 @@
             <div *ngIf="showD3Chart">
                 <app-bar></app-bar>
             </div>
-        </div>
+        </div> -->
         
         <div>
             <app-user-posts [postsArray]="posts"></app-user-posts>
