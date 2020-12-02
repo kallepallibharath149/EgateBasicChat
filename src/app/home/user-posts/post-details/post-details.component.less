@@ -80,6 +80,8 @@
 
     .item {
         cursor: pointer;
+        display: flex;
+        align-items: center;
     }
 }
 
@@ -88,7 +90,8 @@
     flex-direction : row;
     align-items    : center;
     justify-content: space-between;
-
+    border: none;
+    background: none;
     img {
         cursor       : pointer;
         width        : 30px;
@@ -106,6 +109,11 @@
         font-weight : bold;
         cursor      : pointer;
     }
+}
+
+.card-footer{
+    background: none;
+    border: none;
 }
 
 .card {
@@ -240,4 +248,21 @@
         max-height: auto;
         max-width : 100%;
     }
+}
+
+.post-action-icon{
+ font-size: 22px;
+ color: black;
+}
+
+.icon-info{
+    color: #486A92;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.like-align{
+    position: relative;
+    top : 3px;
 }

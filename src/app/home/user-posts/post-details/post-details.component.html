@@ -43,7 +43,7 @@
           </div>
 
         </div>
-        <div class="card-body p-0 {{postDetails.postTextOnly?'items-align':''}}"
+        <div class="card-body pt-0 {{postDetails.postTextOnly?'items-align':''}}"
           [ngStyle]="{'height.px': postDetails.postTextOnly?400:'auto'}">
           <div *ngIf="postDetails.posttext" class="post-comment {{postDetails.postTextOnly?'text-only':''}}">
             {{postDetails.posttext?postDetails.posttext:''}}
@@ -94,29 +94,31 @@
       </ng-container>
     </ng-container>
 
-    <!-- <div class="like-comment-count">
-      <div *ngIf="postDetails.postLikesCount > 0" class="count-section">
-        <div class="like" id="{{'likesCount'+postIndex}}" (click)="showLikesFriendsSummury($event)">
-          {{postDetails.postLikesCount + 'Likes'}}
-        </div>
-      </div>
-    </div> -->
     <div class="card-footer text-muted">
       <div class="comment-section">
-        <div class="item" [ngStyle]="{'color':likeStatus?'rgb(32 120 244)':''}" (click)="updateLikeStatus()"><i
-            class="fa {{likeStatus?'fa-2x':''}} fa-thumbs-up" aria-hidden="true"></i>&nbsp;Like</div>
+        <div class="item" (click)="updateLikeStatus()">
+          <i [ngStyle]="{'color':likeStatus?'rgb(32 120 244)':''}" class="pi pi-thumbs-up post-action-icon"></i>
+          <span class="like-align icon-info"> &nbsp;Like &nbsp;<span (click)="showLikesFriendsSummury($event)"
+              *ngIf="postDetails.postLikesCount > 0">{{'('+postDetails.postLikesCount+')'}}</span>
+          </span>
+        </div>
         <div class="item comment" data-toggle="collapse" [attr.data-target]="'#post-comment-section'+postIndex"
-          aria-expanded="false" (click)="commentFocus()"><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;Comment
+          aria-expanded="false" (click)="commentFocus()">
+          <i class="pi pi-comment post-action-icon"></i>
+           <span class="icon-info">&nbsp;Comment
+            <span *ngIf="postDetails.postCommentsCount > 0">{{'('+postDetails.postCommentsCount+')'}}</span>
+           </span>
         </div>
         <div class="item">
           <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-            <div id="dropdownManual" ngbDropdownAnchor (click)="myDrop.open()"><i class="fa fa-share"
-                aria-hidden="true"></i>&nbsp;Share</div>
+            <div id="dropdownManual" class="d-flex align-items-center" ngbDropdownAnchor (click)="myDrop.open()">
+              <span  class="icon-info">Share &nbsp; </span><i class="pi pi-share-alt post-action-icon"></i>
             <div ngbDropdownMenu aria-labelledby="dropdownManual">
               <button (click)="sharePost(postDetails)" ngbDropdownItem>Share</button>
             </div>
           </div>
         </div>
+      </div>
       </div>
       <div class="collapse" id="{{'post-comment-section'+postIndex}}">
         <app-comments-container [userDetails]="userDetails" [commentsArray]="commentsArray" [focusInput]="focusInput"

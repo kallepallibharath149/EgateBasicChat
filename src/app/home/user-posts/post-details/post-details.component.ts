@@ -105,6 +105,7 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.photoOverlayViewer.destroy();
     }
   }
+
   updateLikeStatus() {
     let body = {
       "postid": this.postDetails.id,
@@ -194,15 +195,11 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  getHeight(): number {
-    return 400;
-  }
-
   sharePost(postDetails: any) {
     let obj = Object.assign({}, postDetails);
     obj.postCategory = 'share';
     obj.postedUserName = 'Siva Ramu'
-    this.userPostsService.addUserPost(obj);
+    // this.userPostsService.addUserPost(obj);
     this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'shared to your timeline' })
   }
   resetVideo() {
@@ -212,11 +209,14 @@ export class PostDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showLikesFriendsSummury(event) {
-    this.friendsPannel.toggle(event);
-    if (!this.initialLikesPannelAPITriggred) {
-      this.getPostLikes();
+    event.stopPropagation();
+    if(this.postDetails.postLikesCount){
+      this.friendsPannel.toggle(event);
+      if (!this.initialLikesPannelAPITriggred) {
+        this.getPostLikes();
+      }
+      this.initialLikesPannelAPITriggred = true
     }
-    this.initialLikesPannelAPITriggred = true
   }
 
   loadMoreLikes() {

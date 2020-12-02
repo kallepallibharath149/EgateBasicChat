@@ -1,6 +1,9 @@
 <div class="post-upload-container">
-  <div class="card">
-    <div class="body">
+  <div class="card card-align align-items-center flex-wrap flex-row justify-content-between">
+    <div class="text-in pl-3">
+      Whats going on...
+    </div>
+    <div class="body flex-grow-1">
       <div class="icons">
         <div (click)="fileImageInput.value =null; newPostUploading('image');" [title]="'Upload new image post'"
           class="photoUpload position-relative">
@@ -33,7 +36,7 @@
         </h5>
       </div>
       <div class="icons">
-        <h5 (click)="open(textPost)"><i class="pi pi-ellipsis-v"></i></h5>
+        <h5 class="m-0"><i class="pi pi-ellipsis-v"></i></h5>
       </div>
     </div>
   </div>

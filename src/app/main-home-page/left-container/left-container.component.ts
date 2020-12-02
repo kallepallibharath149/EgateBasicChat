@@ -33,17 +33,15 @@ export class LeftContainerComponent implements OnInit {
       "classObject": ''
     }
   ];
-
-  selectedOptions:string ="";
-
+  selectedGroupIndex:number = 0;
   groupsListDetails: Array<groupsListResponse> = [];
-  @Input('selectedGroup') selectedGroup: groupsListResponse;
 
   showDetails(data) {
     console.log("groupNames", data)
   }
 
-  navigateGroup(group: groupsListResponse) {
+  navigateGroup(group: groupsListResponse, index) {
+    this.selectedGroupIndex = index;
     this.router.navigate(['testtt/groupsPosts/details', group.id]);
   }
 
@@ -84,11 +82,10 @@ export class LeftContainerComponent implements OnInit {
         return item?.defaultGroup;
       });
       let id: any = 0;
-      this.selectedGroup = this.groupsListDetails[0];
       id = this.groupsListDetails[0].id;
       if (defaultIndex >= 0) {
-        this.selectedGroup = this.groupsListDetails[defaultIndex];
         id = this.groupsListDetails[defaultIndex].id;
+        this.selectedGroupIndex = defaultIndex;
       }
       if (!(window.location.pathname.includes('groupsPosts'))) {
         this.router.navigate(['testtt/groupsPosts/details', id]);

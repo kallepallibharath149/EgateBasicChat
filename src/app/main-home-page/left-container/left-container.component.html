@@ -1,48 +1,33 @@
 <div class="left-cont" style="height:800px">
-  <!-- <div class="nav-section">
-    <div class="p-2 item-top" (click)="navigate(navItem)" *ngFor="let navItem of navigationItems">
-      <div class="nav-item" [ngClass]="navItem.classObject" [ngStyle]="navItem.styleObject" class="{{navItem?.class}}"
-        id="{{navItem?.id}}">
-        <div><i *ngIf="!navItem.profileImage"
-            class="icon {{navItem?.icon}}"></i>{{navItem.profileImage?navItem.profileName:navItem?.label}}</div>
+
+  <div class="card">
+    <div class="menu">
+      <div class="menu-item">
+        <div class="icon"><i class="pi pi-sitemap"></i></div>
+        <div class="text">My Connections</div>
+        <div class="icon l-caret"><i class="pi pi-angle-right"></i></div>
+      </div>
+      <div class="menu-item">
+        <div class="icon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></div>
+        <div class="text">My Events</div>
+        <div class="icon l-caret"><i class="pi pi-angle-right"></i></div>
       </div>
     </div>
-  </div> -->
-
-  <!-- <div>
-    <div class="rectangle">Inline Flex Container</div> 
-  </div> -->
-
-  <div>
-    <p-listbox [options]="menuOptions" [(ngModel)]="selectedOptions" [metaKeySelection]="false" optionLabel="label" [style]="{'width':'248px'}">
-      <ng-template let-option pTemplate="item">
-          <div class="country-item">
-              <!-- <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /> -->
-              <div>{{option.label}}</div>
-          </div>
-      </ng-template>
-  </p-listbox>
   </div>
 
-  <!-- <div class="box p-d-inline-flex">Inline Flex Container</div> -->
-
-  <p-accordion styleClass="p-accordion" [activeIndex]="0">
-    <p-accordionTab styleClass="p-accordion-header" header="My Groups">
-      <div>
-        <div>
-          <p-listbox (onClick)="navigateGroup($event.value)" [options]="groupsListDetails" [styleClass]="'h-auto'"
-            optionLabel="name" [(ngModel)]="selectedGroup">
-            <ng-template let-group pTemplate="item">
-              <div pTooltip="{{group.value.name}}" class="ui-helper-clearfix">
-                <span tooltipPosition="right" style="margin:20px 10px 0 0">{{group.value.name}}</span>
-              </div>
-            </ng-template>
-            <p-footer>
-            </p-footer>
-          </p-listbox>
-        </div>
+  <div class="card mt-4">
+    <div class="menu">
+      <div class="menu-item p-2">
+        <div class="text">My Groups</div>
+        <div class="icon l-caret"><i class="pi pi-ellipsis-v"></i></div>
       </div>
-    </p-accordionTab>
-  </p-accordion>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="p-2 group-item {{selectedGroupIndex==i?'active':''}}" (click)="navigateGroup(group, i)"
+        *ngFor="let group of groupsListDetails;let i=index;">
+        <div>{{group.name}}{{group.defaultGroup?'(default)':''}}</div>
+      </div>
+    </div>
+  </div>
 
 </div>

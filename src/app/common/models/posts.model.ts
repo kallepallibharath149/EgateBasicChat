@@ -6,6 +6,7 @@ export interface post {
     groupid?: string;
     posttext?: string;
     createddatetime?:string;
+    postCommentsCount?:any;
     resources?: Array<any>;
     postTextOnly?:boolean;
     postCategory?:string;
