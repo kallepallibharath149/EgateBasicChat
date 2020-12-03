@@ -27,22 +27,18 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": ["src/styles.less",
+            "styles": [
+              "src/styles.less",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.css",
-
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
-
               "node_modules/dragula/dist/dragula.css",
-
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
-
               "node_modules/viewerjs/dist/viewer.min.css"
             ],
-            
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/chart.js/dist/Chart.js",
@@ -146,5 +142,8 @@
       }
     }
   },
-  "defaultProject": "basicChat"
+  "defaultProject": "basicChat",
+  "cli": {
+    "analytics": "00c0bd85-9de2-47b1-9280-a9e02e6c41a2"
+  }
 }
