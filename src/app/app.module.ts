@@ -25,6 +25,7 @@ import { GroupVideoPauseService } from './services/group.video.pause.service';
 import { groupPostReloadService } from './main-home-page/main-page-groups-container/groupPost.reload';
 import { CustomPreloadingService } from './services/custom.preloading.service';
 import { NewImplementationComponent } from './new-implementation/new-implementation.component';
+import { CreategroupNewComponent } from './creategroup-new/creategroup-new.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NewImplementationComponent } from './new-implementation/new-implementat
     AppComponent,
     PageNotFoundComponent,
     LoginComponent,
-    NewImplementationComponent
+    NewImplementationComponent,
+    CreategroupNewComponent
   ],
 
   imports: [
